@@ -20,7 +20,7 @@ A runtime revoke helper is available in the shared module: `revoke_api_key(app, 
 
 ## Rate limiting with Redis (SEC-01)
 
-### Environment model
+### Redis environment model
 
 - `REDIS_URL`: enables shared counters and TTL windows across instances.
 - `RATE_LIMIT_REQUESTS` / `RATE_LIMIT_WINDOW_SECONDS`: unchanged request/window controls.

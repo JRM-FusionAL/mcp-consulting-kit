@@ -1,2 +1,1 @@
-# Add approved temporary waivers one per line (e.g., CVE-2024-12345)
-# Keep waivers short-lived and linked from SEC-TRACKER issue #11.
+# Add approved temporary waivers one per line (e.g., CVE-2024-12345); keep waivers short-lived and linked from SEC-TRACKER issue #11

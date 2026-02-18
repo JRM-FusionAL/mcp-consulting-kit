@@ -1,5 +1,7 @@
 # OUTREACH STRATEGY & TEMPLATES
 
+Positioning note: sell this as a done-for-you implementation service, not a software product.
+
 ## TARGET MARKETS
 
 ### Primary Targets (Best Fit):
@@ -36,9 +38,11 @@ I noticed [Company Name] is using Claude for [specific use case - check their jo
 
 Quick question: How much time does your team waste switching between Slack, GitHub, [their CRM], and Claude?
 
-I build custom Claude Desktop tools that connect all your systems. Your team runs database queries, creates GitHub issues, sends Slack messages—all through natural language. Zero context switching.
+I run a done-for-you Claude Desktop automation service. I install and customize integrations so your team can run database queries, create GitHub issues, and send Slack messages through natural language.
 
 Recent client (SaaS, ~100 employees): 75% faster support response, saved $8k/month.
+
+Typical engagement is a 2-week install + ongoing monthly optimization/support.
 
 Worth a 15-min call this week?
 
@@ -57,13 +61,13 @@ Subject: Built this for you: [Tool Name] for Claude Desktop
 
 [Name],
 
-I built a Claude Desktop integration that I think [Company Name] would find useful:
+I mapped a Claude Desktop workflow your team could use immediately:
 
 [Brief description - e.g., "Queries your PostgreSQL database in natural language. Ask 'top 10 customers by revenue' and get instant results."]
 
-I'm offering free pilot implementations to 3 companies this month. Interested in being one of them?
+I reserve 2 implementation slots per month so quality stays high. Interested in seeing if [Company Name] is a fit?
 
-Takes 1-2 weeks, zero risk. If it doesn't save your team at least 10 hours/week, you pay nothing.
+Initial rollout takes 1-2 weeks, then we move into monthly support/optimization if you want ongoing improvements.
 
 Available for a call Thursday or Friday?
 
@@ -86,7 +90,7 @@ Hi [Name],
 
 [Mutual Contact] mentioned you're exploring AI automation at [Company].
 
-I specialize in building custom Claude Desktop tools that integrate with your existing stack. Think: natural language queries for databases, automated Slack notifications, GitHub issue management—all without leaving Claude.
+I specialize in implementing Claude Desktop automations for teams already using tools like Slack, GitHub, Stripe, and internal databases.
 
 [Mutual Contact] saw what I built for [Client Name] and thought it'd be perfect for your [team/use case].
 
@@ -124,7 +128,7 @@ Open to exploring something similar for [Company]?
 ## DISCOVERY CALL SCRIPT
 
 ### Opening (2 min):
-"Thanks for taking time. I build custom AI automation—specifically MCP servers that connect Claude Desktop to your business systems.
+"Thanks for taking time. I run a done-for-you AI automation implementation service using MCP servers connected to your business systems.
 
 Before I explain more, help me understand: What tools does your team use daily? And how much time do they spend switching between them?"
 
@@ -147,10 +151,11 @@ Before I explain more, help me understand: What tools does your team use daily? 
 ### Closing (5 min):
 **If interested:**
 "Here's what next looks like:
-- Week 1: I build 1-2 tools based on your top pain points
-- Week 2: Your team tests, I refine
-- Week 3: Production deployment + training
-- Investment: $2,500-$7,500 depending on complexity
+- Week 1: discovery + implementation plan
+- Week 2: install 1-2 high-impact workflows
+- Week 3: rollout, training, and handoff
+- Initial investment: $2,500-$7,500 depending on scope
+- Ongoing support option: $1,500-$4,000/month
 
 Sound good? Let's schedule a kickoff call."
 
@@ -211,7 +216,13 @@ Sound good? Let's schedule a kickoff call."
 ## PRICING STRATEGY
 
 ### Anchor High:
-"Normally this would be $10k-15k, but since you're an early client, I can do it for $7,500."
+"Most teams spend $10k-$20k to stand this up with internal time + contractors. I can implement your first phase for $7,500 and have it running in weeks."
+
+### Service Packaging (recommended)
+
+- **Starter Install:** $2,500-$3,500 (1 workflow, 1-2 weeks)
+- **Core Install:** $5,000-$9,000 (2-4 workflows, 2-3 weeks)
+- **Retainer:** $1,500-$4,000/month (monitoring, fixes, new automations, team support)
 
 ### Value-Based Pricing Formula:
 **Client's cost = (Hours saved per week × Team size × Avg hourly rate × 52 weeks) / 10**
@@ -223,12 +234,12 @@ Example:
 - = $195k/year saved
 - Your price: $19.5k
 
-(But you'll actually charge $7.5k-15k as "pilot pricing")
+(Then transition to a retainer so revenue is recurring, not one-time.)
 
 ### Payment Terms:
-- 50% upfront to start
-- 50% on delivery
-- Or 3 monthly payments for retainers
+- Installs: 50% upfront, 50% on go-live
+- Retainers: monthly auto-pay in advance
+- Minimum retainer term: 3 months
 
 ---
 
@@ -257,15 +268,17 @@ Example:
 - **Response rate target:** 10-20%
 - **Call booking rate:** 30-50% of responses
 - **Close rate:** 30-40% of calls
-- **Average deal size:** $5k-10k
+- **Average install size:** $3k-8k
+- **Retainer attach rate target:** 50%+
 
 **Math:**
 - 40 emails/week
 - 6 responses (15%)
 - 3 calls booked (50%)
 - 1 deal closed (33%)
-- = $7,500/week
-- = $30k/month
+- = 1 install at $5,000
+- and 1 in 2 installs converts to $2,000/month retainer
+- after 3 months, 6 installs and ~3 retainers = ~$11,000/month run-rate
 
 ---
 
@@ -273,7 +286,7 @@ Example:
 
 1. **This week:**
    - Set up landing page (edit emails/calendly links)
-   - Create Twitter/LinkedIn profiles highlighting MCP expertise
+   - Create Twitter/LinkedIn profiles highlighting implementation service outcomes
    - Send 10 cold emails to test Template 1
 
 2. **Week 2:**
@@ -285,5 +298,6 @@ Example:
    - Close first client
    - Build testimonial case study
    - Scale outreach to 50/week
+   - Pitch monthly support plan during handoff
 
 Ready to start? Begin with the cold email template to your warmest leads.

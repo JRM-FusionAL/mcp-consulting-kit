@@ -9,7 +9,7 @@ from fastapi import FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 try:
-    import redis
+    import redis  # pyright: ignore[reportMissingImports]
 except ImportError:  # pragma: no cover - exercised in environments without redis installed
     redis = None
 
@@ -186,6 +186,8 @@ def configure_observability(app: FastAPI) -> None:
 
         try:
             response = await call_next(request)
+            if response is None:
+                raise RuntimeError("call_next returned no response")
             status_code = response.status_code
             response.headers[REQUEST_ID_HEADER] = request_id
             for header_name, header_value in security_headers.items():

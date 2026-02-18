@@ -1,10 +1,10 @@
-# MCP Consulting Kit
+# MCP Implementation Service Kit
 
-Everything you need to launch an AI automation consulting business in 30 days.
+Everything you need to run a done-for-you AI automation implementation service.
 
 This repo contains:
 
-- **Three production-ready MCP servers** (FastAPI + Docker)
+- **Three implementation blueprints** (FastAPI + Docker)
   - Business Intelligence MCP (databases)
   - API Integration Hub (Slack, GitHub, Stripe)
   - Content Automation MCP (scraping, monitoring)
@@ -17,6 +17,14 @@ This repo contains:
   - Roadmap
   - Changelog
   - Case studies
+
+---
+
+## Positioning
+
+- This repository is a **service delivery framework**, not a packaged software product.
+- You are selling implementation outcomes: workflow automation, system integration, and team onboarding.
+- Revenue model: fixed-fee installs + monthly support/optimization retainers.
 
 ---
 
