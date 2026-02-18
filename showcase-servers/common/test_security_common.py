@@ -50,6 +50,16 @@ def test_get_allowed_origins_from_env(monkeypatch):
     assert security.get_allowed_origins() == ["https://a.com", "https://b.com"]
 
 
+def test_get_allowed_origins_rejects_wildcards(monkeypatch):
+    monkeypatch.setenv("ALLOWED_ORIGINS", "https://a.com, *, https://b.com")
+    assert security.get_allowed_origins() == ["https://a.com", "https://b.com"]
+
+
+def test_get_allowed_origins_rejects_invalid_schemes(monkeypatch):
+    monkeypatch.setenv("ALLOWED_ORIGINS", "https://a.com, ftp://invalid.com, https://b.com")
+    assert security.get_allowed_origins() == ["https://a.com", "https://b.com"]
+
+
 def test_verify_api_key_rejects_missing_config(monkeypatch):
     monkeypatch.delenv("API_KEY", raising=False)
     monkeypatch.delenv("API_KEYS", raising=False)
@@ -234,6 +244,93 @@ def test_observability_redacts_sensitive_headers(monkeypatch, caplog):
     payload = json.loads(caplog.records[-1].message)
     assert payload["headers"]["authorization"] != "Bearer super-secret-token"
     assert payload["headers"]["x-api-key"] != "my-api-key-value"
+
+
+def test_sanitize_request_id_accepts_valid_format():
+    valid_id = "req-123-abc"
+    assert security._sanitize_request_id(valid_id) == valid_id
+
+
+def test_sanitize_request_id_generates_uuid_for_invalid():
+    invalid_id = "req@@@<script>"
+    result = security._sanitize_request_id(invalid_id)
+    assert result != invalid_id
+    assert len(result) == 36  # UUID format
+
+
+def test_sanitize_request_id_truncates_long_ids():
+    long_id = "a" * 100
+    result = security._sanitize_request_id(long_id)
+    assert len(result) <= 64
+
+
+def test_sanitize_request_id_generates_uuid_for_none():
+    result = security._sanitize_request_id(None)
+    assert len(result) == 36
+
+
+def test_observability_adds_security_headers(monkeypatch):
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="Security Headers")
+    security.configure_observability(app)
+
+    @app.get("/data")
+    def get_data():
+        return {"value": 42}
+
+    client = TestClient(app)
+    response = client.get("/data")
+
+    assert response.status_code == 200
+    assert response.headers["X-Content-Type-Options"] == "nosniff"
+    assert response.headers["X-Frame-Options"] == "DENY"
+    assert response.headers["Referrer-Policy"] == "strict-origin-when-cross-origin"
+    assert "Content-Security-Policy" in response.headers
+
+
+def test_enforce_rate_limit_blocks_burst_same_route(monkeypatch):
+    monkeypatch.setenv("RATE_LIMIT_REQUESTS", "2")
+    monkeypatch.setenv("RATE_LIMIT_WINDOW_SECONDS", "60")
+
+    request = build_request(path="/api/data")
+    security.enforce_rate_limit(request)
+    security.enforce_rate_limit(request)
+
+    with pytest.raises(HTTPException) as exc:
+        security.enforce_rate_limit(request)
+    assert exc.value.status_code == 429
+
+
+def test_enforce_rate_limit_per_route_isolation(monkeypatch):
+    monkeypatch.setenv("RATE_LIMIT_REQUESTS", "1")
+    monkeypatch.setenv("RATE_LIMIT_WINDOW_SECONDS", "60")
+
+    request_a = build_request(path="/api/a")
+    request_b = build_request(path="/api/b")
+
+    security.enforce_rate_limit(request_a)
+    security.enforce_rate_limit(request_b)
+
+    with pytest.raises(HTTPException) as exc:
+        security.enforce_rate_limit(request_a)
+    assert exc.value.status_code == 429
+
+
+def test_enforce_rate_limit_different_paths_tracked_separately(monkeypatch):
+    monkeypatch.setenv("RATE_LIMIT_REQUESTS", "1")
+    monkeypatch.setenv("RATE_LIMIT_WINDOW_SECONDS", "60")
+
+    request_path_a = build_request(path="/api/query")
+    request_path_b = build_request(path="/api/other")
+
+    security.enforce_rate_limit(request_path_a)
+
+    with pytest.raises(HTTPException) as exc:
+        security.enforce_rate_limit(request_path_a)
+    assert exc.value.status_code == 429
+
+    security.enforce_rate_limit(request_path_b)
 
 
 def test_observability_skips_health_logs_by_default(monkeypatch, caplog):

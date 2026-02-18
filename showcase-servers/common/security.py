@@ -34,7 +34,22 @@ DEFAULT_SENSITIVE_KEYS = {
 
 def get_allowed_origins() -> list[str]:
     raw = os.getenv("ALLOWED_ORIGINS", "http://localhost,http://127.0.0.1")
-    return [origin.strip() for origin in raw.split(",") if origin.strip()]
+    origins = [origin.strip() for origin in raw.split(",") if origin.strip()]
+    return _validate_cors_origins(origins)
+
+
+def _validate_cors_origins(origins: list[str]) -> list[str]:
+    """Validate CORS origins: reject wildcards and invalid formats (SEC-04)."""
+    validated = []
+    for origin in origins:
+        if "*" in origin:
+            _get_or_create_logger().warning("cors.invalid_origin_wildcard rejected=%s", origin)
+            continue
+        if not origin.startswith(("http://", "https://")):
+            _get_or_create_logger().warning("cors.invalid_origin_scheme rejected=%s", origin)
+            continue
+        validated.append(origin)
+    return validated
 
 
 def get_rate_limit() -> tuple[int, int]:
@@ -54,6 +69,29 @@ def get_redis_url() -> str | None:
 
 def should_log_health_requests() -> bool:
     return os.getenv("LOG_HEALTH_REQUESTS", "false").strip().lower() == "true"
+
+
+def _sanitize_request_id(request_id: str | None) -> str:
+    """Sanitize and validate inbound request ID (SEC-06)."""
+    if not request_id:
+        return str(uuid.uuid4())
+
+    sanitized = str(request_id)[:64]
+    if not sanitized or not all(c.isalnum() or c in "-_" for c in sanitized):
+        _get_or_create_logger().warning("request_id.invalid_format rejected=%s", request_id)
+        return str(uuid.uuid4())
+
+    return sanitized
+
+
+def _get_security_headers() -> dict[str, str]:
+    """Return baseline security headers (SEC-07)."""
+    return {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'",
+    }
 
 
 def _is_sensitive_key(key: str) -> bool:
@@ -135,10 +173,11 @@ def configure_cors(app: FastAPI) -> None:
 def configure_observability(app: FastAPI) -> None:
     logger = _get_or_create_logger()
     service_name = _resolve_service_name(app)
+    security_headers = _get_security_headers()
 
     @app.middleware("http")
     async def observability_middleware(request: Request, call_next):
-        request_id = request.headers.get(REQUEST_ID_HEADER) or str(uuid.uuid4())
+        request_id = _sanitize_request_id(request.headers.get(REQUEST_ID_HEADER))
         request.state.request_id = request_id
 
         start = time.perf_counter()
@@ -149,6 +188,8 @@ def configure_observability(app: FastAPI) -> None:
             response = await call_next(request)
             status_code = response.status_code
             response.headers[REQUEST_ID_HEADER] = request_id
+            for header_name, header_value in security_headers.items():
+                response.headers[header_name] = header_value
             return response
         finally:
             if request.url.path != "/health" or should_log_health_requests():
