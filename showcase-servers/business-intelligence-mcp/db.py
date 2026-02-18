@@ -12,5 +12,5 @@ def run_query(sql: str, params: dict | None = None):
     engine = get_engine()
     with engine.connect() as conn:
         result = conn.execute(text(sql), params or {})
-        rows = [dict(r) for r in result]
+        rows = [dict(r._mapping) for r in result]
     return rows

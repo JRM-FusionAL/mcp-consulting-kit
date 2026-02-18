@@ -2,7 +2,7 @@
 
 ## Big picture architecture
 - This repo is a **service-delivery framework** with three independent FastAPI MCP servers under `showcase-servers/`:
-  - `Business Intelligence MCP` (NL→SQL + DB execution)
+  - `business-intelligence-mcp` (NL→SQL + DB execution)
   - `api-integration-hub` (Slack/GitHub/Stripe wrappers)
   - `content-automation-mcp` (scraping + RSS parsing)
 - Each server is intentionally standalone (`main.py`, `mcp_tools.py`, `requirements.txt`, `Dockerfile`) and shares security/observability via `showcase-servers/common/security.py`.
@@ -20,7 +20,7 @@
 - All responses should preserve `X-Request-ID`; security headers and log redaction are applied centrally in `common/security.py`.
 
 ## Service-specific behavior to preserve
-- BI server (`showcase-servers/Business Intelligence MCP/`):
+- BI server (`showcase-servers/business-intelligence-mcp/`):
   - `handle_nl_query()` must run `normalize_sql()` + `validate_sql_is_safe()` before `run_query()`.
   - SQL safety is strict: read-only `SELECT`/`WITH`, single statement, no comments, and blocked write/DDL keywords.
   - LLM provider selection is env-driven (`LLM_PROVIDER=claude|rule|local`) in `llm_provider.py`; `local` is currently a placeholder.
@@ -33,7 +33,7 @@
   - `scripts\run-security-smoke.cmd`
 - The smoke script auto-discovers Python (`$env:VIRTUAL_ENV`, repo `.venv`, then system `python`) and runs:
   - `showcase-servers/common/test_security_common.py`
-  - `showcase-servers/*Business Intelligence MCP*/test_security.py`
+  - `showcase-servers/business-intelligence-mcp/test_security.py`
 - Local server run pattern (inside each service folder):
   - `pip install -r requirements.txt`
   - `uvicorn main:app --host 0.0.0.0 --port <8101|8102|8103>`
@@ -41,7 +41,7 @@
 ## CI and repo quirks
 - CI workflow is `.github/workflows/security-smoke.yml`.
 - Vulnerability waivers belong in `.trivyignore` and should remain temporary.
-- There are two BI-named directories (`Business Intelligence MCP` and `🗄 Business Intelligence MCP`); the emoji folder appears docs-only while runtime code/tests live in `Business Intelligence MCP`. Be explicit about which one a change targets.
+- BI code, tests, and CI paths are standardized to `showcase-servers/business-intelligence-mcp/`.
 
 ## Change guidance for agents
 - Prefer edits in shared security code (`showcase-servers/common/security.py`) over duplicating logic in individual services.

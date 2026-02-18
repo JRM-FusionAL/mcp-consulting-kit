@@ -29,13 +29,13 @@ if (-not $pythonCmd) {
 }
 
 $showcaseServers = Join-Path $repoRoot "showcase-servers"
-$biDir = Get-ChildItem -Path $showcaseServers -Directory | Where-Object { $_.Name -like "*Business Intelligence MCP*" } | Select-Object -First 1
-if (-not $biDir) {
-    throw "Business Intelligence MCP directory not found under showcase-servers."
+$biDir = Join-Path $showcaseServers "business-intelligence-mcp"
+if (-not (Test-Path $biDir)) {
+    throw "business-intelligence-mcp directory not found under showcase-servers."
 }
 
 $commonTest = Join-Path $showcaseServers "common/test_security_common.py"
-$biTest = Join-Path $biDir.FullName "test_security.py"
+$biTest = Join-Path $biDir "test_security.py"
 
 & $pythonCmd -m pytest -q $commonTest $biTest
 exit $LASTEXITCODE

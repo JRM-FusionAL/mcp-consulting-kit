@@ -22,11 +22,11 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          $biDir = Get-ChildItem -Path "showcase-servers" -Directory | Where-Object { $_.Name -like "*Business Intelligence MCP*" } | Select-Object -First 1
-          if (-not $biDir) {
-            throw "Business Intelligence MCP directory not found under showcase-servers."
+          $biDir = "showcase-servers/business-intelligence-mcp"
+          if (-not (Test-Path $biDir)) {
+            throw "business-intelligence-mcp directory not found under showcase-servers."
           }
-          python -m pip install -r (Join-Path $biDir.FullName "requirements.txt")
+          python -m pip install -r (Join-Path $biDir "requirements.txt")
 
       - name: Run security smoke suite
         shell: cmd
@@ -50,13 +50,13 @@ jobs:
 
       - name: Python dependency vulnerability scan
         run: |
-          pip-audit -r "showcase-servers/🗄 Business Intelligence MCP/requirements.txt"
+          pip-audit -r "showcase-servers/business-intelligence-mcp/requirements.txt"
           pip-audit -r "showcase-servers/api-integration-hub/requirements.txt"
           pip-audit -r "showcase-servers/content-automation-mcp/requirements.txt"
 
       - name: Build BI showcase image
         run: |
-          docker build -t mcp-bi-security-scan "showcase-servers/🗄 Business Intelligence MCP"
+          docker build -t mcp-bi-security-scan "showcase-servers/business-intelligence-mcp"
 
       - name: Container vulnerability scan (high/critical)
         uses: aquasecurity/trivy-action@0.28.0
