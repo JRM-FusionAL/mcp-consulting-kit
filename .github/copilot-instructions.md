@@ -1,10 +1,11 @@
 # Copilot Instructions for MCP Consulting Kit
 
 ## Agent Delegation Model
-- **master-agent**: Responsible for managing all commits and pushes to the repository. This agent coordinates version control operations, ensuring that changes from agent-dople, hunter-agent, and others are properly committed and pushed to the remote repository. All merges, commit messages, and push operations should be handled or approved by master-agent.
 - **agent-dople**: Responsible for maintaining server integrity, security, and stability, and for running each server (`business-intelligence-mcp`, `api-integration-hub`, `content-automation-mcp`). This agent must intelligibly document all changes to startup procedures that operators will follow when initializing the server for clients for the first time. Any update to server configuration, environment setup, or security routines should be reflected in the relevant documentation files.
 
 - **hunter-agent**: Responsible for keeping the quickstart guide up to date. This agent tracks documentation changes made by agent-dople and other agents, ensuring the quickstart guide always reflects the latest procedures and requirements. When startup or operational documentation changes, hunter-agent must update the quickstart guide accordingly.
+
+- **master-agent**: Responsible for managing all commits and pushes to the repository. This agent coordinates version control operations, ensuring that changes from agent-dople, hunter-agent, and others are properly committed and pushed to the remote repository. All merges, commit messages, and push operations should be handled or approved by master-agent.
 
 ## Big picture architecture
 - This repo is a **service-delivery framework** with three independent FastAPI MCP servers under `showcase-servers/`:
