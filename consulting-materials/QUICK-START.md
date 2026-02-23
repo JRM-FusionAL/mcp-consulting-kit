@@ -7,7 +7,7 @@
 
 ### ✅ Step 1: Prepare Showcase Servers
 
-**Location:** `/home/showcase-servers/`
+**Location:** `showcase-servers/` (in the root of this repo)
 
 **What you have:**
 1. `business-intelligence-mcp/` - Database integration
@@ -15,19 +15,19 @@
 3. `content-automation-mcp/` - Web scraping
 
 **Action: Build Docker images**
-```bash
-cd /home/showcase-servers/business-intelligence-mcp
+```powershell
+cd showcase-servers\business-intelligence-mcp
 docker build -t bi-mcp-showcase .
 
-cd /home/showcase-servers/api-integration-hub
+cd ..\api-integration-hub
 docker build -t api-hub-showcase .
 
-cd /home/showcase-servers/content-automation-mcp
+cd ..\content-automation-mcp
 docker build -t content-mcp-showcase .
 ```
 
 **Test them:**
-```bash
+```powershell
 # Test BI server
 docker run -i --rm bi-mcp-showcase
 
@@ -37,12 +37,12 @@ docker run -i --rm bi-mcp-showcase
 
 ### ✅ Step 2: Deploy Landing Page
 
-**File:** `/home/consulting-materials/landing-page.html`
+**File:** `consulting-materials/index.html`
 
 **Customize:**
-1. Find/replace "youremail@example.com" with your email
-2. Find/replace "calendly.com/yourlink" with your actual Calendly
-3. Find/replace "Your Company Name" with your business name
+1. Find/replace `youremail@example.com` with your real email
+2. Find/replace `calendly.com/yourlink` with your actual Calendly link
+3. Find/replace `Your Company Name` with your business name
 4. Add your photo/logo if desired
 
 **Deploy options:**
@@ -109,7 +109,7 @@ Filter: Companies with 50-500 employees
 
 ### ✅ Step 5: Send 10 Cold Emails
 
-**Template to use:** `/home/consulting-materials/outreach-strategy.md` (Template 1)
+**Template to use:** `consulting-materials/outreach-strategy.md` (Template 1)
 
 **Personalization checklist per email:**
 - [ ] Correct company name (3x check!)
@@ -192,7 +192,7 @@ DM if interested 👇
    - What's their tech stack? (check engineering blog)
    - Recent news/funding?
 
-2. Prepare questions from `/home/consulting-materials/outreach-strategy.md`
+2. Prepare questions from `consulting-materials/outreach-strategy.md`
 
 3. Have showcase servers ready to demo
 
@@ -467,8 +467,8 @@ Thanks!
 - Your FusionAL server: Core generator + examples
 
 ### Communities
-- MCP Discord: [link]
-- Claude Discord: [link]
+- MCP Discord: https://discord.gg/modelcontextprotocol
+- Claude Discord: https://discord.gg/anthropic
 - r/ClaudeAI on Reddit
 - #ai-automation on Twitter
 
@@ -498,4 +498,4 @@ Good luck. 🚀
 
 ---
 
-**Questions?** Review `/home/consulting-materials/outreach-strategy.md` for detailed answers.
+**Questions?** Review `consulting-materials/outreach-strategy.md` for detailed answers.
