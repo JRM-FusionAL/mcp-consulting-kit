@@ -65,11 +65,12 @@ The MCP Consulting Kit is a suite of custom AI automation servers (Business Inte
 
 ---
 
+
 ## Contact
 For more information or partnership inquiries:
-- [Your Name]
-- [Your Email]
-- [Your Phone]
+- Jonathan Melton
+- jonathanmelton@gmail.com
+- (606)304-0548
 
 ---
 

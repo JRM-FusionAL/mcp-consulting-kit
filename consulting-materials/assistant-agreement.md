@@ -58,10 +58,11 @@ Compensation, hours, and terms will be discussed and agreed upon separately. Thi
 ---
 
 ## Contact
+
 For questions or clarifications, contact:
-- [Your Name]
-- [Your Email]
-- [Your Phone]
+- Jonathan Melton
+- jonathanmelton@gmail.com
+- (606)304-0548
 
 ---
 
