@@ -22,6 +22,11 @@ def validate_public_http_url(url: str) -> str:
     if not hostname:
         raise ValueError("URL has no hostname")
 
+    # If an explicit port is provided, ensure it is within the valid range.
+    if parsed.port is not None:
+        if parsed.port <= 0 or parsed.port > 65535:
+            raise ValueError("URL has an invalid port")
+
     try:
         # Resolve all addresses for the hostname and ensure none are private/loopback/etc.
         addrinfos = socket.getaddrinfo(hostname, None)
@@ -49,7 +54,36 @@ def validate_public_http_url(url: str) -> str:
 
 
 def fetch_html(url: str, timeout: float = 10.0) -> str:
+    # First-level validation of scheme, hostname, and resolved IPs.
     safe_url = validate_public_http_url(url)
+
+    # Re-parse and re-validate the resolved IPs immediately before making the request.
+    parsed = urlparse(safe_url)
+    hostname = parsed.hostname
+    if not hostname:
+        raise ValueError("URL has no hostname")
+
+    try:
+        addrinfos = socket.getaddrinfo(hostname, None)
+    except OSError as exc:
+        raise ValueError(f"Unable to resolve hostname: {hostname}") from exc
+
+    for family, _socktype, _proto, _canonname, sockaddr in addrinfos:
+        ip_str = sockaddr[0]
+        try:
+            ip = ipaddress.ip_address(ip_str)
+        except ValueError:
+            continue
+
+        if (
+            ip.is_private
+            or ip.is_loopback
+            or ip.is_link_local
+            or ip.is_multicast
+            or ip.is_reserved
+        ):
+            raise ValueError("Access to private or internal network addresses is not allowed")
+
     resp = httpx.get(safe_url, timeout=timeout)
     resp.raise_for_status()
     return resp.text
