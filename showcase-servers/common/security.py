@@ -104,10 +104,12 @@ def _is_sensitive_key(key: str) -> bool:
 def _mask_secret(value: Any) -> str:
     text = str(value)
     if not text:
+        # Preserve empty/None semantics without introducing a marker
         return text
-    if len(text) <= 6:
-        return SENSITIVE_FIELD_MARKER
-    return f"{text[:2]}...{text[-2:]}"
+    # For any non-empty sensitive value, return a constant marker so that
+    # no part of the original secret (prefix, suffix, or exact length)
+    # is exposed in logs.
+    return SENSITIVE_FIELD_MARKER
 
 
 def redact_sensitive_data(value: Any, key_name: str | None = None) -> Any:
