@@ -1,5 +1,8 @@
 name: Security Smoke Tests
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
