@@ -7,7 +7,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ## 🎯 SHOWCASE SERVERS (Portfolio Pieces)
 
 ### 1. Business Intelligence MCP
-**Location:** `/home/showcase-servers/business-intelligence-mcp/`
+**Location:** `showcase-servers/business-intelligence-mcp/`
 
 **Files:**
 - `bi_server.py` - Full database integration server
@@ -27,7 +27,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ---
 
 ### 2. API Integration Hub
-**Location:** `/home/showcase-servers/api-integration-hub/`
+**Location:** `showcase-servers/api-integration-hub/`
 
 **Files:**
 - `api_hub.py` - Slack, GitHub, Stripe integrations
@@ -45,7 +45,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ---
 
 ### 3. Content Automation MCP
-**Location:** `/home/showcase-servers/content-automation-mcp/`
+**Location:** `showcase-servers/content-automation-mcp/`
 
 **Files:**
 - `content_server.py` - Web scraping & content tools
@@ -68,7 +68,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ## 💼 MARKETING MATERIALS
 
 ### Landing Page
-**File:** `/home/consulting-materials/landing-page.html`
+**File:** `consulting-materials/index.html`
 
 **Sections:**
 - Hero with CTA
@@ -88,7 +88,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ---
 
 ### Outreach Strategy Guide
-**File:** `/home/consulting-materials/outreach-strategy.md`
+**File:** `consulting-materials/outreach-strategy.md`
 
 **Includes:**
 - 3 email templates (tested)
@@ -104,7 +104,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ---
 
 ### Pitch Deck Outline
-**File:** `/home/consulting-materials/pitch-deck-outline.md`
+**File:** `consulting-materials/pitch-deck-outline.md`
 
 **17 slides covering:**
 - Problem statement
@@ -122,7 +122,7 @@ Everything you need to launch your MCP consulting business TODAY.
 ---
 
 ### Quick Start Guide
-**File:** `/home/consulting-materials/QUICK-START.md`
+**File:** `consulting-materials/QUICK-START.md`
 
 **Your 30-day roadmap:**
 - Day 1: Setup (2-3 hours)
@@ -145,25 +145,25 @@ Everything you need to launch your MCP consulting business TODAY.
 ### Immediate Actions (Next 2 Hours):
 
 **1. Build Showcase Servers** (30 min)
-```bash
-cd /home/showcase-servers/business-intelligence-mcp
+```powershell
+cd showcase-servers\business-intelligence-mcp
 docker build -t bi-mcp-showcase .
 
-cd ../api-integration-hub
+cd ..\api-integration-hub
 docker build -t api-hub-showcase .
 
-cd ../content-automation-mcp
+cd ..\content-automation-mcp
 docker build -t content-mcp-showcase .
 ```
 
 **2. Deploy Landing Page** (30 min)
-- Open `/home/consulting-materials/landing-page.html`
+- Open `consulting-materials/index.html`
 - Find/replace your contact info
 - Upload to Netlify Drop (free, instant)
 - Get your public URL
 
 **3. Send First Email** (60 min)
-- Open `/home/consulting-materials/outreach-strategy.md`
+- Open `consulting-materials/outreach-strategy.md`
 - Pick Template 1 (Problem-First)
 - Find 1 target company
 - Customize & send
@@ -304,32 +304,66 @@ docker build -t content-mcp-showcase .
 ## 📁 FILE STRUCTURE SUMMARY
 
 ```
-/home/
+mcp-consulting-kit/
 ├── showcase-servers/
+│   ├── common/                        # Shared security module
+│   │   ├── security.py
+│   │   ├── SECURITY-HARDENING.md
+│   │   └── P2-HARDENING.md
+│   │
 │   ├── business-intelligence-mcp/
-│   │   ├── bi_server.py
+│   │   ├── main.py
+│   │   ├── mcp_tools.py
+│   │   ├── db.py
+│   │   ├── llm_provider.py
 │   │   ├── Dockerfile
 │   │   ├── requirements.txt
+│   │   ├── .env.example
 │   │   └── README.md
 │   │
 │   ├── api-integration-hub/
-│   │   ├── api_hub.py
+│   │   ├── main.py
+│   │   ├── mcp_tools.py
+│   │   ├── clients/
 │   │   ├── Dockerfile
 │   │   ├── requirements.txt
+│   │   ├── .env.example
 │   │   └── README.md
 │   │
 │   └── content-automation-mcp/
-│       ├── content_server.py
+│       ├── main.py
+│       ├── mcp_tools.py
+│       ├── scraper.py
 │       ├── Dockerfile
 │       ├── requirements.txt
+│       ├── .env.example
 │       └── README.md
 │
-└── consulting-materials/
-    ├── landing-page.html
-    ├── outreach-strategy.md
-    ├── pitch-deck-outline.md
-    ├── QUICK-START.md
-    └── COMPLETE-INVENTORY.md (this file)
+├── consulting-materials/
+│   ├── index.html                     # Landing page
+│   ├── outreach-strategy.md
+│   ├── pitch-deck-outline.md
+│   ├── business-model-overview.md
+│   ├── market-launch-plan.md
+│   ├── OPERATOR-PLAYBOOK.md
+│   ├── QUICK-START.md
+│   ├── WINDOWS-DEMO-GUIDE.md
+│   └── COMPLETE-INVENTORY.md          # This file
+│
+├── scripts/
+│   ├── run-security-smoke.ps1
+│   └── run-security-smoke.cmd
+│
+├── .github/
+│   └── workflows/
+│       └── security-smoke.yml
+│
+├── README.md
+├── CHANGELOG.md
+├── ROADMAP.md
+├── CASE-STUDIES.md
+├── launch-servers.ps1
+└── test-servers.ps1
 ```
 
 ---
@@ -352,7 +386,7 @@ docker build -t content-mcp-showcase .
 - [ ] Contract template (can use HelloSign template)
 
 **Before First Delivery:**
-- [ ] FusionAL repository cloned locally
+- [ ] mcp-consulting-kit repository cloned locally
 - [ ] Docker working on your machine
 - [ ] Client's tech stack documented
 - [ ] Kickoff call scheduled
@@ -380,4 +414,4 @@ Go get that first client. 🚀
 
 **Feeling resistance?** That's normal. Send one email. The momentum will build.
 
-**Ready to scale faster?** Come back after first client and let's add features to FusionAL.
+**Ready to scale faster?** Come back after first client and let's add features to the kit.
