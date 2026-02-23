@@ -1,8 +1,56 @@
 import httpx
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+import ipaddress
+import socket
+
+
+def validate_public_http_url(url: str) -> str:
+    """
+    Validate that the URL is HTTP/HTTPS and does not resolve to a private/internal IP.
+    Raises ValueError if the URL is invalid or not allowed.
+    """
+    parsed = urlparse(url)
+
+    # Require http or https and a network location
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError("Only http and https URLs are allowed")
+    if not parsed.netloc:
+        raise ValueError("URL must include a network location")
+
+    hostname = parsed.hostname
+    if not hostname:
+        raise ValueError("URL has no hostname")
+
+    try:
+        # Resolve all addresses for the hostname and ensure none are private/loopback/etc.
+        addrinfos = socket.getaddrinfo(hostname, None)
+    except OSError as exc:
+        raise ValueError(f"Unable to resolve hostname: {hostname}") from exc
+
+    for family, _socktype, _proto, _canonname, sockaddr in addrinfos:
+        ip_str = sockaddr[0]
+        try:
+            ip = ipaddress.ip_address(ip_str)
+        except ValueError:
+            # Skip non-IP addresses just in case
+            continue
+
+        if (
+            ip.is_private
+            or ip.is_loopback
+            or ip.is_link_local
+            or ip.is_multicast
+            or ip.is_reserved
+        ):
+            raise ValueError("Access to private or internal network addresses is not allowed")
+
+    return url
+
 
 def fetch_html(url: str, timeout: float = 10.0) -> str:
-    resp = httpx.get(url, timeout=timeout)
+    safe_url = validate_public_http_url(url)
+    resp = httpx.get(safe_url, timeout=timeout)
     resp.raise_for_status()
     return resp.text
 
