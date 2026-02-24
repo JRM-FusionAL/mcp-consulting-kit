@@ -29,6 +29,8 @@ function Test-Endpoint {
 Test-Endpoint "BI MCP Health"              "http://localhost:8101/health"
 Test-Endpoint "API Hub Health"             "http://localhost:8102/health"
 Test-Endpoint "Content Automation Health"  "http://localhost:8103/health"
+Test-Endpoint "FusionAL Health"            "http://localhost:8009/health"
+Test-Endpoint "FusionAL Catalog"           "http://localhost:8009/catalog"
 
 # Business Intelligence MCP
 Test-Endpoint "NL Query - top customers" "http://localhost:8101/nl-query" "POST" @{

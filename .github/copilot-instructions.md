@@ -1,19 +1,25 @@
 # Copilot Instructions for MCP Consulting Kit
 
 ## Agent Delegation Model
-- **agent-dople**: Responsible for maintaining server integrity, security, and stability, and for running each server (`business-intelligence-mcp`, `api-integration-hub`, `content-automation-mcp`). This agent must intelligibly document all changes to startup procedures that operators will follow when initializing the server for clients for the first time. Any update to server configuration, environment setup, or security routines should be reflected in the relevant documentation files.
+- **agent-dople**: Responsible for maintaining server integrity, security, and stability, and for running each server (`business-intelligence-mcp`, `api-integration-hub`, `content-automation-mcp`, and the `FusionAL` execution engine on port 8001). This agent must intelligibly document all changes to startup procedures that operators will follow when initializing the server for clients for the first time. Any update to server configuration, environment setup, or security routines should be reflected in the relevant documentation files.
 
 - **hunter-agent**: Responsible for keeping the quickstart guide up to date. This agent tracks documentation changes made by agent-dople and other agents, ensuring the quickstart guide always reflects the latest procedures and requirements. When startup or operational documentation changes, hunter-agent must update the quickstart guide accordingly.
 
 - **master-agent**: Responsible for managing all commits and pushes to the repository. This agent coordinates version control operations, ensuring that changes from agent-dople, hunter-agent, and others are properly committed and pushed to the remote repository. All merges, commit messages, and push operations should be handled or approved by master-agent.
 
+- **fusional-agent**: Responsible for the FusionAL execution engine (`C:\Users\puddi\projects\FusionAL\core\`). Manages dynamic MCP server registration, sandboxed code execution, and AI-generated server deployment. FusionAL is the platform's runtime engine — agent-dople manages the static showcase servers, fusional-agent manages everything dynamic. Security applied to FusionAL must follow the same conventions in `showcase-servers/common/security.py`.
+
 ## Big picture architecture
-- This repo is a **service-delivery framework** with three independent FastAPI MCP servers under `showcase-servers/`:
-  - `business-intelligence-mcp` (NL→SQL + DB execution)
-  - `api-integration-hub` (Slack/GitHub/Stripe wrappers)
-  - `content-automation-mcp` (scraping + RSS parsing)
-- Each server is intentionally standalone (`main.py`, `mcp_tools.py`, `requirements.txt`, `Dockerfile`) and shares security/observability via `showcase-servers/common/security.py`.
+- This repo is a **service-delivery framework** with three static showcase servers under `showcase-servers/` plus the FusionAL dynamic execution engine:
+  - `business-intelligence-mcp` (NL→SQL + DB execution) — port 8101
+  - `api-integration-hub` (Slack/GitHub/Stripe wrappers) — port 8102
+  - `content-automation-mcp` (scraping + RSS parsing) — port 8103
+  - `FusionAL` (dynamic code execution, server generation, registry) — port 8001 at `C:\Users\puddi\projects\FusionAL\core\`
+- Each showcase server is intentionally standalone (`main.py`, `mcp_tools.py`, `requirements.txt`, `Dockerfile`) and shares security/observability via `showcase-servers/common/security.py`.
+- FusionAL uses the same `security.py` module, resolved via path discovery at startup.
 - Request flow pattern: endpoint in `main.py` → Pydantic request model in `mcp_tools.py` → integration layer (`db.py`, `clients/*`, or `scraper.py`).
+- FusionAL flow: Claude Desktop → `docker/mcp-gateway` → FusionAL `/execute`, `/register`, `/catalog` → Docker sandbox or dynamic server.
+- All 4 servers launch together via `launch-servers.ps1` in the repo root.
 
 ## Security and middleware conventions (critical)
 - Protected POST routes always compose both dependencies in this order:

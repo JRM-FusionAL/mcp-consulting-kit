@@ -5,6 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.4.0] – 2026-02-23 – FusionAL Integration
+
+### Added
+- FusionAL execution engine merged as 4th platform server (port 8001)
+  - `/execute` — sandboxed Python execution with optional Docker isolation
+  - `/register` — dynamic MCP server registration at runtime
+  - `/catalog` — queryable registry of all servers (showcase + dynamic)
+- FusionAL now uses shared `showcase-servers/common/security.py` (API key auth + rate limiting)
+- Pre-seeded FusionAL registry with all 3 showcase servers on startup
+- `launch-servers.ps1` updated to launch all 4 servers
+- `test-servers.ps1` updated to health-check FusionAL
+- `custom.yaml` MCP gateway catalog updated with FusionAL endpoints + all 3 showcase servers
+- `.env.example` added to FusionAL root
+- `fusional-agent` added to Copilot delegation model
+
+### Architecture
+- Platform is now **static + dynamic**: showcase servers handle fixed integrations, FusionAL handles runtime-generated and AI-authored MCP servers
+- Claude Desktop can now request new tools mid-conversation via `fusional-execute` and `fusional-register` gateway tools
+
+---
+
 ## [0.3.0] – 2026-02-23 – Security Hardening & Public Release Prep
 
 ### Added

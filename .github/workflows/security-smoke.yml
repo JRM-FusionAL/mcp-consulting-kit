@@ -56,6 +56,10 @@ jobs:
           pip-audit -r "showcase-servers/business-intelligence-mcp/requirements.txt"
           pip-audit -r "showcase-servers/api-integration-hub/requirements.txt"
           pip-audit -r "showcase-servers/content-automation-mcp/requirements.txt"
+          # FusionAL execution engine
+          if [ -f "../FusionAL/core/requirements.txt" ]; then
+            pip-audit -r "../FusionAL/core/requirements.txt"
+          fi
 
       - name: Build BI showcase image
         run: |

@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  fusion-al:
+    build:
+      context: ../FusionAL/core
+    container_name: fusion-al
+    ports:
+      - "8089:8089"
+    env_file:
+      - ../FusionAL/core/.env
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8089 --reload
+    working_dir: /app
+    volumes:
+      - ../FusionAL/core:/app
+
+  business-intelligence-mcp:
+    build:
+      context: ./showcase-servers/business-intelligence-mcp
+    container_name: business-intelligence-mcp
+    ports:
+      - "8101:8101"
+    env_file:
+      - ./showcase-servers/business-intelligence-mcp/.env
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8101 --reload
+    working_dir: /app
+    volumes:
+      - ./showcase-servers/business-intelligence-mcp:/app
+
+  api-integration-hub:
+    build:
+      context: ./showcase-servers/api-integration-hub
+    container_name: api-integration-hub
+    ports:
+      - "8102:8102"
+    env_file:
+      - ./showcase-servers/api-integration-hub/.env
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8102 --reload
+    working_dir: /app
+    volumes:
+      - ./showcase-servers/api-integration-hub:/app
+
+  content-automation-mcp:
+    build:
+      context: ./showcase-servers/content-automation-mcp
+    container_name: content-automation-mcp
+    ports:
+      - "8103:8103"
+    env_file:
+      - ./showcase-servers/content-automation-mcp/.env
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8103 --reload
+    working_dir: /app
+    volumes:
+      - ./showcase-servers/content-automation-mcp:/app
+
+# Documentation:
+# - Place this file in the root of mcp-consulting-kit.
+# - Build all images and start all servers: docker compose up --build
+# - Each service uses its own .env file for secrets/config.
+# - All servers will be available on localhost at their respective ports.
+# - Requires Docker Desktop or compatible engine.
