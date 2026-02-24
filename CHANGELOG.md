@@ -8,7 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [0.4.0] – 2026-02-23 – FusionAL Integration
 
 ### Added
-- FusionAL execution engine merged as 4th platform server (port 8001)
+- FusionAL execution engine merged as 4th platform server (port 8009)
   - `/execute` — sandboxed Python execution with optional Docker isolation
   - `/register` — dynamic MCP server registration at runtime
   - `/catalog` — queryable registry of all servers (showcase + dynamic)

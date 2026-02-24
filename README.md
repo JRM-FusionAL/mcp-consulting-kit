@@ -8,7 +8,7 @@ This repo contains:
   - Business Intelligence MCP (databases) — port 8101
   - API Integration Hub (Slack, GitHub, Stripe) — port 8102
   - Content Automation MCP (scraping, monitoring) — port 8103
-  - FusionAL Execution Engine (dynamic code + server generation) — port 8001
+  - FusionAL Execution Engine (dynamic code + server generation) — port 8009
 - **Consulting materials**
   - Landing page
   - Outreach strategy & templates
@@ -44,7 +44,7 @@ docker/mcp-gateway
     │       └── APIs (Slack / GitHub / Stripe / custom)
     ├── Content Automation MCP       (port 8103)
     │       └── Web / RSS / scraping targets
-    └── FusionAL Execution Engine    (port 8001)  ◄── [dynamic engine]
+    └── FusionAL Execution Engine    (port 8009)  ◄── [dynamic engine]
             ├── /execute  → Docker-sandboxed Python
             ├── /register → runtime server registration
             └── /catalog  → unified server registry (all 4 servers)
