@@ -31,9 +31,13 @@ configure_cors(app)
 configure_observability(app)
 initialize_rate_limit_store(app)
 
+# Mount Streamable HTTP MCP transport at /mcp
+from mcp_transport import mcp
+app.mount("/mcp", mcp.streamable_http_app())
+
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok", "mcp_endpoint": f"http://localhost:{PORT}/mcp"}
 
 @app.post("/scrape/article")
 def scrape_article_endpoint(

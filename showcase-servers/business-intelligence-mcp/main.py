@@ -26,13 +26,19 @@ configure_cors(app)
 configure_observability(app)
 initialize_rate_limit_store(app)
 
+# Mount Streamable HTTP MCP transport at /mcp
+# MCP clients connect to: http://localhost:8101/mcp
+# Supported: Claude Desktop, Cursor, VSCode Copilot, Amazon Q CLI, mcphost (Ollama)
+from mcp_transport import mcp
+app.mount("/mcp", mcp.streamable_http_app())
+
 class NLQueryRequest(BaseModel):
     query: str
     schema_hint: Optional[str] = None
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok", "mcp_endpoint": f"http://localhost:{PORT}/mcp"}
 
 @app.post("/nl-query")
 def nl_query(
