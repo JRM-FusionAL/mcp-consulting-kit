@@ -1,5 +1,11 @@
 # MCP Consulting Kit
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
+![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
+![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-orange)
+![Stars](https://img.shields.io/github/stars/TangMan69/mcp-consulting-kit?style=social)
+
 Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI automation implementation service framework.
 
 **Works on Windows, Linux, and macOS.**
