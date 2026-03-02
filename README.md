@@ -80,6 +80,66 @@ All should return `{"status":"ok"}`.
 
 ---
 
+## Sync Across Local + Remote (t3610)
+
+Syncs all three repos (`mcp-consulting-kit`, `FusionAL`, `Christopher-AI`) from your local `Projects` folder to remote `t3610`.
+
+**Windows (PowerShell):**
+```powershell
+./scripts/sync-all.ps1 -RemoteAlias t3610 -RemoteBase /home/jrm_fusional/Projects
+```
+
+**Linux / macOS:**
+```bash
+chmod +x ./scripts/sync-all.sh
+./scripts/sync-all.sh --remote t3610 --remote-base /home/jrm_fusional/Projects
+```
+
+To sync and restart remote Docker services:
+
+```bash
+# PowerShell
+./scripts/sync-all.ps1 -RestartDocker
+
+# Bash
+./scripts/sync-all.sh --restart-docker
+```
+
+Full guide: `docs/SYNC-AND-FRONTEND.md`
+
+Quick one-command status check (local + remote):
+
+```powershell
+./scripts/status-all.ps1 -RemoteAlias t3610
+```
+
+```bash
+./scripts/status-all.sh --remote t3610
+```
+
+---
+
+## Production Frontend
+
+The production frontend lives in `frontend/` (Vite + React).
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Build output is generated in `frontend/dist`.
+
+To run in Docker:
+
+```bash
+docker build -t mcp-kit-frontend ./frontend
+docker run -p 3000:80 --rm mcp-kit-frontend
+```
+
+---
+
 ## Architecture
 
 ```
