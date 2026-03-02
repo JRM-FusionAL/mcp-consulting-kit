@@ -2,40 +2,34 @@ services:
   api-integration-hub:
     build:
       context: ./showcase-servers/api-integration-hub
-    command: uvicorn main:app --host 0.0.0.0 --port 8102 --reload
     container_name: api-integration-hub
     env_file:
     - ./showcase-servers/api-integration-hub/.env
+    environment:
+      ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8102:8102
     restart: unless-stopped
-    volumes:
-    - ./showcase-servers/api-integration-hub:/app
-    working_dir: /app
   business-intelligence-mcp:
     build:
       context: ./showcase-servers/business-intelligence-mcp
-    command: uvicorn main:app --host 0.0.0.0 --port 8101 --reload
     container_name: business-intelligence-mcp
     env_file:
     - ./showcase-servers/business-intelligence-mcp/.env
+    environment:
+      ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8101:8101
     restart: unless-stopped
-    volumes:
-    - ./showcase-servers/business-intelligence-mcp:/app
-    working_dir: /app
   content-automation-mcp:
     build:
       context: ./showcase-servers/content-automation-mcp
-    command: uvicorn main:app --host 0.0.0.0 --port 8103 --reload
     container_name: content-automation-mcp
     env_file:
     - ./showcase-servers/content-automation-mcp/.env
+    environment:
+      ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8103:8103
     restart: unless-stopped
-    volumes:
-    - ./showcase-servers/content-automation-mcp:/app
-    working_dir: /app
 version: '3.8'
