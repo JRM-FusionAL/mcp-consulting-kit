@@ -10,6 +10,13 @@ Launch a sellable v1 stack that closes first paid design partners in 30 days usi
 - 1 repeatable demo flow under 7 minutes
 - 1 outbound engine running daily
 
+## Immediate Focus (This Week)
+- Start consulting outreach now at **$150-$250/hour** to healthcare/legal/fintech SMBs via LinkedIn.
+- Shift all external messaging from "tool count" to **self-hosted MCP governance gateway**.
+- Publish the Windows failure-mode dev.to post as top-of-funnel proof of reliability.
+- Complete Smithery submission and awesome-mcp-servers PR for distribution.
+- Capture governance feature requests from every call and prioritize the first enterprise feature to ship.
+
 ---
 
 ## Offer Ladder (What You Sell First)

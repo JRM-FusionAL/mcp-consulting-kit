@@ -15,7 +15,7 @@ from mcp_tools import (
     lookup_stripe_customer,
 )
 
-mcp = FastMCP("api-integration-hub")
+mcp = FastMCP("api-integration-hub", streamable_http_path="/")
 
 
 @mcp.tool(

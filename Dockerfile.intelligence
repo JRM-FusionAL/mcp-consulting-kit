@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir "mcp[cli]" httpx beautifulsoup4
+
+COPY intelligence_mcp.py .
+
+EXPOSE 8104
+
+CMD ["python", "intelligence_mcp.py"]

@@ -1,0 +1,15 @@
+services:
+  mcp-proxy:
+    image: nginx:1.27-alpine
+    container_name: mcp-proxy
+    ports:
+      - "127.0.0.1:8088:8080"
+    volumes:
+      - ./deploy/nginx/mcp.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./deploy/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+    depends_on:
+      - business-intelligence-mcp
+      - api-integration-hub
+      - content-automation-mcp
+      - intelligence-mcp
+    restart: unless-stopped

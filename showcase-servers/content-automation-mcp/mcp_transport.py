@@ -15,7 +15,7 @@ from mcp_tools import (
     parse_rss,
 )
 
-mcp = FastMCP("content-automation-mcp")
+mcp = FastMCP("content-automation-mcp", streamable_http_path="/")
 
 
 @mcp.tool(
