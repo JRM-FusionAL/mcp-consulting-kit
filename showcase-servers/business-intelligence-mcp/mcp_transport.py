@@ -8,7 +8,7 @@ Mounts at /mcp on the FastAPI app — any MCP client can connect here.
 from mcp.server.fastmcp import FastMCP
 from mcp_tools import NLQueryRequest, handle_nl_query
 
-mcp = FastMCP("business-intelligence-mcp")
+mcp = FastMCP("business-intelligence-mcp", streamable_http_path="/")
 
 
 @mcp.tool(

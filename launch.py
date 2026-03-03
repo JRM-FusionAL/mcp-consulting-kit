@@ -28,6 +28,17 @@ IS_LINUX = PLATFORM == "Linux"
 # ── Find Python executable ────────────────────────────────────────────────────
 
 def find_python() -> str:
+    if sys.executable and Path(sys.executable).exists():
+        try:
+            result = subprocess.run(
+                [sys.executable, "--version"],
+                capture_output=True, text=True
+            )
+            if "Python 3" in result.stdout + result.stderr:
+                return sys.executable
+        except Exception:
+            pass
+
     for candidate in ["python3", "python"]:
         path = shutil.which(candidate)
         if path:
@@ -80,6 +91,21 @@ def find_repo_root() -> Path:
 REPO_ROOT = find_repo_root()
 SHOWCASE = REPO_ROOT / "showcase-servers"
 
+
+def find_fusional_root() -> Path | None:
+    candidates = [
+        REPO_ROOT.parent / "FusionAL" / "core",
+        Path.home() / "Projects" / "FusionAL" / "core",
+        Path.home() / "projects" / "FusionAL" / "core",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+FUSIONAL_CORE = find_fusional_root()
+
 # ── Server definitions ────────────────────────────────────────────────────────
 
 SERVERS = [
@@ -87,6 +113,11 @@ SERVERS = [
     {"name": "API Integration Hub",        "dir": SHOWCASE / "api-integration-hub",        "port": 8102},
     {"name": "Content Automation MCP",     "dir": SHOWCASE / "content-automation-mcp",     "port": 8103},
 ]
+
+if FUSIONAL_CORE:
+    SERVERS.append(
+        {"name": "FusionAL Execution Engine", "dir": FUSIONAL_CORE, "port": 8009}
+    )
 
 
 def load_env(env_path: Path) -> dict:

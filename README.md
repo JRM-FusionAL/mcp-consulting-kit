@@ -19,6 +19,7 @@ Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI 
 | Business Intelligence MCP | 8101 | Natural language → SQL (PostgreSQL / MySQL / SQLite) |
 | API Integration Hub | 8102 | Slack, GitHub, Stripe via natural language |
 | Content Automation MCP | 8103 | Web scraping, RSS feeds, link extraction |
+| Intelligence MCP | 8104 | Hot-topic discovery, business lead sourcing, trending repo intelligence |
 | FusionAL Execution Engine | 8009 | Dynamic code execution + MCP server registry |
 
 ---
@@ -73,10 +74,21 @@ python3 launch.py
 curl http://localhost:8101/health
 curl http://localhost:8102/health
 curl http://localhost:8103/health
+curl http://localhost:8104/health
 curl http://localhost:8009/health
 ```
 
-All should return `{"status":"ok"}`.
+All should return success responses (`200 OK`).
+
+If you are running behind the Nginx proxy, verify with:
+
+```bash
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/healthz
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/bi/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/api/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/content/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/intel/
+```
 
 ---
 
@@ -106,6 +118,8 @@ To sync and restart remote Docker services:
 ```
 
 Full guide: `docs/SYNC-AND-FRONTEND.md`
+
+Remote secure access guide (Cloudflare Tunnel): `docs/CLOUDFLARE-TUNNEL-SETUP.md`
 
 Quick one-command status check (local + remote):
 
@@ -151,6 +165,7 @@ Claude Desktop / Christopher / Any MCP client
   │  Business Intelligence MCP  :8101   │  Natural language → SQL
   │  API Integration Hub        :8102   │  Slack / GitHub / Stripe
   │  Content Automation MCP     :8103   │  Scraping / RSS
+  │  Intelligence MCP           :8104   │  Trends / leads
   │  FusionAL Execution Engine  :8009   │  Dynamic code + registry
   └─────────────────────────────────────┘
 ```
@@ -171,19 +186,25 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "business-intelligence": {
       "type": "streamable-http",
-      "url": "http://localhost:8101/mcp"
+      "url": "http://just2awesome:8088/bi/"
     },
     "api-integration": {
       "type": "streamable-http",
-      "url": "http://localhost:8102/mcp"
+      "url": "http://just2awesome:8088/api/"
     },
     "content-automation": {
       "type": "streamable-http",
-      "url": "http://localhost:8103/mcp"
+      "url": "http://just2awesome:8088/content/"
+    },
+    "intelligence": {
+      "type": "streamable-http",
+      "url": "http://just2awesome:8088/intel/"
     }
   }
 }
 ```
+
+For local-only access over SSH tunnel, replace `just2awesome` with `localhost`.
 
 **Config file locations:**
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -220,6 +241,25 @@ python3 rotate_keys.py --restart
 
 This repo is the technical foundation for a done-for-you MCP implementation service.
 
+Current focus:
+- Self-hosted MCP governance deployments
+- Audit logging + policy enforcement rollout
+- Privacy-first architecture for healthcare, legal, and fintech SMBs
+- Engagement model: $150-$250/hour or fixed-scope pilot
+
 - 📧 jonathanmelton004@gmail.com
 - 📅 calendly.com/jonathanmelton004/30min
 - 🔗 github.com/TangMan69/mcp-consulting-kit
+
+## GTM Templates
+
+- Smithery submission pack: `docs/SMITHERY-SUBMISSION-PACK.md`
+- awesome-mcp-servers PR draft: `docs/AWESOME-MCP-SERVERS-PR-DRAFT.md`
+- Distribution checklist: `docs/DISTRIBUTION-THIS-WEEK.md`
+
+## Ops Runbooks
+
+- Git auth setup/recovery: `docs/GIT-AUTH-SETUP.md`
+- New server intake notes: `docs/NEW-SERVER-INTAKE-NOTES.md`
+- New server cutover checklist: `docs/NEW-SERVER-CUTOVER-CHECKLIST.md`
+- t3610 Christopher runbook: `docs/T3610-CHRISTOPHER-RUNBOOK.md`

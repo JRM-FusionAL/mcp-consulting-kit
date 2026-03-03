@@ -7,3 +7,11 @@ __pycache__/
 .env
 *.env
 showcase-servers/business-intelligence-mcp/demo.db
+deploy/nginx/.htpasswd
+deploy/nginx/certs/
+*.key
+*.crt
+docker-compose.proxy.local.yaml
+docker-compose.cloudflare.local.yaml
+showcase-servers/social-poster-mcp/
+showcase-servers/social-distribution-mcp/

@@ -32,4 +32,13 @@ services:
     ports:
     - 8103:8103
     restart: unless-stopped
-version: '3.8'
+  intelligence-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile.intelligence
+    container_name: intelligence-mcp
+    environment:
+      PYTHONUNBUFFERED: '1'
+    ports:
+    - 8104:8104
+    restart: unless-stopped

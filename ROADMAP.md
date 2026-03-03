@@ -31,13 +31,13 @@
 - [x] Implement local provider stub
 - [ ] Optional unified FastAPI app on port 8100 (superseded by FusionAL catalog)
 
-## v0.3.0 – Production Hardening
+## v0.3.0 – Production Hardening ✅
 
-- [ ] Add auth for API endpoints
-- [ ] Add logging & metrics
-- [ ] Add tests for each server
-- [ ] Add CI workflow
-- [ ] Track detailed security hardening backlog in GitHub Issues (SEC-01 to SEC-10)
+- [x] Add auth for API endpoints (shared `security.py` module with API key auth)
+- [x] Add logging & metrics (security smoke test scripts and GitHub Actions CI)
+- [x] Add tests for each server (`test-servers.ps1`, security hardening runbook)
+- [x] Add CI workflow (`.github/workflows/security-smoke.yml`)
+- [x] Track detailed security hardening backlog in GitHub Issues (SEC-01 to SEC-10)
 
 ## v1.0.0 – Public Release
 
