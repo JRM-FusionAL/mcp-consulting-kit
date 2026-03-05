@@ -4,7 +4,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
 ![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-orange)
-![Stars](https://img.shields.io/github/stars/TangMan69/mcp-consulting-kit?style=social)
+![Stars](https://img.shields.io/github/stars/JonathanMelton-FusionAL/mcp-consulting-kit?style=social)
 
 Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI automation implementation service framework.
 
@@ -29,7 +29,7 @@ Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/TangMan69/mcp-consulting-kit
+git clone https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit
 cd mcp-consulting-kit
 ```
 
@@ -249,7 +249,7 @@ Current focus:
 
 - 📧 jonathanmelton004@gmail.com
 - 📅 calendly.com/jonathanmelton004/30min
-- 🔗 github.com/TangMan69/mcp-consulting-kit
+- 🔗 github.com/JonathanMelton-FusionAL/mcp-consulting-kit
 
 ## GTM Templates
 

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from clients.slack_client import SlackClient
-from clients.github_client import GitHubClient
+from clients.github_client import SafeGitHubClient
 from clients.stripe_client import StripeClient
 
 class SlackMessageRequest(BaseModel):
@@ -22,9 +22,12 @@ def send_slack_message(payload: SlackMessageRequest):
     client = SlackClient()
     return client.post_message(payload.channel, payload.text)
 
-def create_issue_and_optionally_notify(payload: GitHubIssueRequest):
-    gh = GitHubClient()
-    issue = gh.create_issue(payload.owner, payload.repo, payload.title, payload.body)
+async def create_issue_and_optionally_notify(payload: GitHubIssueRequest):
+    async with SafeGitHubClient() as gh:
+        issue = await gh.post(
+            f"/repos/{payload.owner}/{payload.repo}/issues",
+            json={"title": payload.title, "body": payload.body or ""}
+        )
     if payload.notify_slack_channel:
         slack = SlackClient()
         text = f"New GitHub issue created: {issue.get('html_url')}"

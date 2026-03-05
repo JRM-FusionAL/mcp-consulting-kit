@@ -94,7 +94,7 @@ if ($RestartDocker) {
     Write-Host ""
     Write-Host "[REMOTE] Refreshing docker services"
 
-        $remoteCmd = "set -e; if [ -f '$RemoteBase/mcp-consulting-kit/docker-compose.yaml' ]; then cd '$RemoteBase/mcp-consulting-kit'; if docker compose version >/dev/null 2>&1; then docker compose up -d --build; else docker-compose up -d --build; fi; fi; if [ -f '$RemoteBase/FusionAL/compose.yaml' ]; then cd '$RemoteBase/FusionAL'; if docker compose version >/dev/null 2>&1; then docker compose up -d --build; else docker-compose up -d --build; fi; fi"
+        $remoteCmd = "set -e; for port in 8101 8102 8103 8104; do lsof -ti:\${port} 2>/dev/null | xargs -r kill -9 2>/dev/null; done; if [ -f '$RemoteBase/mcp-consulting-kit/docker-compose.yaml' ]; then cd '$RemoteBase/mcp-consulting-kit'; if docker compose version >/dev/null 2>&1; then docker compose down --remove-orphans; docker compose up -d --build; else docker-compose down --remove-orphans; docker-compose up -d --build; fi; fi; if [ -f '$RemoteBase/FusionAL/compose.yaml' ]; then cd '$RemoteBase/FusionAL'; if docker compose version >/dev/null 2>&1; then docker compose down --remove-orphans; docker compose up -d --build; else docker-compose down --remove-orphans; docker-compose up -d --build; fi; fi"
         ssh $RemoteAlias "bash -lc \"$remoteCmd\""
         if ($LASTEXITCODE -ne 0) {
                 throw "Remote docker refresh failed"

@@ -5,7 +5,7 @@ Thanks for helping improve this project.
 ## Development Setup
 
 1. Clone and enter the repo:
-   - `git clone https://github.com/TangMan69/mcp-consulting-kit.git`
+   - `git clone https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit.git`
    - `cd mcp-consulting-kit`
 2. Install dependencies (example):
    - `pip install fastapi uvicorn[standard] python-dotenv pydantic requests beautifulsoup4 feedparser lxml sqlalchemy "mcp[cli]"`
