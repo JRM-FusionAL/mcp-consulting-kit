@@ -7,7 +7,7 @@ This runbook standardizes Git auth for `FusionAL`, `mcp-consulting-kit`, and `Ch
 - Remote URL type: HTTPS
 - Credential helper: Git Credential Manager (`manager`)
 - Identity:
-  - `user.name= TangMan69`
+  - `user.name= JonathanMelton-FusionAL`
   - `user.email= puddintang6988@gmail.com`
 
 ## 1) Verify Auth State
@@ -32,7 +32,7 @@ If `git ls-remote` works, auth is valid.
 
 ```powershell
 git config --global credential.helper manager
-git config --global user.name "TangMan69"
+git config --global user.name "JonathanMelton-FusionAL"
 git config --global user.email "puddintang6988@gmail.com"
 ```
 
@@ -56,13 +56,13 @@ gh auth status
 
 ```powershell
 Set-Location "c:\Users\puddi\Projects\FusionAL"
-git remote set-url origin https://github.com/TangMan69/FusionAL
+git remote set-url origin https://github.com/JonathanMelton-FusionAL/FusionAL
 
 Set-Location "c:\Users\puddi\Projects\mcp-consulting-kit"
-git remote set-url origin https://github.com/TangMan69/mcp-consulting-kit
+git remote set-url origin https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit
 
 Set-Location "c:\Users\puddi\Projects\Christopher-AI"
-git remote set-url origin https://github.com/TangMan69/Christopher-AI.git
+git remote set-url origin https://github.com/JonathanMelton-FusionAL/Christopher-AI.git
 ```
 
 ## 4) Optional SSH Mode (Only if you prefer SSH)

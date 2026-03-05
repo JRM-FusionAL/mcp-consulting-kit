@@ -65,13 +65,13 @@ def slack_send(
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/github/create-issue")
-def github_create_issue(
+async def github_create_issue(
     req: GitHubIssueRequest,
     _auth: None = Depends(verify_api_key),
     _rate_limit: None = Depends(enforce_rate_limit),
 ):
     try:
-        return create_issue_and_optionally_notify(req)
+        return await create_issue_and_optionally_notify(req)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

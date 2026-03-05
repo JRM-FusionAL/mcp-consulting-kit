@@ -6,11 +6,11 @@
 
 ## Proposed Entry (One-Liner)
 
-- **FusionAL** — Self-hosted MCP governance gateway focused on policy enforcement, audit-ready operations, and privacy-first deployment. [https://github.com/TangMan69/FusionAL](https://github.com/TangMan69/FusionAL)
+- **FusionAL** — Self-hosted MCP governance gateway focused on policy enforcement, audit-ready operations, and privacy-first deployment. [https://github.com/JonathanMelton-FusionAL/FusionAL](https://github.com/JonathanMelton-FusionAL/FusionAL)
 
 ## Alternate (Slightly More Technical)
 
-- **FusionAL** — Docker-first, self-hosted MCP governance gateway for production rollouts with policy profiles, audit export workflows, and cross-platform support (Windows/Linux/macOS). [https://github.com/TangMan69/FusionAL](https://github.com/TangMan69/FusionAL)
+- **FusionAL** — Docker-first, self-hosted MCP governance gateway for production rollouts with policy profiles, audit export workflows, and cross-platform support (Windows/Linux/macOS). [https://github.com/JonathanMelton-FusionAL/FusionAL](https://github.com/JonathanMelton-FusionAL/FusionAL)
 
 ## PR Title
 
@@ -29,7 +29,7 @@ Key focus:
 - privacy-first deployment
 - cross-platform support (Windows/Linux/macOS)
 
-Repository: [https://github.com/TangMan69/FusionAL](https://github.com/TangMan69/FusionAL)
+Repository: [https://github.com/JonathanMelton-FusionAL/FusionAL](https://github.com/JonathanMelton-FusionAL/FusionAL)
 
 Thanks for maintaining this list.
 
