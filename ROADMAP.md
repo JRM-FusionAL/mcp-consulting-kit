@@ -1,9 +1,4 @@
 
----
-
-## 🧭 ROADMAP.md
-
-```markdown
 # Roadmap
 
 ## v0.1.0 – Initial Reconstruction
@@ -16,7 +11,7 @@
 
 ## v0.4.0 – FusionAL Integration ✅
 
-- [x] FusionAL execution engine merged as 4th platform server (port 8001)
+- [x] FusionAL execution engine merged as 4th platform server (port 8009)
 - [x] Dynamic MCP server registration via `/register`
 - [x] Sandboxed Python code execution via `/execute`
 - [x] Unified server catalog via `/catalog` (all 4 servers)

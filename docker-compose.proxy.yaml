@@ -12,4 +12,5 @@ services:
       - api-integration-hub
       - content-automation-mcp
       - intelligence-mcp
+      - fusional
     restart: unless-stopped

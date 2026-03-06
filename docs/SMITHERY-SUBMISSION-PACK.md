@@ -46,9 +46,9 @@ mcp, gateway, governance, security, privacy, self-hosted, audit, compliance, ent
 ## Links
 
 - Repo: [https://github.com/JonathanMelton-FusionAL/FusionAL](https://github.com/JonathanMelton-FusionAL/FusionAL)
-- Implementation layer: [https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit](https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit)
-- 30-day execution plan: [https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit/blob/main/docs/EXECUTION-30D-PLAN.md](https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit/blob/main/docs/EXECUTION-30D-PLAN.md)
-- Distribution runbook: [https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit/blob/main/docs/DISTRIBUTION-THIS-WEEK.md](https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit/blob/main/docs/DISTRIBUTION-THIS-WEEK.md)
+- Implementation layer: [https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit](https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit)
+- 30-day execution plan: [https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit/blob/main/docs/EXECUTION-30D-PLAN.md](https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit/blob/main/docs/EXECUTION-30D-PLAN.md)
+- Distribution runbook: [https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit/blob/main/docs/DISTRIBUTION-THIS-WEEK.md](https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit/blob/main/docs/DISTRIBUTION-THIS-WEEK.md)
 
 ## CTA Copy
 

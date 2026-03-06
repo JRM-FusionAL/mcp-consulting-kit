@@ -31,3 +31,4 @@ Sensitive auth/token values are redacted in structured request logs.
 ```bash
 docker build -t content-mcp-showcase .
 docker run --env-file .env -p 8103:8103 content-mcp-showcase
+```

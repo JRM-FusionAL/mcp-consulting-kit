@@ -4,7 +4,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
 ![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-orange)
-![Stars](https://img.shields.io/github/stars/JonathanMelton-FusionAL/mcp-consulting-kit?style=social)
+![Stars](https://img.shields.io/github/stars/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit?style=social)
 
 Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI automation implementation service framework.
 
@@ -29,8 +29,8 @@ Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit
-cd mcp-consulting-kit
+git clone https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit.git
+cd FusionAL-mcp-consulting-kit
 ```
 
 ### 2. Install dependencies
@@ -215,16 +215,10 @@ For local-only access over SSH tunnel, replace `just2awesome` with `localhost`.
 
 ## API Key Rotation
 
-```bash
-# Rotate all keys across all .env files at once
-python3 rotate_keys.py
+Use the overlap + revoke flow documented in:
+- `showcase-servers/common/SECURITY-HARDENING.md`
 
-# Dry run first
-python3 rotate_keys.py --dry-run
-
-# Rotate and restart servers
-python3 rotate_keys.py --restart
-```
+Current repository scripts do not include a `rotate_keys.py` helper.
 
 ---
 
@@ -249,7 +243,7 @@ Current focus:
 
 - 📧 jonathanmelton004@gmail.com
 - 📅 calendly.com/jonathanmelton004/30min
-- 🔗 github.com/JonathanMelton-FusionAL/mcp-consulting-kit
+- 🔗 github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit
 
 ## GTM Templates
 
