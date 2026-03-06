@@ -237,9 +237,16 @@ This repo is the technical foundation for a done-for-you MCP implementation serv
 
 Current focus:
 - Self-hosted MCP governance deployments
+- MCP security audits for teams already in production
 - Audit logging + policy enforcement rollout
 - Privacy-first architecture for healthcare, legal, and fintech SMBs
-- Engagement model: $150-$250/hour or fixed-scope pilot
+- Managed MCP operations for teams without platform engineers
+
+Service packages:
+- **MCP Quick Deploy:** $1,500–$3,500 fixed scope
+- **MCP Operations Pilot:** $5,000–$15,000 + managed ops retainer
+- **MCP Security Audit:** $3,000–$8,000 one-time
+- **Managed Control Plane:** $2,000–$5,000/month ongoing
 
 - 📧 jonathanmelton004@gmail.com
 - 📅 calendly.com/jonathanmelton004/30min
