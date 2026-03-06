@@ -70,7 +70,7 @@ The MCP Consulting Kit is a turnkey solution for businesses seeking custom AI au
 
 **For more information or to request a demo, contact:**
 - Jonathan Melton
-- jonathanmelton@gmail.com
+- jonathanmelton004@gmail.com
 - (606)304-0548
 
 ---

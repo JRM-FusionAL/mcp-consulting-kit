@@ -1,7 +1,7 @@
 
 # Roadmap
 
-## v0.1.0 – Initial Reconstruction
+## v0.1.0 – Initial Reconstruction ✅
 
 - [x] Rebuild three MCP servers with FastAPI
 - [x] Dockerize each server
@@ -19,13 +19,6 @@
 - [x] All 4 servers in unified `launch-servers.ps1`
 - [x] MCP gateway `custom.yaml` updated to expose all endpoints
 
-## v0.2.0 – Unified Server & Local AI
-
-- [x] Abstract LLM provider behind interface (done: `llm_provider.py` in BI server)
-- [x] Add `LLM_PROVIDER` env switch (`claude` / `rule` / `local`)
-- [x] Implement local provider stub
-- [ ] Optional unified FastAPI app on port 8100 (superseded by FusionAL catalog)
-
 ## v0.3.0 – Production Hardening ✅
 
 - [x] Add auth for API endpoints (shared `security.py` module with API key auth)
@@ -34,8 +27,34 @@
 - [x] Add CI workflow (`.github/workflows/security-smoke.yml`)
 - [x] Track detailed security hardening backlog in GitHub Issues (SEC-01 to SEC-10)
 
-## v1.0.0 – Public Release
+## v0.2.0 – Unified Server & Local AI ✅
 
-- [ ] Polish docs
-- [ ] Add example configs
-- [ ] Tag v1.0.0
+- [x] Abstract LLM provider behind interface (`llm_provider.py` in BI server)
+- [x] Add `LLM_PROVIDER` env switch (`claude` / `rule` / `local`)
+- [x] Implement local provider stub
+
+## v1.0.0 – Production Release (Target: April 2026)
+
+- [ ] Policy profiles (`strict` / `balanced` / `dev`)
+- [ ] Tenant-scoped API keys with revocation workflow
+- [ ] Tool call audit export (JSON/CSV)
+- [ ] MCP Security Audit report template
+- [ ] One-command health check across all servers
+- [ ] Updated docs with governance walkthrough
+- [ ] Polish docs and tag v1.0.0
+
+## v1.1.0 – Enterprise Features (Target: June 2026)
+
+- [ ] RBAC integration (map to existing IdP)
+- [ ] Rate-limit policy presets per tenant
+- [ ] Error budget tracking and alerting
+- [ ] Compliance report generator (HIPAA/SOC 2 checklist output)
+- [ ] Multi-client configuration templates
+
+## v2.0.0 – Platform (Target: Q4 2026)
+
+- [ ] Web dashboard for governance operations
+- [ ] Christopher-AI voice integration
+- [ ] Channel partner white-label mode
+- [ ] Automated MCP server health monitoring
+- [ ] Managed ops control panel for retainer clients
