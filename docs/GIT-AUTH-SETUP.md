@@ -59,7 +59,7 @@ Set-Location "c:\Users\puddi\Projects\FusionAL"
 git remote set-url origin https://github.com/JonathanMelton-FusionAL/FusionAL
 
 Set-Location "c:\Users\puddi\Projects\mcp-consulting-kit"
-git remote set-url origin https://github.com/JonathanMelton-FusionAL/mcp-consulting-kit
+git remote set-url origin https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit.git
 
 Set-Location "c:\Users\puddi\Projects\Christopher-AI"
 git remote set-url origin https://github.com/JonathanMelton-FusionAL/Christopher-AI.git
