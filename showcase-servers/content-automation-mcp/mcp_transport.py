@@ -15,7 +15,13 @@ from mcp_tools import (
     parse_rss,
 )
 
-mcp = FastMCP("content-automation-mcp", streamable_http_path="/")
+from mcp.server.transport_security import TransportSecuritySettings
+
+mcp = FastMCP(
+    "content-automation-mcp",
+    streamable_http_path="/",
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+)
 
 
 @mcp.tool(

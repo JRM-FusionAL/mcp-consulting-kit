@@ -15,13 +15,18 @@ import httpx
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, Field, ConfigDict
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 import uvicorn
 from starlette.applications import Starlette
 
 # ─────────────────────────────────────────────
 # Server Init
 # ─────────────────────────────────────────────
-mcp = FastMCP("intelligence_mcp")
+mcp = FastMCP(
+    "intelligence_mcp",
+    streamable_http_path="/",
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

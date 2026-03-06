@@ -48,7 +48,6 @@ docker compose \
 ## 4) Verify
 
 ```bash
-docker compose ps
 curl -u mcpadmin:CHANGE_ME_STRONG_PASSWORD https://mcp.yourdomain.com/healthz
 ```
 
