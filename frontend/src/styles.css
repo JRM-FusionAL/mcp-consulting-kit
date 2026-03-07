@@ -97,3 +97,14 @@ button:disabled {
   background: #fef3c7;
   color: #92400e;
 }
+.trust-logos img {
+    max-height: 50px;          /* Adjust as needed */
+    width: auto;
+    filter: grayscale(50%) brightness(1.2);  /* Subtle desaturate for premium feel; remove if you want full color pop */
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.trust-logos img:hover {
+    opacity: 1;
+}
