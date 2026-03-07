@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from fastapi import Depends, FastAPI, HTTPException
+from showcase_servers.common.security_baseline import apply_security_baseline
 from mcp_tools import (
     SlackMessageRequest,
     GitHubIssueRequest,
@@ -10,6 +11,12 @@ from mcp_tools import (
     create_issue_and_optionally_notify,
     lookup_stripe_customer,
 )
+app = FastAPI(
+    docs_url=None,   # set to "/docs" only for internal envs
+    redoc_url=None
+)
+
+apply_security_baseline(app)
 
 PORT = int(os.getenv("PORT", "8102"))
 
@@ -89,3 +96,5 @@ def stripe_customer(
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=PORT)
+from fastapi import FastAPI
+from showcase_servers.common.security_baseline import apply_security_baseline

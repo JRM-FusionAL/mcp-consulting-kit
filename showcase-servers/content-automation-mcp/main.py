@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from fastapi import Depends, FastAPI, HTTPException
+from showcase_servers.common.security_baseline import apply_security_baseline
 from mcp_tools import (
     ScrapeRequest,
     RSSRequest,
