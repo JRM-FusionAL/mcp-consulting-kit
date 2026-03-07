@@ -5,6 +5,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 from mcp_tools import handle_nl_query
+from showcase_servers.common.security_baseline import apply_security_baseline
 
 PORT = int(os.getenv("PORT", "8101"))
 
