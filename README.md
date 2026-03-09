@@ -4,7 +4,10 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
 ![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-orange)
-![Stars](https://img.shields.io/github/stars/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit?style=social)
+
+> **Production-grade MCP servers. Deploy in under 15 minutes.**  
+> 🌐 [**fusional.dev**](https://fusional.dev) — Done-for-you MCP governance deployments  
+> 📧 [jonathanmelton.fusional@gmail.com](mailto:jonathanmelton.fusional@gmail.com) • 🗓️ [Book Architecture Call](https://calendly.com/jonathanmelton004/30min)
 
 Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI automation implementation service framework.
 
@@ -235,6 +238,22 @@ Current repository scripts do not include a `rotate_keys.py` helper.
 
 This repo is the technical foundation for a done-for-you MCP implementation service.
 
+---
+
+## 🌐 Production Deployment & Consulting
+
+**Don't want to self-host?** We deploy, secure, and manage governed MCP for you.
+
+### Service Packages
+
+| Package | Price | What You Get |
+|---------|-------|--------------|
+| **Starter Pilot** | $3,500 | Prove value with 1 workflow in 2 weeks |
+| **Growth Pilot** | $9,000 | Multi-workflow rollout with observability dashboard |
+| **Managed Ops** | $3k/mo | Ongoing governance + support + quarterly expansion |
+
+**Full details**: [fusional.dev](https://fusional.dev)
+
 Current focus:
 - Self-hosted MCP governance deployments
 - MCP security audits for teams already in production
@@ -242,15 +261,13 @@ Current focus:
 - Privacy-first architecture for healthcare, legal, and fintech SMBs
 - Managed MCP operations for teams without platform engineers
 
-Service packages:
-- **MCP Quick Deploy:** $1,500–$3,500 fixed scope
-- **MCP Operations Pilot:** $5,000–$15,000 + managed ops retainer
-- **MCP Security Audit:** $3,000–$8,000 one-time
-- **Managed Control Plane:** $2,000–$5,000/month ongoing
+**Contact**:
+- 🌐 [fusional.dev](https://fusional.dev)
+- 📧 [jonathanmelton.fusional@gmail.com](mailto:jonathanmelton.fusional@gmail.com)
+- 📅 [calendly.com/jonathanmelton004/30min](https://calendly.com/jonathanmelton004/30min)
+- 🔗 [GitLab](https://gitlab.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit)
 
-- 📧 jonathanmelton004@gmail.com
-- 📅 calendly.com/jonathanmelton004/30min
-- 🔗 github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit
+---
 
 ## GTM Templates
 
