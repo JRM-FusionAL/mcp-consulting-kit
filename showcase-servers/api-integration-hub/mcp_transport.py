@@ -15,12 +15,9 @@ from mcp_tools import (
     lookup_stripe_customer,
 )
 
-from mcp.server.transport_security import TransportSecuritySettings
-
 mcp = FastMCP(
     "api-integration-hub",
     streamable_http_path="/",
-    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
 )
 
 
