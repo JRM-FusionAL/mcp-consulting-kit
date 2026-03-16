@@ -2,10 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY content-automation-mcp/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY common/ ./showcase_servers/common/
+RUN touch ./showcase_servers/__init__.py
+COPY content-automation-mcp/ .
 
 ENV PORT=8103
 

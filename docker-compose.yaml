@@ -1,7 +1,8 @@
 services:
   api-integration-hub:
     build:
-      context: ./showcase-servers/api-integration-hub
+      context: ./showcase-servers
+      dockerfile: api-integration-hub/Dockerfile
     container_name: api-integration-hub
     env_file:
     - ./showcase-servers/api-integration-hub/.env
@@ -12,7 +13,8 @@ services:
     restart: unless-stopped
   business-intelligence-mcp:
     build:
-      context: ./showcase-servers/business-intelligence-mcp
+      context: ./showcase-servers
+      dockerfile: business-intelligence-mcp/Dockerfile
     container_name: business-intelligence-mcp
     env_file:
     - ./showcase-servers/business-intelligence-mcp/.env
@@ -23,7 +25,8 @@ services:
     restart: unless-stopped
   content-automation-mcp:
     build:
-      context: ./showcase-servers/content-automation-mcp
+      context: ./showcase-servers
+      dockerfile: content-automation-mcp/Dockerfile
     container_name: content-automation-mcp
     env_file:
     - ./showcase-servers/content-automation-mcp/.env
