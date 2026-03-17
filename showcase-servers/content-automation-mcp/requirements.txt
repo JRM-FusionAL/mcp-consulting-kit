@@ -1,5 +1,5 @@
 # Content Automation MCP
-# Updated: 2026-03-01
+# Updated: 2026-03-12
 
 fastapi==0.135.1
 uvicorn[standard]==0.41.0
@@ -9,6 +9,6 @@ lxml==6.0.2
 python-dotenv==1.2.2
 pydantic==2.12.5
 feedparser==6.0.12
-redis==7.2.1
+redis==7.3.0
 requests==2.32.5
 mcp[cli]==1.26.0
