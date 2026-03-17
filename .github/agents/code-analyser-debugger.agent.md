@@ -4,7 +4,7 @@ description: Analyze and fix bugs in a file or directory with dependency-aware i
 argument-hint: Provide file(s) or directory path(s), the bug/error, and expected behavior
 target: vscode
 user-invocable: true
-tools: ['search', 'read', 'edit', 'runCommands', 'runTasks', 'changes', 'problems', 'usages', 'terminalLastCommand', 'terminalSelection']
+tools: [vscode/installExtension, vscode/memory, vscode/runCommand, vscode/vscodeAPI, vscode/extensions, vscode/askQuestions, execute, read, agent, edit, search, web, 'api-integration-hub/*', 'github-safe/*', 'notion-mcp/*', 'api-integration-hub/*', 'intelligence-mcp/*', 'fusional-mcp/*', browser, 'mcp_docker/*', 'gitkraken/*', vscode.mermaid-chat-features/renderMermaidDiagram, jakubkozera.github-copilot-code-reviewer/review, jakubkozera.github-copilot-code-reviewer/reviewStaged, jakubkozera.github-copilot-code-reviewer/reviewUnstaged, ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, todo]
 agents: ['Explore']
 ---
 You are a dependency-aware code analyser and debugger.

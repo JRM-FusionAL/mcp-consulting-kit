@@ -44,7 +44,7 @@ HTTP_TIMEOUT = 15.0
 # ─────────────────────────────────────────────
 # Shared HTTP client
 # ─────────────────────────────────────────────
-async def get(url: str, params: Dict = None, json_mode: bool = True) -> Any:
+async def get(url: str, params: Optional[Dict[str, Any]] = None, json_mode: bool = True) -> Any:
     """Shared async HTTP GET with error handling."""
     async with httpx.AsyncClient(headers=HEADERS, timeout=HTTP_TIMEOUT, follow_redirects=True) as client:
         r = await client.get(url, params=params)
@@ -271,12 +271,12 @@ async def intelligence_get_hot_topics(params: HotTopicsInput) -> str:
     if "producthunt" in allowed:
         fetch_tasks["producthunt"] = _fetch_producthunt(5)
 
-    results_map = {}
-    for key, coro in fetch_tasks.items():
-        try:
-            results_map[key] = await coro
-        except Exception as e:
-            results_map[key] = []
+    keys = list(fetch_tasks.keys())
+    gathered = await asyncio.gather(*fetch_tasks.values(), return_exceptions=True)
+    results_map = {
+        key: ([] if isinstance(res, Exception) else res)
+        for key, res in zip(keys, gathered)
+    }
 
     all_topics = []
     for items in results_map.values():
@@ -583,7 +583,7 @@ async def intelligence_get_trending_repos(params: TrendingReposInput) -> str:
         "openWorldHint": True,
     }
 )
-async def intelligence_daily_pulse(dummy: str = "") -> str:
+async def intelligence_daily_pulse() -> str:
     """
     One-shot daily briefing: top 5 hot topics + top 5 exposure leads + top 3 trending repos.
     Run this every morning for your content/outreach plan.
