@@ -1,4 +1,4 @@
-# MCP Consulting Kit
+﻿# MCP Consulting Kit
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
@@ -265,7 +265,7 @@ Current focus:
 - 🌐 [fusional.dev](https://fusional.dev)
 - 📧 [jonathanmelton.fusional@gmail.com](mailto:jonathanmelton.fusional@gmail.com)
 - 📅 [calendly.com/jonathanmelton004/30min](https://calendly.com/jonathanmelton004/30min)
-- 🔗 [GitLab](https://gitlab.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit)
+- 🔗 [GitLab](https://gitlab.com/JRM-FusionAL/FusionAL-mcp-consulting-kit)
 
 ---
 
@@ -281,3 +281,4 @@ Current focus:
 - New server intake notes: `docs/NEW-SERVER-INTAKE-NOTES.md`
 - New server cutover checklist: `docs/NEW-SERVER-CUTOVER-CHECKLIST.md`
 - t3610 Christopher runbook: `docs/T3610-CHRISTOPHER-RUNBOOK.md`
+
