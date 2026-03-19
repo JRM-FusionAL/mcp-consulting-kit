@@ -1,0 +1,41 @@
+server {
+    listen 80;
+    server_name api.fusional.dev;
+
+    # Helps with "Invalid host header" issues
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # FusionAL (main service)
+    location /fusional/ {
+        proxy_pass http://localhost:8009/;
+    }
+
+    location /health {
+        proxy_pass http://localhost:8009/health;
+    }
+
+    # Other services
+    location /bi/ {
+        proxy_pass http://localhost:8101/;
+    }
+
+    location /api/ {
+        proxy_pass http://localhost:8102/;
+    }
+
+    location /content/ {
+        proxy_pass http://localhost:8103/;
+    }
+
+    location /intel/ {
+        proxy_pass http://localhost:8104/;
+    }
+
+    # Default to FusionAL
+    location / {
+        proxy_pass http://localhost:8009/;
+    }
+}
