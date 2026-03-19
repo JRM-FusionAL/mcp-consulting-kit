@@ -63,7 +63,7 @@ jobs:
 
       - name: Build BI showcase image
         run: |
-          docker build -t mcp-bi-security-scan "showcase-servers/business-intelligence-mcp"
+          docker build -t mcp-bi-security-scan -f "showcase-servers/business-intelligence-mcp/Dockerfile showcase-servers"
 
       - name: Container vulnerability scan (high/critical)
         uses: aquasecurity/trivy-action@0.35.0
