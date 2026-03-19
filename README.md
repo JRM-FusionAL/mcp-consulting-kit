@@ -209,6 +209,36 @@ Add to `claude_desktop_config.json`:
 
 For local-only access over SSH tunnel, replace `just2awesome` with `localhost`.
 
+### Windows tunnel helper (recommended)
+
+If Cloudflare blocks Node-based MCP clients on your machine, run Claude through a local SSH tunnel:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610
+```
+
+This command:
+- Starts/validates local tunnel ports `18009`, `18101`, `18102`, `18103`
+- Launches Claude Desktop automatically
+
+Run a full health check anytime:
+
+```powershell
+./scripts/check-claude-mcp-health.ps1
+```
+
+If you want to keep Claude closed while only preparing the tunnel:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610 -SkipLaunchClaude
+```
+
+If you need to kill/rebuild the tunnel process first:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610 -ForceRestart
+```
+
 **Config file locations:**
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
