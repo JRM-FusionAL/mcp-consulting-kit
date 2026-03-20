@@ -60,3 +60,13 @@
 - Prefer edits in shared security code (`showcase-servers/common/security.py`) over duplicating logic in individual services.
 - Keep endpoint handlers thin: validation + orchestration in `mcp_tools.py`/clients, not in route functions.
 - Preserve env-var compatibility (`API_KEY` fallback, port defaults, `REDIS_URL` degraded fallback behavior) unless asked to break compatibility.
+
+## Knowledge Base Bootstrap (required)
+- Treat `C:\Users\puddi\Projects\fusional-knowledge-base\` as the canonical context source for project status and priorities.
+- At the start of each new task/session, load and prioritize these files before proposing plans or code changes:
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\STATUS.md`
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\PRIORITIES.md`
+- For repo/state ambiguity, consult:
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\06-CONTEXT\FAQ.md`
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\06-CONTEXT\DECISIONS.md`
+- If code reality conflicts with the knowledge base, report the conflict and prefer verified code/runtime facts, then update knowledge-base docs in the same workstream.
