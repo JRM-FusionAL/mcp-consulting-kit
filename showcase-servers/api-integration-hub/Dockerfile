@@ -11,4 +11,4 @@ COPY api-integration-hub/ .
 
 ENV PORT=8102
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8102"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8102", "--forwarded-allow-ips", "*"]

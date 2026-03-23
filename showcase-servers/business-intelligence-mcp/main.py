@@ -31,6 +31,8 @@ from mcp_transport import mcp
 mcp.settings.streamable_http_path = "/"
 mcp_app = mcp.streamable_http_app()
 app.mount("/mcp", mcp_app)
+from fastapi.staticfiles import StaticFiles
+app.mount("/.well-known", StaticFiles(directory="/app/well-known"), name="well-known")
 
 
 @app.on_event("startup")
@@ -67,4 +69,4 @@ def nl_query(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=PORT)  # nosec B104
+    uvicorn.run(app, host="0.0.0.0", port=PORT)

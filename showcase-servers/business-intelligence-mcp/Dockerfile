@@ -11,4 +11,4 @@ COPY business-intelligence-mcp/ .
 
 ENV PORT=8101
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8101"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8101", "--forwarded-allow-ips", "*"]
