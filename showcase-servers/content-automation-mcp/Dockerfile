@@ -11,4 +11,4 @@ COPY content-automation-mcp/ .
 
 ENV PORT=8103
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8103"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8103", "--forwarded-allow-ips", "*"]

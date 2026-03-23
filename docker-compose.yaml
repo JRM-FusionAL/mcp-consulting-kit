@@ -7,6 +7,7 @@ services:
     env_file:
     - ./showcase-servers/api-integration-hub/.env
     environment:
+      ALLOWED_HOSTS: "localhost,127.0.0.1,api.fusional.dev"
       ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8102:8102
@@ -19,6 +20,7 @@ services:
     env_file:
     - ./showcase-servers/business-intelligence-mcp/.env
     environment:
+      ALLOWED_HOSTS: "localhost,127.0.0.1,bi.fusional.dev"
       ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8101:8101
@@ -31,6 +33,7 @@ services:
     env_file:
     - ./showcase-servers/content-automation-mcp/.env
     environment:
+      ALLOWED_HOSTS: "localhost,127.0.0.1,content.fusional.dev"
       ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
     ports:
     - 8103:8103
