@@ -5,6 +5,8 @@ param(
     [string]$RemoteAlias = "t3610",
     # Skip the MCP health check step
     [switch]$SkipHealthCheck,
+    # Fail fast instead of prompting when user interaction is required
+    [switch]$NonInteractive,
     # Write config and (optionally) start tunnel, but do not launch Claude Desktop
     [switch]$SkipLaunchClaude
 )
@@ -47,6 +49,11 @@ Write-Step 1 "Checking for running Claude processes..."
 
 $claudeProcs = Get-Process -Name "claude" -ErrorAction SilentlyContinue
 if ($claudeProcs) {
+    if ($NonInteractive) {
+        $ids = ($claudeProcs | Select-Object -ExpandProperty Id) -join ", "
+        throw "Claude Desktop is running (PID(s): $ids). Quit Claude and rerun, or omit -NonInteractive to allow prompt mode."
+    }
+
     Write-Host ""
     Write-Host "  Claude Desktop is still running ($($claudeProcs.Count) process(es))." -ForegroundColor Yellow
     Write-Host "  Please fully quit Claude Desktop (File > Quit or system tray > Quit),"

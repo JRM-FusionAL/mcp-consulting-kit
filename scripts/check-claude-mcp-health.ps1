@@ -11,7 +11,8 @@ if ($UseTunnelPorts) {
         @{ Name = "FusionAL"; Port = 18009 },
         @{ Name = "Business Intelligence"; Port = 18101 },
         @{ Name = "API Integration"; Port = 18102 },
-        @{ Name = "Content Automation"; Port = 18103 }
+        @{ Name = "Content Automation"; Port = 18103 },
+        @{ Name = "Intelligence"; Port = 18104 }
     )
 }
 else {
@@ -19,7 +20,8 @@ else {
         @{ Name = "FusionAL"; Port = 8009 },
         @{ Name = "Business Intelligence"; Port = 8101 },
         @{ Name = "API Integration"; Port = 8102 },
-        @{ Name = "Content Automation"; Port = 8103 }
+        @{ Name = "Content Automation"; Port = 8103 },
+        @{ Name = "Intelligence"; Port = 8104 }
     )
 }
 
@@ -62,7 +64,11 @@ if (-not $Quiet) {
 $failed = $results | Where-Object { -not $_.Healthy }
 if ($failed) {
     $failedNames = ($failed | Select-Object -ExpandProperty Service) -join ", "
-    throw "Health check failed for: $failedNames"
+    if ($UseTunnelPorts) {
+        throw "Health check failed for: $failedNames. Tunnel mode checks localhost:18xxx ports; run start-claude-mcp-tunnel.ps1 first (or pass -ForceRestart)."
+    }
+
+    throw "Health check failed for: $failedNames. Local mode checks localhost:8xxx ports; ensure services are running (launch-servers.ps1)."
 }
 
 $modeLabel = if ($UseTunnelPorts) { "tunnel (18xxx)" } else { "local (8xxx)" }

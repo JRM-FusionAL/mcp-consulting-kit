@@ -105,12 +105,14 @@ if ($UseTunnelPorts) {
     $biUrl = "http://localhost:18101/mcp/"
     $apiUrl = "http://localhost:18102/mcp/"
     $contentUrl = "http://localhost:18103/mcp/"
+    $intelUrl = "http://localhost:18104/mcp/"
 }
 else {
     $fusionUrl = "http://localhost:8009/mcp/"
     $biUrl = "http://localhost:8101/mcp/"
     $apiUrl = "http://localhost:8102/mcp/"
     $contentUrl = "http://localhost:8103/mcp/"
+    $intelUrl = "http://localhost:8104/mcp/"
 }
 
 $githubSafe = [pscustomobject]@{
@@ -133,6 +135,7 @@ Set-ObjectProperty -Object $mcpServers -Name "notion-mcp" -Value $notionMcp
 Set-ObjectProperty -Object $mcpServers -Name "business-intelligence-mcp" -Value (New-McpRemoteEntry -Url $biUrl)
 Set-ObjectProperty -Object $mcpServers -Name "api-integration-hub" -Value (New-McpRemoteEntry -Url $apiUrl)
 Set-ObjectProperty -Object $mcpServers -Name "content-automation-mcp" -Value (New-McpRemoteEntry -Url $contentUrl)
+Set-ObjectProperty -Object $mcpServers -Name "intelligence-mcp" -Value (New-McpRemoteEntry -Url $intelUrl)
 Set-ObjectProperty -Object $mcpServers -Name "fusional-mcp" -Value (New-McpRemoteEntry -Url $fusionUrl)
 
 if (-not $config.PSObject.Properties["isDxtAutoUpdatesEnabled"]) {
@@ -156,9 +159,9 @@ if (-not $validated.PSObject.Properties["mcpServers"]) {
     throw "Validation failed: mcpServers property missing. Restore backup: $backupPath"
 }
 
-$expectedUrls = @($fusionUrl, $biUrl, $apiUrl, $contentUrl)
+$expectedUrls = @($fusionUrl, $biUrl, $apiUrl, $contentUrl, $intelUrl)
 $actualArgs = @()
-foreach ($serverName in @("fusional-mcp", "business-intelligence-mcp", "api-integration-hub", "content-automation-mcp")) {
+foreach ($serverName in @("fusional-mcp", "business-intelligence-mcp", "api-integration-hub", "content-automation-mcp", "intelligence-mcp")) {
     if ($validated.mcpServers.PSObject.Properties[$serverName] -and $validated.mcpServers.$serverName.PSObject.Properties["args"]) {
         $actualArgs += ($validated.mcpServers.$serverName.args -join " ")
     }

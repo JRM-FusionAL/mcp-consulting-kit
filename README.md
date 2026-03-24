@@ -218,7 +218,7 @@ If Cloudflare blocks Node-based MCP clients on your machine, run Claude through 
 ```
 
 This command:
-- Starts/validates local tunnel ports `18009`, `18101`, `18102`, `18103`
+- Starts/validates local tunnel ports `18009`, `18101`, `18102`, `18103`, `18104`
 - Rewrites Claude Desktop MCP config to use tunnel ports before launch
 - Verifies tunneled MCP health before launching Claude Desktop
 - Launches Claude Desktop automatically
@@ -243,6 +243,9 @@ One-command ready sequence — harden config, optionally start tunnel, run healt
 
 # skip health checks (if servers aren't running yet)
 ./scripts/start-claude-ready.ps1 -SkipHealthCheck
+
+# fail fast in automation/CI instead of waiting for prompts
+./scripts/start-claude-ready.ps1 -UseTunnel -SkipLaunchClaude -NonInteractive
 ```
 
 The script pauses and asks you to quit Claude Desktop if it is still running, then:
@@ -257,7 +260,7 @@ Harden and validate Claude Desktop MCP config directly (backup + no-BOM JSON wri
 # local server ports (8009/8101/8102/8103)
 ./scripts/harden-claude-mcp-config.ps1
 
-# SSH tunnel ports (18009/18101/18102/18103)
+# SSH tunnel ports (18009/18101/18102/18103/18104)
 ./scripts/harden-claude-mcp-config.ps1 -UseTunnelPorts
 ```
 
@@ -346,5 +349,6 @@ Current focus:
 - Git auth setup/recovery: `docs/GIT-AUTH-SETUP.md`
 - New server intake notes: `docs/NEW-SERVER-INTAKE-NOTES.md`
 - New server cutover checklist: `docs/NEW-SERVER-CUTOVER-CHECKLIST.md`
+- t3610 MCP ops hardening runbook: `docs/T3610-MCP-OPS-HARDENING-RUNBOOK.md`
 - t3610 Christopher runbook: `docs/T3610-CHRISTOPHER-RUNBOOK.md`
 
