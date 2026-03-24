@@ -1,14 +1,18 @@
 param(
     [string]$RemoteAlias = "t3610",
     [switch]$SkipLaunchClaude,
-    [switch]$ForceRestart
+    [switch]$ForceRestart,
+    [switch]$SkipConfigUpdate,
+    [switch]$SkipHealthCheck
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $TunnelPorts = @(18009, 18101, 18102, 18103)
-$TunnelArgSignature = "18009:localhost:8009"
+$scriptDir = $PSScriptRoot
+$hardenScript = Join-Path $scriptDir "harden-claude-mcp-config.ps1"
+$healthScript = Join-Path $scriptDir "check-claude-mcp-health.ps1"
 
 function Test-PortListening {
     param([int]$Port)
@@ -22,19 +26,39 @@ function Test-PortListening {
     }
 }
 
+function Get-LastExitCodeOrZero {
+    if (Test-Path variable:LASTEXITCODE) {
+        return $LASTEXITCODE
+    }
+
+    return 0
+}
+
 function Get-TunnelProcesses {
-    Get-CimInstance Win32_Process |
-        Where-Object {
-            $_.Name -match "^ssh(\\.exe)?$" -and
-            $_.CommandLine -like "*$TunnelArgSignature*"
-        }
+    $owningIds = Get-NetTCPConnection -State Listen -LocalPort $TunnelPorts -ErrorAction SilentlyContinue |
+        Select-Object -ExpandProperty OwningProcess -Unique
+
+    if (-not $owningIds) {
+        return @()
+    }
+
+    Get-Process -Id $owningIds -ErrorAction SilentlyContinue |
+        Where-Object { $_.ProcessName -match "^ssh$" }
+}
+
+if (-not $SkipConfigUpdate) {
+    & $hardenScript -UseTunnelPorts
+    $exitCode = Get-LastExitCodeOrZero
+    if ($exitCode -ne 0) {
+        throw "harden-claude-mcp-config.ps1 exited with code $exitCode"
+    }
 }
 
 if ($ForceRestart) {
     $existing = Get-TunnelProcesses
     if ($existing) {
         foreach ($proc in $existing) {
-            Stop-Process -Id $proc.ProcessId -Force
+            Stop-Process -Id $proc.Id -Force
         }
         Start-Sleep -Seconds 1
     }
@@ -50,7 +74,7 @@ foreach ($port in $TunnelPorts) {
 if ($missingPorts.Count -gt 0) {
     $sshArgs = @(
         "-N",
-        "-L", "18009:localhost:8009",
+        "-L", "18009:localhost:8089",
         "-L", "18101:localhost:8101",
         "-L", "18102:localhost:8102",
         "-L", "18103:localhost:8103",
@@ -72,6 +96,14 @@ $results | Format-Table -AutoSize
 
 if ($results.Listening -contains $false) {
     throw "One or more tunnel ports are not active."
+}
+
+if (-not $SkipHealthCheck) {
+    & $healthScript -UseTunnelPorts -Quiet
+    $exitCode = Get-LastExitCodeOrZero
+    if ($exitCode -ne 0) {
+        throw "check-claude-mcp-health.ps1 exited with code $exitCode"
+    }
 }
 
 if (-not $SkipLaunchClaude) {

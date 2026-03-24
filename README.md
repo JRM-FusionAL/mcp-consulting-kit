@@ -219,6 +219,8 @@ If Cloudflare blocks Node-based MCP clients on your machine, run Claude through 
 
 This command:
 - Starts/validates local tunnel ports `18009`, `18101`, `18102`, `18103`
+- Rewrites Claude Desktop MCP config to use tunnel ports before launch
+- Verifies tunneled MCP health before launching Claude Desktop
 - Launches Claude Desktop automatically
 
 Run a full health check anytime:
@@ -226,6 +228,40 @@ Run a full health check anytime:
 ```powershell
 ./scripts/check-claude-mcp-health.ps1
 ```
+
+One-command ready sequence — harden config, optionally start tunnel, run health checks, and launch Claude:
+
+```powershell
+# local servers (default)
+./scripts/start-claude-ready.ps1
+
+# remote server via SSH tunnel
+./scripts/start-claude-ready.ps1 -UseTunnel -RemoteAlias t3610
+
+# harden + tunnel only, skip launch
+./scripts/start-claude-ready.ps1 -UseTunnel -SkipLaunchClaude
+
+# skip health checks (if servers aren't running yet)
+./scripts/start-claude-ready.ps1 -SkipHealthCheck
+```
+
+The script pauses and asks you to quit Claude Desktop if it is still running, then:
+1. Hardens the MCP config (backup + no-BOM write + schema validation)
+2. Starts the SSH tunnel if `-UseTunnel` is set
+3. Runs health checks against the active port set
+4. Launches Claude Desktop
+
+Harden and validate Claude Desktop MCP config directly (backup + no-BOM JSON write + schema checks):
+
+```powershell
+# local server ports (8009/8101/8102/8103)
+./scripts/harden-claude-mcp-config.ps1
+
+# SSH tunnel ports (18009/18101/18102/18103)
+./scripts/harden-claude-mcp-config.ps1 -UseTunnelPorts
+```
+
+This script will refuse to run while Claude is open unless you pass `-AllowClaudeRunning`.
 
 If you want to keep Claude closed while only preparing the tunnel:
 
