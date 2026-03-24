@@ -7,29 +7,30 @@
     <meta name="description" content="Deploy governed MCP automation in weeks, not quarters. FusionAL is the self-hosted governance gateway for teams that need auditability, policy controls, and reliability across AI toolchains.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-deep: #0a0e1a;
-            --brand-navy: #111827;
-            --brand-slate: #1e293b;
-            --brand-electric: #3b82f6;
-            --brand-cyan: #06b6d4;
-            --brand-emerald: #10b981;
-            --brand-amber: #f59e0b;
-            --brand-rose: #f1405d;
-            --brand-violet: #8b5cf6;
+            --brand-deep: #14090d;
+            --brand-navy: #1a1014;
+            --brand-slate: #2a1b20;
+            --brand-electric: #8f1e25;
+            --brand-cyan: #d4af37;
+            --brand-emerald: #f6d267;
+            --brand-amber: #b8860b;
+            --brand-rose: #cf3f4f;
+            --brand-violet: #8a1e2b;
+            --heading-gold: #e2c96f;
             --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-dim: #64748b;
-            --border-subtle: rgba(255,255,255,0.06);
-            --glow-blue: rgba(59, 130, 246, 0.15);
-            --glow-cyan: rgba(6, 182, 212, 0.12);
+            --text-secondary: #b4a89e;
+            --text-dim: #8a7c73;
+            --border-subtle: rgba(212,175,55,0.12);
+            --glow-blue: rgba(143, 30, 37, 0.2);
+            --glow-cyan: rgba(212, 175, 55, 0.16);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background: var(--brand-deep);
             color: var(--text-primary);
             line-height: 1.65;
@@ -41,35 +42,36 @@
             background: rgba(10, 14, 26, 0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-subtle);
         }
-        .nav-logo { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 22px; letter-spacing: -0.5px; color: var(--text-primary); text-decoration: none; }
+        .nav-logo { font-family: 'Cinzel', serif; font-weight: 700; font-size: 22px; letter-spacing: 0.2px; color: var(--text-primary); text-decoration: none; }
         .nav-logo span { color: var(--brand-electric); }
         .nav-links { display: flex; gap: 32px; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text-primary); }
         .nav-cta { background: var(--brand-electric) !important; color: white !important; padding: 10px 24px; border-radius: 8px; font-weight: 600 !important; transition: all 0.2s !important; }
-        .nav-cta:hover { background: #2563eb !important; transform: translateY(-1px); }
+        .nav-cta:hover { background: #7f0f17 !important; transform: translateY(-1px); }
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 140px 24px 80px; position: relative; }
         .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(ellipse, var(--glow-blue), transparent 70%); pointer-events: none; z-index: 0; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--brand-electric); margin-bottom: 32px; position: relative; z-index: 1; letter-spacing: 0.5px; text-transform: uppercase; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(143,30,37,0.16); border: 1px solid rgba(212,175,55,0.45); padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--brand-cyan); margin-bottom: 32px; position: relative; z-index: 1; letter-spacing: 0.5px; text-transform: uppercase; }
         .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--brand-emerald); border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .hero h1 { font-size: clamp(48px, 7vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -2.5px; max-width: 900px; position: relative; z-index: 1; margin-bottom: 28px; }
-        .hero h1 .gradient-text { background: linear-gradient(135deg, var(--brand-electric) 0%, var(--brand-cyan) 50%, var(--brand-emerald) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 .gradient-text { background: linear-gradient(135deg, #c64a55 0%, var(--brand-cyan) 52%, var(--brand-emerald) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .hero-sub { font-size: 20px; max-width: 640px; color: var(--text-secondary); line-height: 1.7; position: relative; z-index: 1; margin-bottom: 48px; font-weight: 400; }
         .hero-actions { display: flex; gap: 16px; position: relative; z-index: 1; flex-wrap: wrap; justify-content: center; }
         .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.25s; cursor: pointer; border: none; }
-        .btn-primary { background: var(--brand-electric); color: white; box-shadow: 0 4px 24px rgba(59,130,246,0.35); }
-        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,0.45); }
+        .btn-primary { background: var(--brand-electric); color: white; box-shadow: 0 4px 24px rgba(163,19,29,0.45); }
+        .btn-primary:hover { background: #7f0f17; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(163,19,29,0.55); }
         .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.12); }
         .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
         .trust-bar { padding: 48px 24px; text-align: center; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
         .trust-bar p { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 24px; font-weight: 500; }
         .trust-logos { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; align-items: center; opacity: 0.5; }
-        .trust-logos span { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--text-secondary); font-weight: 700; letter-spacing: 1px; }
+        .trust-logos span { font-family: 'Cinzel', serif; font-size: 14px; color: var(--text-secondary); font-weight: 700; letter-spacing: 1px; }
         section { padding: 120px 24px; }
         .container { max-width: 1200px; margin: 0 auto; }
-        .section-label { font-family: 'Space Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: var(--brand-cyan); margin-bottom: 16px; font-weight: 700; }
-        .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px; }
+        .section-label { font-family: 'Cinzel', serif; font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: var(--brand-cyan); margin-bottom: 16px; font-weight: 700; }
+        .section-title { font-family: 'Cinzel', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 20px; color: var(--heading-gold); position: relative; display: inline-block; padding-bottom: 12px; }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 72px; height: 2px; background: linear-gradient(90deg, var(--brand-cyan), transparent); }
         .section-desc { font-size: 18px; color: var(--text-secondary); max-width: 600px; line-height: 1.7; }
         .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 64px; }
         .problem-card { background: linear-gradient(135deg, rgba(244,63,94,0.05), rgba(244,63,94,0.02)); border: 1px solid rgba(244,63,94,0.15); border-radius: 16px; padding: 36px; transition: all 0.3s; }
@@ -82,7 +84,7 @@
         .solution-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 40px; position: relative; overflow: hidden; transition: all 0.3s; }
         .solution-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand-electric), var(--brand-cyan)); opacity: 0; transition: opacity 0.3s; }
         .solution-card:hover::before { opacity: 1; }
-        .solution-card:hover { border-color: rgba(59,130,246,0.2); transform: translateY(-4px); }
+        .solution-card:hover { border-color: rgba(212,175,55,0.35); transform: translateY(-4px); }
         .solution-card .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 24px; }
         .card-blue { background: rgba(59,130,246,0.12); }
         .card-cyan { background: rgba(6,182,212,0.12); }
@@ -100,7 +102,7 @@
         .arch-diagram .amber { color: var(--brand-amber); }
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin-top: 64px; }
         .price-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 44px; position: relative; transition: all 0.3s; }
-        .price-card:hover { border-color: rgba(59,130,246,0.2); }
+        .price-card:hover { border-color: rgba(212,175,55,0.35); }
         .price-card.featured { border-color: var(--brand-electric); background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04)); }
         .price-card.featured::after { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--brand-electric); color: white; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; padding: 5px 16px; border-radius: 100px; }
         .price-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
@@ -135,7 +137,7 @@
         .oss-card p { color: var(--text-secondary); font-size: 14px; }
         .final-cta { text-align: center; padding: 140px 24px; position: relative; }
         .final-cta::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, var(--glow-cyan), transparent 70%); pointer-events: none; }
-        .final-cta h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; position: relative; z-index: 1; }
+        .final-cta h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; position: relative; z-index: 1; color: var(--heading-gold); }
         .final-cta p { font-size: 18px; color: var(--text-secondary); margin-bottom: 40px; position: relative; z-index: 1; }
         .final-cta .hero-actions { justify-content: center; position: relative; z-index: 1; }
         .cta-details { margin-top: 40px; display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
