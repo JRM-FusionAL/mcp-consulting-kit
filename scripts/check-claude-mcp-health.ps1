@@ -1,12 +1,27 @@
+param(
+    [switch]$UseTunnelPorts,
+    [switch]$Quiet
+)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$targets = @(
-    @{ Name = "FusionAL"; Port = 18009 },
-    @{ Name = "Business Intelligence"; Port = 18101 },
-    @{ Name = "API Integration"; Port = 18102 },
-    @{ Name = "Content Automation"; Port = 18103 }
-)
+if ($UseTunnelPorts) {
+    $targets = @(
+        @{ Name = "FusionAL"; Port = 18009 },
+        @{ Name = "Business Intelligence"; Port = 18101 },
+        @{ Name = "API Integration"; Port = 18102 },
+        @{ Name = "Content Automation"; Port = 18103 }
+    )
+}
+else {
+    $targets = @(
+        @{ Name = "FusionAL"; Port = 8009 },
+        @{ Name = "Business Intelligence"; Port = 8101 },
+        @{ Name = "API Integration"; Port = 8102 },
+        @{ Name = "Content Automation"; Port = 8103 }
+    )
+}
 
 function Get-HealthStatus {
     param(
@@ -40,10 +55,17 @@ $results = foreach ($target in $targets) {
     Get-HealthStatus -Name $target.Name -Port $target.Port
 }
 
-$results | Format-Table -AutoSize
-
-if ($results.Healthy -contains $false) {
-    throw "One or more MCP services failed health checks."
+if (-not $Quiet) {
+    $results | Format-Table -AutoSize
 }
 
-Write-Host "All tunneled MCP services are healthy."
+$failed = $results | Where-Object { -not $_.Healthy }
+if ($failed) {
+    $failedNames = ($failed | Select-Object -ExpandProperty Service) -join ", "
+    throw "Health check failed for: $failedNames"
+}
+
+$modeLabel = if ($UseTunnelPorts) { "tunnel (18xxx)" } else { "local (8xxx)" }
+if (-not $Quiet) {
+    Write-Host "All MCP services healthy. Mode: $modeLabel"
+}
