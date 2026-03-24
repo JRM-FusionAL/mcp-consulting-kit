@@ -9,7 +9,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$TunnelPorts = @(18009, 18101, 18102, 18103)
+$TunnelPorts = @(18009, 18101, 18102, 18103, 18104)
 $scriptDir = $PSScriptRoot
 $hardenScript = Join-Path $scriptDir "harden-claude-mcp-config.ps1"
 $healthScript = Join-Path $scriptDir "check-claude-mcp-health.ps1"
@@ -78,6 +78,7 @@ if ($missingPorts.Count -gt 0) {
         "-L", "18101:localhost:8101",
         "-L", "18102:localhost:8102",
         "-L", "18103:localhost:8103",
+        "-L", "18104:localhost:8104",
         $RemoteAlias
     )
 
