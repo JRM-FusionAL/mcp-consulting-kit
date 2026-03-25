@@ -6,6 +6,7 @@ Clients connect to: http://localhost:8103/mcp
 """
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 from mcp_tools import (
     ScrapeRequest,
     RSSRequest,
@@ -18,6 +19,7 @@ from mcp_tools import (
 mcp = FastMCP(
     "content-automation-mcp",
     streamable_http_path="/",
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
 )
 
 
