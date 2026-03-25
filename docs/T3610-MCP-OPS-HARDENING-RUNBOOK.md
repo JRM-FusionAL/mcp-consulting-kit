@@ -28,18 +28,18 @@ This runbook is for the production stack on t3610:
 Trigger an alert when any condition is true.
 
 ### P1 (page now)
-- Any public endpoint is down for 5 consecutive minutes
+- Any public endpoint is down for 6 consecutive checks
 - Cloudflare tunnel is down for 2 consecutive minutes
 - 5xx error rate >= 10% over 5 minutes
 - Host disk usage >= 95%
-- Host memory usage >= 95% for 10 minutes
+- Host memory usage >= 97% for 10 minutes
 
 ### P2 (action within 1 hour)
-- Endpoint health check fails for 2 consecutive checks
+- Endpoint health check fails for 3 consecutive checks
 - 5xx error rate >= 2% over 15 minutes
 - p95 MCP initialize > 1500 ms for 15 minutes
 - Host CPU >= 90% for 15 minutes
-- Host memory >= 85% for 15 minutes
+- Host memory >= 90% for 15 minutes
 - Host disk >= 85%
 
 ### P3 (same-day cleanup)
@@ -182,6 +182,45 @@ Required checks:
 Recommended notification targets:
 - Primary: Slack or SMS
 - Secondary: email
+
+---
+
+## Lightweight Automation (Windows Task Scheduler)
+
+Two helper scripts are now available:
+- `scripts/monitor-mcp-stack.ps1`
+- `scripts/install-mcp-monitor-task.ps1`
+
+`monitor-mcp-stack.ps1` behavior:
+- Checks public endpoint health and latency for gateway/bi/api/content/intel.
+- Optionally checks t3610 host signals (memory, disk, cloudflared alive).
+- Persists consecutive-failure counters in `logs/mcp-ops-monitor-state.json`.
+- Appends JSON log lines to `logs/mcp-ops-monitor.log`.
+- Exit codes: `0 = OK`, `1 = P2`, `2 = P1`.
+
+Install 1-minute scheduled monitoring task:
+
+```powershell
+./scripts/install-mcp-monitor-task.ps1 -RemoteAlias t3610
+```
+
+Install without remote host checks (endpoint-only mode):
+
+```powershell
+./scripts/install-mcp-monitor-task.ps1 -SkipRemoteHostChecks
+```
+
+Run one manual probe:
+
+```powershell
+./scripts/monitor-mcp-stack.ps1 -RemoteAlias t3610
+```
+
+Remove scheduled task:
+
+```powershell
+./scripts/install-mcp-monitor-task.ps1 -Uninstall
+```
 
 ---
 

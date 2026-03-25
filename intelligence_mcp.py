@@ -17,10 +17,8 @@ from pydantic import BaseModel, Field, ConfigDict
 from mcp.server.fastmcp import FastMCP
 from mcp.server.transport_security import TransportSecuritySettings
 import uvicorn
-from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from starlette.routing import Mount, Route
 
 # ─────────────────────────────────────────────
 # Server Init
@@ -608,14 +606,11 @@ async def intelligence_daily_pulse() -> str:
 # ─────────────────────────────────────────────
 # Entry Point
 # ─────────────────────────────────────────────
+@mcp.custom_route("/health", methods=["GET"])
 async def _health(request: Request) -> JSONResponse:
     return JSONResponse({"status": "ok", "service": "intelligence-mcp"})
 
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "8104"))
-    app = Starlette(routes=[
-        Route("/health", _health),
-        Mount("/", app=mcp.streamable_http_app()),
-    ])
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(mcp.streamable_http_app(), host="0.0.0.0", port=port)

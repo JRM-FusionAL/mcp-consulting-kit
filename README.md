@@ -352,3 +352,8 @@ Current focus:
 - t3610 MCP ops hardening runbook: `docs/T3610-MCP-OPS-HARDENING-RUNBOOK.md`
 - t3610 Christopher runbook: `docs/T3610-CHRISTOPHER-RUNBOOK.md`
 
+## Ops Automation Scripts
+
+- Monitor probe with severity exit codes: `scripts/monitor-mcp-stack.ps1`
+- Install/remove 1-minute scheduler task: `scripts/install-mcp-monitor-task.ps1`
+

@@ -1,9 +1,23 @@
 param(
     [string]$RemoteAlias = "t3610",
-    [switch]$SkipRemote
+    [switch]$SkipRemote,
+    [switch]$SkipRegressionGuard
 )
 
 $ErrorActionPreference = "Stop"
+
+$regressionScript = Join-Path $PSScriptRoot "test-start-claude-mcp-tunnel-regression.ps1"
+
+if (-not $SkipRegressionGuard) {
+    if (-not (Test-Path $regressionScript)) {
+        throw "Regression script not found: $regressionScript"
+    }
+
+    & $regressionScript
+    if ($LASTEXITCODE -ne 0) {
+        throw "Tunnel regression guard failed with exit code $LASTEXITCODE"
+    }
+}
 
 $corePorts = @(8101, 8102, 8103, 8104)
 $fusionalPorts = @(8089, 8009)
