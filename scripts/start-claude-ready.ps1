@@ -18,12 +18,13 @@ $scriptDir = $PSScriptRoot
 $hardenScript = Join-Path $scriptDir "harden-claude-mcp-config.ps1"
 $tunnelScript  = Join-Path $scriptDir "start-claude-mcp-tunnel.ps1"
 $healthScript  = Join-Path $scriptDir "check-claude-mcp-health.ps1"
-$claudeExe     = Join-Path $env:LOCALAPPDATA "Programs\Claude\Claude.exe"
+$tunnelRegressionScript = Join-Path $scriptDir "test-start-claude-mcp-tunnel-regression.ps1"
+$totalSteps = if ($UseTunnel) { 5 } else { 4 }
 
 function Write-Step {
     param([int]$Number, [string]$Message)
     Write-Host ""
-    Write-Host "[$Number/4] $Message" -ForegroundColor Cyan
+    Write-Host "[$Number/$totalSteps] $Message" -ForegroundColor Cyan
 }
 
 function Write-Ok {
@@ -37,6 +38,22 @@ function Get-LastExitCodeOrZero {
     }
 
     return 0
+}
+
+function Resolve-ClaudeExecutable {
+    $candidates = @(
+        (Join-Path $env:LOCALAPPDATA "Programs\Claude\Claude.exe"),
+        (Join-Path $env:APPDATA "Programs\Claude\Claude.exe"),
+        (Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Links\claude.exe")
+    )
+
+    foreach ($candidate in $candidates) {
+        if (-not [string]::IsNullOrWhiteSpace($candidate) -and (Test-Path $candidate)) {
+            return $candidate
+        }
+    }
+
+    return $null
 }
 
 Write-Host ""
@@ -72,10 +89,10 @@ Write-Ok "Claude Desktop is not running."
 # ── Step 2: Harden the MCP config ─────────────────────────────────────────
 Write-Step 2 "Hardening Claude Desktop MCP config..."
 
-$hardenArgs = @()
-if ($UseTunnel) { $hardenArgs += "-UseTunnelPorts" }
+$hardenParams = @{}
+if ($UseTunnel) { $hardenParams.UseTunnelPorts = $true }
 
-& $hardenScript @hardenArgs
+& $hardenScript @hardenParams
 $exitCode = Get-LastExitCodeOrZero
 if ($exitCode -ne 0) {
     throw "harden-claude-mcp-config.ps1 exited with code $exitCode"
@@ -85,7 +102,21 @@ Write-Ok "Config hardened."
 
 # ── Step 3: (Optional) Start SSH tunnel ───────────────────────────────────
 if ($UseTunnel) {
-    Write-Step 3 "Starting SSH MCP tunnel -> $RemoteAlias..."
+    Write-Step 3 "Running tunnel bootstrap regression guard..."
+
+    if (-not (Test-Path $tunnelRegressionScript)) {
+        throw "Regression script not found: $tunnelRegressionScript"
+    }
+
+    & $tunnelRegressionScript
+    $exitCode = Get-LastExitCodeOrZero
+    if ($exitCode -ne 0) {
+        throw "test-start-claude-mcp-tunnel-regression.ps1 exited with code $exitCode"
+    }
+
+    Write-Ok "Tunnel regression guard passed."
+
+    Write-Step 4 "Starting SSH MCP tunnel -> $RemoteAlias..."
 
     & $tunnelScript -RemoteAlias $RemoteAlias -SkipLaunchClaude -SkipConfigUpdate -SkipHealthCheck
     $exitCode = Get-LastExitCodeOrZero
@@ -97,18 +128,19 @@ if ($UseTunnel) {
 }
 else {
     Write-Host ""
-    Write-Host "[3/4] Tunnel step skipped (local mode)." -ForegroundColor DarkGray
+    Write-Host "[3/$totalSteps] Tunnel regression + tunnel steps skipped (local mode)." -ForegroundColor DarkGray
 }
 
 # ── Step 4: Health check ───────────────────────────────────────────────────
 if (-not $SkipHealthCheck) {
-    Write-Step 4 "Running MCP health checks..."
+    $healthStep = if ($UseTunnel) { 5 } else { 4 }
+    Write-Step $healthStep "Running MCP health checks..."
 
-    $healthArgs = @()
-    if ($UseTunnel) { $healthArgs += "-UseTunnelPorts" }
+    $healthParams = @{}
+    if ($UseTunnel) { $healthParams.UseTunnelPorts = $true }
 
     try {
-        & $healthScript @healthArgs
+        & $healthScript @healthParams
         $exitCode = Get-LastExitCodeOrZero
         if ($exitCode -ne 0) {
             throw "check-claude-mcp-health.ps1 exited with code $exitCode"
@@ -127,19 +159,21 @@ if (-not $SkipHealthCheck) {
     }
 }
 else {
+    $healthStep = if ($UseTunnel) { 5 } else { 4 }
     Write-Host ""
-    Write-Host "[4/4] Health check skipped." -ForegroundColor DarkGray
+    Write-Host "[$healthStep/$totalSteps] Health check skipped." -ForegroundColor DarkGray
 }
 
 # ── Launch Claude ──────────────────────────────────────────────────────────
 if (-not $SkipLaunchClaude) {
     Write-Host ""
+    $claudeExe = Resolve-ClaudeExecutable
     if (Test-Path $claudeExe) {
         Start-Process -FilePath $claudeExe | Out-Null
         Write-Host "Claude Desktop launched." -ForegroundColor Green
     }
     else {
-        Write-Warning "Claude executable not found at: $claudeExe"
+        Write-Warning "Claude executable not found in standard locations (LocalAppData, AppData, WinGet links)."
         Write-Warning "Launch Claude Desktop manually."
     }
 }
