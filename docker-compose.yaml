@@ -38,6 +38,20 @@ services:
     ports:
     - 8103:8103
     restart: unless-stopped
+  github-mcp-safe:
+    build:
+      context: ./showcase-servers
+      dockerfile: github-mcp-safe/Dockerfile
+    container_name: github-mcp-safe
+    env_file:
+      - ./showcase-servers/github-mcp-safe/.env
+    environment:
+      ALLOWED_HOSTS: "localhost,127.0.0.1,github.fusional.dev"
+      ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1"
+      PORT: "8105"
+    ports:
+      - 8105:8105
+    restart: unless-stopped
   intelligence-mcp:
     build:
       context: .
