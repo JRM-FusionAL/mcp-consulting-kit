@@ -16,7 +16,8 @@ if ($UseTunnelPorts) {
         @{ Name = "Business Intelligence"; Port = 18101 },
         @{ Name = "API Integration"; Port = 18102 },
         @{ Name = "Content Automation"; Port = 18103 },
-        @{ Name = "Intelligence"; Port = 18104 }
+        @{ Name = "Intelligence"; Port = 18104 },
+        @{ Name = "GitHub MCP Safe"; Port = 18105 }
     )
 }
 else {
@@ -25,7 +26,8 @@ else {
         @{ Name = "Business Intelligence"; Port = 8101 },
         @{ Name = "API Integration"; Port = 8102 },
         @{ Name = "Content Automation"; Port = 8103 },
-        @{ Name = "Intelligence"; Port = 8104 }
+        @{ Name = "Intelligence"; Port = 8104 },
+        @{ Name = "GitHub MCP Safe"; Port = 8105 }
     )
 }
 

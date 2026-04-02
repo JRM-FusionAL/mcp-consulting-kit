@@ -106,6 +106,7 @@ if ($UseTunnelPorts) {
     $apiUrl = "http://localhost:18102/mcp/"
     $contentUrl = "http://localhost:18103/mcp/"
     $intelUrl = "http://localhost:18104/mcp/"
+    $githubMcpSafeUrl = "http://localhost:18105/mcp/"
 }
 else {
     $fusionUrl = "http://localhost:8009/mcp/"
@@ -113,10 +114,11 @@ else {
     $apiUrl = "http://localhost:8102/mcp/"
     $contentUrl = "http://localhost:8103/mcp/"
     $intelUrl = "http://localhost:8104/mcp/"
+    $githubMcpSafeUrl = "http://localhost:8105/mcp/"
 }
 
 $githubSafe = [pscustomobject]@{
-    command = "C:\\Users\\puddi\\Projects\\github-mcp-safe\\dist\\github-mcp-safe-windows.exe"
+    command = "C:\Users\puddi\Projects\github-mcp-safe\dist\github-mcp-safe-windows.exe"
     env = [pscustomobject]@{
         GITHUB_TOKEN = $existingGithubToken
     }
@@ -137,6 +139,7 @@ Set-ObjectProperty -Object $mcpServers -Name "api-integration-hub" -Value (New-M
 Set-ObjectProperty -Object $mcpServers -Name "content-automation-mcp" -Value (New-McpRemoteEntry -Url $contentUrl)
 Set-ObjectProperty -Object $mcpServers -Name "intelligence-mcp" -Value (New-McpRemoteEntry -Url $intelUrl)
 Set-ObjectProperty -Object $mcpServers -Name "fusional-mcp" -Value (New-McpRemoteEntry -Url $fusionUrl)
+Set-ObjectProperty -Object $mcpServers -Name "github-mcp-safe" -Value (New-McpRemoteEntry -Url $githubMcpSafeUrl)
 
 if (-not $config.PSObject.Properties["isDxtAutoUpdatesEnabled"]) {
     Set-ObjectProperty -Object $config -Name "isDxtAutoUpdatesEnabled" -Value $true
@@ -159,9 +162,9 @@ if (-not $validated.PSObject.Properties["mcpServers"]) {
     throw "Validation failed: mcpServers property missing. Restore backup: $backupPath"
 }
 
-$expectedUrls = @($fusionUrl, $biUrl, $apiUrl, $contentUrl, $intelUrl)
+$expectedUrls = @($fusionUrl, $biUrl, $apiUrl, $contentUrl, $intelUrl, $githubMcpSafeUrl)
 $actualArgs = @()
-foreach ($serverName in @("fusional-mcp", "business-intelligence-mcp", "api-integration-hub", "content-automation-mcp", "intelligence-mcp")) {
+foreach ($serverName in @("fusional-mcp", "business-intelligence-mcp", "api-integration-hub", "content-automation-mcp", "intelligence-mcp", "github-mcp-safe")) {
     if ($validated.mcpServers.PSObject.Properties[$serverName] -and $validated.mcpServers.$serverName.PSObject.Properties["args"]) {
         $actualArgs += ($validated.mcpServers.$serverName.args -join " ")
     }
@@ -181,7 +184,7 @@ if ($hasBom) {
 
 Write-Host "Claude MCP config hardened successfully."
 Write-Host "Config path: $configPath"
-Write-Host "Mode: $([string]::Join('', @($(if ($UseTunnelPorts) { 'tunnel ports (18xxx)' } else { 'local ports (8xxx)' }))))"
+Write-Host "Mode: $(if ($UseTunnelPorts) { 'tunnel ports (18xxx)' } else { 'local ports (8xxx)' })"
 Write-Host "No BOM: true"
 
 if ($existingGithubToken -eq "REPLACE_WITH_NEW_GITHUB_TOKEN") {
