@@ -10,7 +10,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$TunnelPorts = @(18009, 18101, 18102, 18103, 18104)
+$TunnelPorts = @(18009, 18101, 18102, 18103, 18104, 18105)
 if ($IncludeLlama) {
     $TunnelPorts += 18080
 }
@@ -153,6 +153,7 @@ if ($missingPorts.Count -gt 0) {
         "-L", "18102:localhost:8102",
         "-L", "18103:localhost:8103",
         "-L", "18104:localhost:8104",
+        "-L", "18105:localhost:8105",
         $RemoteAlias
     )
 
