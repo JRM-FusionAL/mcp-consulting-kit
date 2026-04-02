@@ -3,13 +3,17 @@ param(
     [switch]$SkipLaunchClaude,
     [switch]$ForceRestart,
     [switch]$SkipConfigUpdate,
-    [switch]$SkipHealthCheck
+    [switch]$SkipHealthCheck,
+    [switch]$IncludeLlama
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $TunnelPorts = @(18009, 18101, 18102, 18103, 18104)
+if ($IncludeLlama) {
+    $TunnelPorts += 18080
+}
 $scriptDir = $PSScriptRoot
 $hardenScript = Join-Path $scriptDir "harden-claude-mcp-config.ps1"
 $healthScript = Join-Path $scriptDir "check-claude-mcp-health.ps1"
@@ -152,6 +156,22 @@ if ($missingPorts.Count -gt 0) {
         $RemoteAlias
     )
 
+    if ($IncludeLlama) {
+        $sshArgs = @(
+            "-o", "BatchMode=yes",
+            "-o", "ExitOnForwardFailure=yes",
+            "-o", "ConnectTimeout=8",
+            "-N",
+            "-L", "18009:localhost:8089",
+            "-L", "18101:localhost:8101",
+            "-L", "18102:localhost:8102",
+            "-L", "18103:localhost:8103",
+            "-L", "18104:localhost:8104",
+            "-L", "18080:localhost:8080",
+            $RemoteAlias
+        )
+    }
+
     $sshOutLog = Join-Path $env:TEMP "mcp-tunnel-ssh.out.log"
     $sshErrLog = Join-Path $env:TEMP "mcp-tunnel-ssh.err.log"
     Remove-Item -Path $sshOutLog, $sshErrLog -ErrorAction SilentlyContinue
@@ -255,6 +275,19 @@ if ($results.Listening -contains $false) {
 if (-not $SkipHealthCheck) {
     Write-Step "Running tunnel health checks"
     & $healthScript -UseTunnelPorts -Quiet
+
+    if ($IncludeLlama) {
+        Write-Step "Checking llama-server health on localhost:18080"
+        try {
+            $llamaResponse = Invoke-WebRequest -Uri "http://localhost:18080/health" -Method Get -TimeoutSec 5 -UseBasicParsing
+            if ([int]$llamaResponse.StatusCode -ne 200) {
+                throw "Unexpected HTTP status $([int]$llamaResponse.StatusCode)"
+            }
+        }
+        catch {
+            throw "Llama tunnel health check failed on localhost:18080. Ensure llama-server is running on remote localhost:8080. Details: $($_.Exception.Message)"
+        }
+    }
 }
 
 if (-not $SkipLaunchClaude) {
