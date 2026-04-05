@@ -43,8 +43,7 @@ function Get-LastExitCodeOrZero {
 function Resolve-ClaudeExecutable {
     $candidates = @(
         (Join-Path $env:LOCALAPPDATA "Programs\Claude\Claude.exe"),
-        (Join-Path $env:APPDATA "Programs\Claude\Claude.exe"),
-        (Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Links\claude.exe")
+        (Join-Path $env:APPDATA "Programs\Claude\Claude.exe")
     )
 
     foreach ($candidate in $candidates) {
