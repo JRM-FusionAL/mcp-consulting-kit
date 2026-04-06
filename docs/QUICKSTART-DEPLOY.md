@@ -12,7 +12,7 @@ It covers local development setup (no cloud provider required).
 1. [Prerequisites](#1-prerequisites)
 2. [Clone & enter the repository](#2-clone--enter-the-repository)
 3. [Run the deploy script](#3-run-the-deploy-script)
-4. [Verify the servers are up](#4-verify-the-servers-up)
+4. [Verify the servers are up](#4-verify-the-servers-are-up)
 5. [Make your first authenticated request](#5-make-your-first-authenticated-request)
 6. [Next steps](#6-next-steps)
 7. [Troubleshooting — top 5 failure modes](#7-troubleshooting--top-5-failure-modes)
