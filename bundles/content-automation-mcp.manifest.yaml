@@ -200,3 +200,8 @@ endpoints:
     method: "*"
     auth_required: true
     description: "Streamable HTTP MCP transport endpoint."
+
+# --------------------------------------------------
+# Prompt library
+# --------------------------------------------------
+prompt_library: "bundles/prompts/content-automation-mcp.prompts.md"
