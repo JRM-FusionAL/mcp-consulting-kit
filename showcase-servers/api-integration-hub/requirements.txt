@@ -1,5 +1,5 @@
 # API Integration Hub
-# Updated: 2026-04-02
+# Updated: 2026-04-07
 
 fastapi==0.135.3
 uvicorn[standard]==0.42.0
@@ -9,3 +9,6 @@ pydantic==2.12.5
 redis==7.4.0
 requests==2.33.1
 mcp[cli]==1.26.0
+# Security: pin transitive deps with known HIGH CVEs to patched versions
+jaraco.context>=6.1.0  # CVE-2026-23949 (path traversal); fixed in 6.1.0
+wheel>=0.46.2          # CVE-2026-24049 (arbitrary file permission via path traversal); fixed in 0.46.2
