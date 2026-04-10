@@ -218,3 +218,8 @@ endpoints:
     method: "*"
     auth_required: true
     description: "Streamable HTTP MCP transport endpoint."
+
+# --------------------------------------------------
+# Prompt library
+# --------------------------------------------------
+prompt_library: "bundles/prompts/api-integration-hub.prompts.md"

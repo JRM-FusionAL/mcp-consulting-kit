@@ -1,9 +1,1 @@
 # Add approved temporary waivers one per line (e.g., CVE-2024-12345); keep waivers short-lived and linked from SEC-TRACKER issue #11
-
-# jaraco.context 5.3.0 (setuptools vendored dep): path traversal – fixed in 6.1.0
-# Cannot be pinned directly; waiver valid until setuptools ships >=6.1.0 in the base image.
-CVE-2026-23949
-
-# wheel 0.45.1 (setuptools vendored dep): privilege escalation / arbitrary code execution – fixed in 0.46.2
-# Cannot be pinned directly; waiver valid until setuptools ships wheel >=0.46.2 in the base image.
-CVE-2026-24049
