@@ -346,6 +346,7 @@ Current focus:
 
 ## Ops Runbooks
 
+- **Troubleshooting matrix** (symptom → cause → fix): `docs/TROUBLESHOOTING.md`
 - Git auth setup/recovery: `docs/GIT-AUTH-SETUP.md`
 - New server intake notes: `docs/NEW-SERVER-INTAKE-NOTES.md`
 - New server cutover checklist: `docs/NEW-SERVER-CUTOVER-CHECKLIST.md`
