@@ -96,7 +96,22 @@ For each entry in the manifest's `env` block, verify:
 
 ---
 
-## Section 4 — Deployment Readiness
+## Section 4 — Prompt Library
+
+- [ ] The manifest includes a `prompt_library` field pointing to the correct file
+      under `bundles/prompts/`.
+- [ ] The prompt file exists at the path stated in `prompt_library`.
+- [ ] The prompt file contains at least one prompt per major use-case group for
+      the bundle.
+- [ ] Every prompt entry includes: `Use case`, `Expected output format`, `Prompt`
+      (or `Request body`), `Quality notes`, `Known limitations`, and
+      `When to customise`.
+- [ ] Each prompt carries a quality badge: ✅ Production-ready, 🔧 Requires
+      customisation, or 🧪 Experimental.
+
+---
+
+## Section 5 — Deployment Readiness
 
 - [ ] A `.env` file (copied from `.env.example`) exists for the service and
       contains real values for every `required: true` env var.
