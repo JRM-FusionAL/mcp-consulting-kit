@@ -182,31 +182,46 @@ if $USE_DOCKER; then
 
   health_check_docker() {
     local name="$1"; local port="$2"
+    if ! command -v curl > /dev/null 2>&1; then
+      yellow "  ! $name → skipping http://localhost:$port/health check (curl not installed)"
+      return 0
+    fi
     if curl -sf --max-time 5 "http://localhost:$port/health" > /dev/null 2>&1; then
       green "  ✓ $name → http://localhost:$port/health"
     else
       red "  ✗ $name → http://localhost:$port/health — not responding"
+      DOCKER_HEALTHY=false
     fi
   }
 
+  DOCKER_HEALTHY=true
   echo ""
   echo "▶ Verifying server health..."
   for i in "${!SERVERS[@]}"; do
     health_check_docker "${SERVERS[$i]}" "${PORTS[$i]}"
   done
 
-  echo ""
-  green "════════════════════════════════════════════════"
-  green " Deploy complete (Docker mode)"
-  green "  BI MCP        → http://localhost:8101/health"
-  green "  API Hub       → http://localhost:8102/health"
-  green "  Content MCP   → http://localhost:8103/health"
-  green ""
-  green "  Authenticate: X-API-Key: $API_KEY"
-  green "  Stop:  docker compose down"
-  green "  Logs:  docker compose logs -f"
-  green "════════════════════════════════════════════════"
-  exit 0
+  if $DOCKER_HEALTHY; then
+    echo ""
+    green "════════════════════════════════════════════════"
+    green " Deploy complete (Docker mode)"
+    green "  BI MCP        → http://localhost:8101/health"
+    green "  API Hub       → http://localhost:8102/health"
+    green "  Content MCP   → http://localhost:8103/health"
+    green ""
+    green "  Authenticate: X-API-Key: $API_KEY"
+    green "  Stop:  docker compose down"
+    green "  Logs:  docker compose logs -f"
+    green "════════════════════════════════════════════════"
+    exit 0
+  else
+    yellow "════════════════════════════════════════════════"
+    yellow " Deploy finished with warnings — see above"
+    yellow "  Logs:  docker compose logs -f"
+    yellow " Troubleshooting guide: docs/QUICKSTART-DEPLOY.md"
+    yellow "════════════════════════════════════════════════"
+    exit 1
+  fi
 fi
 
 # ─── 3b. Local (uvicorn) path ─────────────────────────────────────────────────
@@ -259,17 +274,22 @@ sleep 10
 echo ""
 echo "▶ Verifying server health..."
 ALL_HEALTHY=true
-for i in "${!SERVERS[@]}"; do
-  SRV="${SERVERS[$i]}"
-  PORT="${PORTS[$i]}"
-  if curl -sf --max-time 5 "http://localhost:$PORT/health" > /dev/null 2>&1; then
-    green "  ✓ $SRV → http://localhost:$PORT/health"
-  else
-    red "  ✗ $SRV → http://localhost:$PORT/health — not responding"
-    yellow "    Check logs: cat $LOG_DIR/$SRV.log"
-    ALL_HEALTHY=false
-  fi
-done
+if command -v curl > /dev/null 2>&1; then
+  for i in "${!SERVERS[@]}"; do
+    SRV="${SERVERS[$i]}"
+    PORT="${PORTS[$i]}"
+    if curl -sf --max-time 5 "http://localhost:$PORT/health" > /dev/null 2>&1; then
+      green "  ✓ $SRV → http://localhost:$PORT/health"
+    else
+      red "  ✗ $SRV → http://localhost:$PORT/health — not responding"
+      yellow "    Check logs: cat $LOG_DIR/$SRV.log"
+      ALL_HEALTHY=false
+    fi
+  done
+else
+  yellow "  ! curl not found; skipping local health checks"
+  yellow "    Install curl to enable automatic /health verification"
+fi
 
 echo ""
 if $ALL_HEALTHY; then
