@@ -77,7 +77,7 @@ What this does, step by step:
 | Step | Action | Typical time |
 |------|--------|-------------|
 | 1 | Validate prerequisites | < 5 s |
-| 2 | Auto-generate `.env` files with a random API key for each server | < 1 s |
+| 2 | Auto-generate `.env` files with one shared random API key for all three servers | < 1 s |
 | 3 | `pip install` dependencies for all three servers | 1–3 min |
 | 4 | Start each server with `uvicorn` | < 5 s |
 | 5 | Run health checks and print status | < 15 s |
@@ -123,7 +123,7 @@ curl http://localhost:8103/health   # Content Automation MCP
 Each should return HTTP 200 with a JSON body similar to:
 
 ```json
-{"status": "ok", "service": "business-intelligence-mcp"}
+{"status":"ok","mcp_endpoint":"http://localhost:8101/mcp"}
 ```
 
 Or use the bundled status script:
@@ -152,7 +152,7 @@ curl http://localhost:8101/health
 ### Natural-language SQL query (BI server)
 
 ```bash
-curl -X POST http://localhost:8101/query \
+curl -X POST http://localhost:8101/nl-query \
   -H "Content-Type: application/json" \
   -H "X-API-Key: <YOUR_API_KEY>" \
   -d '{"query": "Show me all tables in the database"}'
@@ -161,7 +161,7 @@ curl -X POST http://localhost:8101/query \
 ### Scrape a URL (Content Automation server)
 
 ```bash
-curl -X POST http://localhost:8103/scrape \
+curl -X POST http://localhost:8103/scrape/article \
   -H "Content-Type: application/json" \
   -H "X-API-Key: <YOUR_API_KEY>" \
   -d '{"url": "https://example.com"}'

@@ -186,6 +186,7 @@ if ($Docker) {
 
     Write-Host ""
     Write-Host "▶ Verifying server health..."
+    $DockerHealthy = $true
     foreach ($srv in $Servers) {
         $url = "http://localhost:$($srv.Port)/health"
         try {
@@ -194,24 +195,36 @@ if ($Docker) {
                 Write-Green "  ✓ $($srv.Name) → $url"
             } else {
                 Write-Red "  ✗ $($srv.Name) → $url  (HTTP $($resp.StatusCode))"
+                $DockerHealthy = $false
             }
         } catch {
             Write-Red "  ✗ $($srv.Name) → $url  — not responding"
+            Write-Yellow "    Logs:  docker compose logs $($srv.Name)"
+            $DockerHealthy = $false
         }
     }
 
     Write-Host ""
-    Write-Green "════════════════════════════════════════════════"
-    Write-Green " Deploy complete (Docker mode)"
-    Write-Green "  BI MCP        → http://localhost:8101/health"
-    Write-Green "  API Hub       → http://localhost:8102/health"
-    Write-Green "  Content MCP   → http://localhost:8103/health"
-    Write-Green ""
-    Write-Green "  Authenticate: X-API-Key: $ApiKey"
-    Write-Green "  Stop:  docker compose down"
-    Write-Green "  Logs:  docker compose logs -f"
-    Write-Green "════════════════════════════════════════════════"
-    exit 0
+    if ($DockerHealthy) {
+        Write-Green "════════════════════════════════════════════════"
+        Write-Green " Deploy complete (Docker mode)"
+        Write-Green "  BI MCP        → http://localhost:8101/health"
+        Write-Green "  API Hub       → http://localhost:8102/health"
+        Write-Green "  Content MCP   → http://localhost:8103/health"
+        Write-Green ""
+        Write-Green "  Authenticate: X-API-Key: $ApiKey"
+        Write-Green "  Stop:  docker compose down"
+        Write-Green "  Logs:  docker compose logs -f"
+        Write-Green "════════════════════════════════════════════════"
+        exit 0
+    } else {
+        Write-Yellow "════════════════════════════════════════════════"
+        Write-Yellow " Deploy finished with warnings — see above"
+        Write-Yellow "  Logs:  docker compose logs -f"
+        Write-Yellow " Troubleshooting guide: docs\QUICKSTART-DEPLOY.md"
+        Write-Yellow "════════════════════════════════════════════════"
+        exit 1
+    }
 }
 
 # ─── 3b. Local (uvicorn) path ─────────────────────────────────────────────────
