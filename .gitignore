@@ -15,5 +15,4 @@ deploy/nginx/certs/
 *.crt
 docker-compose.proxy.local.yaml
 docker-compose.cloudflare.local.yaml
-showcase-servers/social-poster-mcp/
 showcase-servers/social-distribution-mcp/
