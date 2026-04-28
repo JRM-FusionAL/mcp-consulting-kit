@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from fastapi import Depends, FastAPI, HTTPException
+from showcase_servers.common.security_baseline import apply_security_baseline
 from mcp_tools import (
     SlackMessageRequest,
     GitHubIssueRequest,
@@ -15,9 +16,11 @@ PORT = int(os.getenv("PORT", "8102"))
 
 app = FastAPI(
     title="API Integration Hub MCP",
-    docs_url=None,   # set to "/docs" only for internal envs
+    docs_url=None,
     redoc_url=None,
 )
+
+apply_security_baseline(app)
 
 COMMON_PATH = Path(__file__).resolve().parents[1] / "common"
 if str(COMMON_PATH) not in sys.path:
@@ -93,3 +96,19 @@ def stripe_customer(
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=PORT)
+
+
+@app.get("/.well-known/mcp/server-card.json")
+async def server_card():
+    from fastapi.responses import JSONResponse
+    return JSONResponse({
+        "serverInfo": {"name": "API Integration Hub", "version": "0.3.0"},
+        "authentication": {"required": True, "schemes": ["apiKey"]},
+        "tools": [
+            {"name": "slack_send", "description": "Send a message to a Slack channel.", "inputSchema": {"type": "object", "properties": {"channel": {"type": "string"}, "message": {"type": "string"}}, "required": ["channel", "message"]}},
+            {"name": "github_create_issue", "description": "Create a GitHub issue in any repo.", "inputSchema": {"type": "object", "properties": {"repo": {"type": "string"}, "title": {"type": "string"}, "body": {"type": "string"}}, "required": ["repo", "title"]}},
+            {"name": "stripe_customer_lookup", "description": "Look up a Stripe customer.", "inputSchema": {"type": "object", "properties": {"email": {"type": "string"}}, "required": ["email"]}}
+        ],
+        "resources": [],
+        "prompts": []
+    })

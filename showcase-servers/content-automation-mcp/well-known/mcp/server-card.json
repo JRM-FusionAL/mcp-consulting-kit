@@ -1,0 +1,76 @@
+{
+  "serverInfo": {
+    "name": "Content Automation MCP",
+    "version": "0.3.0"
+  },
+  "authentication": {
+    "required": true,
+    "schemes": [
+      "apiKey"
+    ]
+  },
+  "tools": [
+    {
+      "name": "scrape_article",
+      "description": "Extract the main article text and metadata from any URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "scrape_links",
+      "description": "Extract all hyperlinks from a page.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "scrape_tables",
+      "description": "Extract all HTML tables from a page as structured data.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "parse_rss",
+      "description": "Fetch and parse an RSS feed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}

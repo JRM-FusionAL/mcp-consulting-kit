@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Verify Christopher Tunnel Task",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"Set-Location ..\\Christopher-AI; .\\install-christopher-tunnel-task.ps1 -RemoteAlias t3610; schtasks /Query /TN \"Christopher-Remote-Tunnel\" /V /FO LIST"
+			],
+			"isBackground": false
+		}
+	]
+}

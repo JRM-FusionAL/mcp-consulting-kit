@@ -1,0 +1,72 @@
+{
+  "serverInfo": {
+    "name": "API Integration Hub",
+    "version": "0.3.0"
+  },
+  "authentication": {
+    "required": true,
+    "schemes": [
+      "apiKey"
+    ]
+  },
+  "tools": [
+    {
+      "name": "slack_send",
+      "description": "Send a message to a Slack channel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "message"
+        ]
+      }
+    },
+    {
+      "name": "github_create_issue",
+      "description": "Create a GitHub issue in any repo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "repo": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "repo",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "stripe_customer_lookup",
+      "description": "Look up a Stripe customer \u2014 returns profile, charge history, and active subscriptions.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}

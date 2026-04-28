@@ -1,0 +1,13 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install dependencies
+# Trivy pin: pandas 2.2.1
+RUN pip install --no-cache-dir "mcp[cli]" httpx beautifulsoup4 pandas==2.2.1
+
+COPY intelligence_mcp.py .
+
+EXPOSE 8104
+
+CMD ["python", "intelligence_mcp.py"]
