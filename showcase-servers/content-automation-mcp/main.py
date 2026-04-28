@@ -31,9 +31,23 @@ configure_cors(app)
 configure_observability(app)
 initialize_rate_limit_store(app)
 
-# Mount Streamable HTTP MCP transport at /mcp
 from mcp_transport import mcp
-app.mount("/mcp", mcp.streamable_http_app())
+mcp.settings.streamable_http_path = "/"
+mcp_app = mcp.streamable_http_app()
+app.mount("/mcp", mcp_app)
+
+
+@app.on_event("startup")
+async def startup_mcp_app():
+    app.state._mcp_session_context = mcp.session_manager.run()
+    await app.state._mcp_session_context.__aenter__()
+
+
+@app.on_event("shutdown")
+async def shutdown_mcp_app():
+    context_manager = getattr(app.state, "_mcp_session_context", None)
+    if context_manager is not None:
+        await context_manager.__aexit__(None, None, None)
 
 @app.get("/health")
 def health():

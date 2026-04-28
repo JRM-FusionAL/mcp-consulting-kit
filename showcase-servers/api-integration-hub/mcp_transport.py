@@ -6,6 +6,7 @@ Clients connect to: http://localhost:8102/mcp
 """
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 from mcp_tools import (
     SlackMessageRequest,
     GitHubIssueRequest,
@@ -15,7 +16,7 @@ from mcp_tools import (
     lookup_stripe_customer,
 )
 
-mcp = FastMCP("api-integration-hub")
+mcp = FastMCP("api-integration-hub", transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False))
 
 
 @mcp.tool(
