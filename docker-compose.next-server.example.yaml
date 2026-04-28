@@ -1,0 +1,12 @@
+services:
+  new-server-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile.newserver
+    container_name: new-server-mcp
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8105
+    ports:
+      - "8105:8105"
+    restart: unless-stopped

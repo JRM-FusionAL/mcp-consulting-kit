@@ -1,4 +1,13 @@
-# MCP Consulting Kit
+﻿# MCP Consulting Kit
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
+![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
+![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-orange)
+
+> **Production-grade MCP servers. Deploy in under 15 minutes.**  
+> 🌐 [**fusional.dev**](https://fusional.dev) — Done-for-you MCP governance deployments  
+> 📧 [jonathanmelton.fusional@gmail.com](mailto:jonathanmelton.fusional@gmail.com) • 🗓️ [Book Architecture Call](https://calendly.com/jonathanmelton004/30min)
 
 Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI automation implementation service framework.
 
@@ -13,6 +22,7 @@ Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI 
 | Business Intelligence MCP | 8101 | Natural language → SQL (PostgreSQL / MySQL / SQLite) |
 | API Integration Hub | 8102 | Slack, GitHub, Stripe via natural language |
 | Content Automation MCP | 8103 | Web scraping, RSS feeds, link extraction |
+| Intelligence MCP | 8104 | Hot-topic discovery, business lead sourcing, trending repo intelligence |
 | FusionAL Execution Engine | 8009 | Dynamic code execution + MCP server registry |
 
 ---
@@ -22,8 +32,8 @@ Three production-grade MCP servers + FusionAL execution engine. Done-for-you AI 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/TangMan69/mcp-consulting-kit
-cd mcp-consulting-kit
+git clone https://github.com/JonathanMelton-FusionAL/FusionAL-mcp-consulting-kit.git
+cd FusionAL-mcp-consulting-kit
 ```
 
 ### 2. Install dependencies
@@ -67,10 +77,83 @@ python3 launch.py
 curl http://localhost:8101/health
 curl http://localhost:8102/health
 curl http://localhost:8103/health
+curl http://localhost:8104/health
 curl http://localhost:8009/health
 ```
 
-All should return `{"status":"ok"}`.
+All should return success responses (`200 OK`).
+
+If you are running behind the Nginx proxy, verify with:
+
+```bash
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/healthz
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/bi/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/api/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/content/
+curl -u 'mcpadmin:CHANGE_ME_STRONG_PASSWORD' http://just2awesome:8088/intel/
+```
+
+---
+
+## Sync Across Local + Remote (t3610)
+
+Syncs all three repos (`mcp-consulting-kit`, `FusionAL`, `Christopher-AI`) from your local `Projects` folder to remote `t3610`.
+
+**Windows (PowerShell):**
+```powershell
+./scripts/sync-all.ps1 -RemoteAlias t3610 -RemoteBase /home/jrm_fusional/Projects
+```
+
+**Linux / macOS:**
+```bash
+chmod +x ./scripts/sync-all.sh
+./scripts/sync-all.sh --remote t3610 --remote-base /home/jrm_fusional/Projects
+```
+
+To sync and restart remote Docker services:
+
+```bash
+# PowerShell
+./scripts/sync-all.ps1 -RestartDocker
+
+# Bash
+./scripts/sync-all.sh --restart-docker
+```
+
+Full guide: `docs/SYNC-AND-FRONTEND.md`
+
+Remote secure access guide (Cloudflare Tunnel): `docs/CLOUDFLARE-TUNNEL-SETUP.md`
+
+Quick one-command status check (local + remote):
+
+```powershell
+./scripts/status-all.ps1 -RemoteAlias t3610
+```
+
+```bash
+./scripts/status-all.sh --remote t3610
+```
+
+---
+
+## Production Frontend
+
+The production frontend lives in `frontend/` (Vite + React).
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Build output is generated in `frontend/dist`.
+
+To run in Docker:
+
+```bash
+docker build -t mcp-kit-frontend ./frontend
+docker run -p 3000:80 --rm mcp-kit-frontend
+```
 
 ---
 
@@ -85,6 +168,7 @@ Claude Desktop / Christopher / Any MCP client
   │  Business Intelligence MCP  :8101   │  Natural language → SQL
   │  API Integration Hub        :8102   │  Slack / GitHub / Stripe
   │  Content Automation MCP     :8103   │  Scraping / RSS
+  │  Intelligence MCP           :8104   │  Trends / leads
   │  FusionAL Execution Engine  :8009   │  Dynamic code + registry
   └─────────────────────────────────────┘
 ```
@@ -105,18 +189,93 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "business-intelligence": {
       "type": "streamable-http",
-      "url": "http://localhost:8101/mcp"
+      "url": "http://just2awesome:8088/bi/"
     },
     "api-integration": {
       "type": "streamable-http",
-      "url": "http://localhost:8102/mcp"
+      "url": "http://just2awesome:8088/api/"
     },
     "content-automation": {
       "type": "streamable-http",
-      "url": "http://localhost:8103/mcp"
+      "url": "http://just2awesome:8088/content/"
+    },
+    "intelligence": {
+      "type": "streamable-http",
+      "url": "http://just2awesome:8088/intel/"
     }
   }
 }
+```
+
+For local-only access over SSH tunnel, replace `just2awesome` with `localhost`.
+
+### Windows tunnel helper (recommended)
+
+If Cloudflare blocks Node-based MCP clients on your machine, run Claude through a local SSH tunnel:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610
+```
+
+This command:
+- Starts/validates local tunnel ports `18009`, `18101`, `18102`, `18103`, `18104`
+- Rewrites Claude Desktop MCP config to use tunnel ports before launch
+- Verifies tunneled MCP health before launching Claude Desktop
+- Launches Claude Desktop automatically
+
+Run a full health check anytime:
+
+```powershell
+./scripts/check-claude-mcp-health.ps1
+```
+
+One-command ready sequence — harden config, optionally start tunnel, run health checks, and launch Claude:
+
+```powershell
+# local servers (default)
+./scripts/start-claude-ready.ps1
+
+# remote server via SSH tunnel
+./scripts/start-claude-ready.ps1 -UseTunnel -RemoteAlias t3610
+
+# harden + tunnel only, skip launch
+./scripts/start-claude-ready.ps1 -UseTunnel -SkipLaunchClaude
+
+# skip health checks (if servers aren't running yet)
+./scripts/start-claude-ready.ps1 -SkipHealthCheck
+
+# fail fast in automation/CI instead of waiting for prompts
+./scripts/start-claude-ready.ps1 -UseTunnel -SkipLaunchClaude -NonInteractive
+```
+
+The script pauses and asks you to quit Claude Desktop if it is still running, then:
+1. Hardens the MCP config (backup + no-BOM write + schema validation)
+2. Starts the SSH tunnel if `-UseTunnel` is set
+3. Runs health checks against the active port set
+4. Launches Claude Desktop
+
+Harden and validate Claude Desktop MCP config directly (backup + no-BOM JSON write + schema checks):
+
+```powershell
+# local server ports (8009/8101/8102/8103)
+./scripts/harden-claude-mcp-config.ps1
+
+# SSH tunnel ports (18009/18101/18102/18103/18104)
+./scripts/harden-claude-mcp-config.ps1 -UseTunnelPorts
+```
+
+This script will refuse to run while Claude is open unless you pass `-AllowClaudeRunning`.
+
+If you want to keep Claude closed while only preparing the tunnel:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610 -SkipLaunchClaude
+```
+
+If you need to kill/rebuild the tunnel process first:
+
+```powershell
+./scripts/start-claude-mcp-tunnel.ps1 -RemoteAlias t3610 -ForceRestart
 ```
 
 **Config file locations:**
@@ -128,16 +287,10 @@ Add to `claude_desktop_config.json`:
 
 ## API Key Rotation
 
-```bash
-# Rotate all keys across all .env files at once
-python3 rotate_keys.py
+Use the overlap + revoke flow documented in:
+- `showcase-servers/common/SECURITY-HARDENING.md`
 
-# Dry run first
-python3 rotate_keys.py --dry-run
-
-# Rotate and restart servers
-python3 rotate_keys.py --restart
-```
+Current repository scripts do not include a `rotate_keys.py` helper.
 
 ---
 
@@ -154,6 +307,53 @@ python3 rotate_keys.py --restart
 
 This repo is the technical foundation for a done-for-you MCP implementation service.
 
-- 📧 jonathanmelton004@gmail.com
-- 📅 calendly.com/jonathanmelton004/30min
-- 🔗 github.com/TangMan69/mcp-consulting-kit
+---
+
+## 🌐 Production Deployment & Consulting
+
+**Don't want to self-host?** We deploy, secure, and manage governed MCP for you.
+
+### Service Packages
+
+| Package | Price | What You Get |
+|---------|-------|--------------|
+| **Starter Pilot** | $3,500 | Prove value with 1 workflow in 2 weeks |
+| **Growth Pilot** | $9,000 | Multi-workflow rollout with observability dashboard |
+| **Managed Ops** | $3k/mo | Ongoing governance + support + quarterly expansion |
+
+**Full details**: [fusional.dev](https://fusional.dev)
+
+Current focus:
+- Self-hosted MCP governance deployments
+- MCP security audits for teams already in production
+- Audit logging + policy enforcement rollout
+- Privacy-first architecture for healthcare, legal, and fintech SMBs
+- Managed MCP operations for teams without platform engineers
+
+**Contact**:
+- 🌐 [fusional.dev](https://fusional.dev)
+- 📧 [jonathanmelton.fusional@gmail.com](mailto:jonathanmelton.fusional@gmail.com)
+- 📅 [calendly.com/jonathanmelton004/30min](https://calendly.com/jonathanmelton004/30min)
+- 🔗 [GitLab](https://gitlab.com/JRM-FusionAL/FusionAL-mcp-consulting-kit)
+
+---
+
+## GTM Templates
+
+- Smithery submission pack: `docs/SMITHERY-SUBMISSION-PACK.md`
+- awesome-mcp-servers PR draft: `docs/AWESOME-MCP-SERVERS-PR-DRAFT.md`
+- Distribution checklist: `docs/DISTRIBUTION-THIS-WEEK.md`
+
+## Ops Runbooks
+
+- Git auth setup/recovery: `docs/GIT-AUTH-SETUP.md`
+- New server intake notes: `docs/NEW-SERVER-INTAKE-NOTES.md`
+- New server cutover checklist: `docs/NEW-SERVER-CUTOVER-CHECKLIST.md`
+- t3610 MCP ops hardening runbook: `docs/T3610-MCP-OPS-HARDENING-RUNBOOK.md`
+- t3610 Christopher runbook: `docs/T3610-CHRISTOPHER-RUNBOOK.md`
+
+## Ops Automation Scripts
+
+- Monitor probe with severity exit codes: `scripts/monitor-mcp-stack.ps1`
+- Install/remove 1-minute scheduler task: `scripts/install-mcp-monitor-task.ps1`
+

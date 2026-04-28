@@ -62,13 +62,13 @@
 ```yaml
 registry:
   fusional:
-    ref: "http://localhost:8089"
+    ref: "http://just2awesome:8089"
   business-intelligence-mcp:
-    ref: "http://localhost:8101"
+    ref: "http://just2awesome:8088/bi/"
   api-integration-hub:
-    ref: "http://localhost:8102"
+    ref: "http://just2awesome:8088/api/"
   content-automation-mcp:
-    ref: "http://localhost:8103"
+    ref: "http://just2awesome:8088/content/"
 ```
 
 ---

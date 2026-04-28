@@ -1,0 +1,14 @@
+services:
+  fusional:
+    build:
+      context: ../FusionAL
+      dockerfile: Dockerfile
+    container_name: fusional
+    env_file:
+      - ../FusionAL/core/.env
+    environment:
+      PORT: "8009"
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "8009:8009"
+    restart: unless-stopped

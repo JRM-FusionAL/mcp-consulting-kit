@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from fastapi import Depends, FastAPI, HTTPException
+from showcase_servers.common.security_baseline import apply_security_baseline
 from mcp_tools import (
     ScrapeRequest,
     RSSRequest,
@@ -35,6 +36,8 @@ from mcp_transport import mcp
 mcp.settings.streamable_http_path = "/"
 mcp_app = mcp.streamable_http_app()
 app.mount("/mcp", mcp_app)
+from fastapi.staticfiles import StaticFiles
+app.mount("/.well-known", StaticFiles(directory="/app/well-known"), name="well-known")
 
 
 @app.on_event("startup")

@@ -16,7 +16,11 @@ from mcp_tools import (
     lookup_stripe_customer,
 )
 
-mcp = FastMCP("api-integration-hub", transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False))
+mcp = FastMCP(
+    "api-integration-hub",
+    streamable_http_path="/",
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+)
 
 
 @mcp.tool(

@@ -1,7 +1,7 @@
 # Copilot Instructions for MCP Consulting Kit
 
 ## Agent Delegation Model
-- **agent-dople**: Responsible for maintaining server integrity, security, and stability, and for running each server (`business-intelligence-mcp`, `api-integration-hub`, `content-automation-mcp`, and the `FusionAL` execution engine on port 8001). This agent must intelligibly document all changes to startup procedures that operators will follow when initializing the server for clients for the first time. Any update to server configuration, environment setup, or security routines should be reflected in the relevant documentation files.
+- **agent-dople**: Responsible for maintaining server integrity, security, and stability, and for running each server (`business-intelligence-mcp`, `api-integration-hub`, `content-automation-mcp`, and the `FusionAL` execution engine on port 8009). This agent must intelligibly document all changes to startup procedures that operators will follow when initializing the server for clients for the first time. Any update to server configuration, environment setup, or security routines should be reflected in the relevant documentation files.
 
 - **hunter-agent**: Responsible for keeping the quickstart guide up to date. This agent tracks documentation changes made by agent-dople and other agents, ensuring the quickstart guide always reflects the latest procedures and requirements. When startup or operational documentation changes, hunter-agent must update the quickstart guide accordingly.
 
@@ -14,7 +14,7 @@
   - `business-intelligence-mcp` (NL→SQL + DB execution) — port 8101
   - `api-integration-hub` (Slack/GitHub/Stripe wrappers) — port 8102
   - `content-automation-mcp` (scraping + RSS parsing) — port 8103
-  - `FusionAL` (dynamic code execution, server generation, registry) — port 8001 at `C:\Users\puddi\projects\FusionAL\core\`
+  - `FusionAL` (dynamic code execution, server generation, registry) — port 8009 at `C:\Users\puddi\projects\FusionAL\core\`
 - Each showcase server is intentionally standalone (`main.py`, `mcp_tools.py`, `requirements.txt`, `Dockerfile`) and shares security/observability via `showcase-servers/common/security.py`.
 - FusionAL uses the same `security.py` module, resolved via path discovery at startup.
 - Request flow pattern: endpoint in `main.py` → Pydantic request model in `mcp_tools.py` → integration layer (`db.py`, `clients/*`, or `scraper.py`).
@@ -60,3 +60,13 @@
 - Prefer edits in shared security code (`showcase-servers/common/security.py`) over duplicating logic in individual services.
 - Keep endpoint handlers thin: validation + orchestration in `mcp_tools.py`/clients, not in route functions.
 - Preserve env-var compatibility (`API_KEY` fallback, port defaults, `REDIS_URL` degraded fallback behavior) unless asked to break compatibility.
+
+## Knowledge Base Bootstrap (required)
+- Treat `C:\Users\puddi\Projects\fusional-knowledge-base\` as the canonical context source for project status and priorities.
+- At the start of each new task/session, load and prioritize these files before proposing plans or code changes:
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\STATUS.md`
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\PRIORITIES.md`
+- For repo/state ambiguity, consult:
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\06-CONTEXT\FAQ.md`
+  - `C:\Users\puddi\Projects\fusional-knowledge-base\06-CONTEXT\DECISIONS.md`
+- If code reality conflicts with the knowledge base, report the conflict and prefer verified code/runtime facts, then update knowledge-base docs in the same workstream.

@@ -5,7 +5,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.4.0] – 2026-02-23 – FusionAL Integration
+## [0.4.1] - 2026-03-12 - Dependency Updates
+
+### Changed
+- `redis` 7.2.1 -> 7.3.0 (all showcase servers + FusionAL)
+- `openai` 2.20.0 -> 2.26.0 (FusionAL core)
+- `sqlalchemy` 2.0.47 -> 2.0.48 (business-intelligence-mcp)
+- `fastmcp` >=0.4.0 -> >=3.1.0 (github-mcp-safe)
+- `react` ^18.3.1 -> ^19.2.4 (frontend)
+- `react-dom` ^18.3.1 -> ^19.2.4 (frontend)
+- `vite` ^5.4.10 -> ^8.0.0 (frontend)
+- `@vitejs/plugin-react` ^4.3.2 -> ^5.2.0 (frontend)
+
+### Notes
+- All other packages already at latest as of 2026-03-12
+- React 19 compatible — app already uses createRoot, no deprecated APIs
+- fastmcp v3.x is a major version bump — test github-mcp-safe after upgrading
+
+---
+
+## [0.4.0] - 2026-02-23 - FusionAL Integration
 
 ### Added
 - FusionAL execution engine merged as 4th platform server (port 8009)
@@ -26,7 +45,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.3.0] – 2026-02-23 – Security Hardening & Public Release Prep
+## [0.3.0] - 2026-02-23 - Security Hardening & Public Release Prep
 
 ### Added
 - Shared security module (`showcase-servers/common/security.py`) with rate limiting, API key auth, and input validation
@@ -40,9 +59,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `launch-servers.ps1` — one-command startup for all servers
 
 ### Changed
-- Fixed all Linux `/home/` paths in `QUICK-START.md` → correct Windows-relative paths
-- Updated all bash code blocks → PowerShell
-- Fixed landing page filename reference (`landing-page.html` → `index.html`)
+- Fixed all Linux `/home/` paths in `QUICK-START.md` -> correct Windows-relative paths
+- Updated all bash code blocks -> PowerShell
+- Fixed landing page filename reference (`landing-page.html` -> `index.html`)
 - Replaced dead Discord `[link]` placeholders with real URLs
 - Updated `.gitignore` to exclude `.env` and build artifacts
 
@@ -53,7 +72,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.2.0] – 2026-02-19 – Consulting Materials Expansion
+## [0.2.0] - 2026-02-19 - Consulting Materials Expansion
 
 ### Added
 - `consulting-materials/business-model-overview.md` — service packages, pricing, GTM strategy
@@ -72,7 +91,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.1.0] – 2026-02-17 – Initial Reconstruction
+## [0.1.0] - 2026-02-17 - Initial Reconstruction
 
 ### Added
 - Three FastAPI-based MCP showcase servers:
@@ -91,6 +110,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.0.1] – Internal Only
+## [0.0.1] - Internal Only
 
 - Initial consulting kit concept and business materials drafted

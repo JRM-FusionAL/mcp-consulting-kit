@@ -33,3 +33,4 @@ Sensitive auth/token values are redacted in structured request logs.
 ```bash
 docker build -t api-hub-showcase .
 docker run --env-file .env -p 8102:8102 api-hub-showcase
+```
