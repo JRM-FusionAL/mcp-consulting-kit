@@ -1,16 +1,12 @@
 # Social Poster MCP
-# Updated: 2026-04-25
+# Updated: 2026-03-12
 
-fastapi==0.136.0
-uvicorn[standard]==0.45.0
+fastapi==0.135.1
+uvicorn[standard]==0.41.0
 httpx==0.28.1
 python-dotenv==1.2.2
-pydantic==2.13.3
-redis==7.4.0
-requests==2.33.1
-mcp[cli]==1.27.0
+pydantic==2.12.5
+redis==7.3.0
+requests==2.32.5
+mcp[cli]==1.26.0
 requests-oauthlib==2.0.0
-# Security: pin transitive deps with known HIGH CVEs to patched versions
-setuptools>=82.0.1     # CVE-2026-23949 + CVE-2026-24049: setuptools<82.0.1 vendors jaraco.context 5.3.0 and wheel 0.45.1
-jaraco.context>=6.1.0  # CVE-2026-23949 (path traversal); fixed in 6.1.0
-wheel>=0.46.2          # CVE-2026-24049 (arbitrary file permission via path traversal); fixed in 0.46.2
