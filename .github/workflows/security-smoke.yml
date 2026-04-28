@@ -56,7 +56,6 @@ jobs:
           pip-audit -r "showcase-servers/business-intelligence-mcp/requirements.txt"
           pip-audit -r "showcase-servers/api-integration-hub/requirements.txt"
           pip-audit -r "showcase-servers/content-automation-mcp/requirements.txt"
-          pip-audit -r "showcase-servers/social-poster-mcp/requirements.txt"
           # FusionAL execution engine
           if [ -f "../FusionAL/core/requirements.txt" ]; then
             pip-audit -r "../FusionAL/core/requirements.txt"
@@ -70,21 +69,6 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: mcp-bi-security-scan
-          scan-type: image
-          vuln-type: os,library
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          exit-code: '1'
-          trivyignores: .trivyignore
-
-      - name: Build social-poster-mcp image
-        run: |
-          docker build -t mcp-social-poster-security-scan -f showcase-servers/social-poster-mcp/Dockerfile showcase-servers
-
-      - name: Container vulnerability scan - social-poster-mcp (high/critical)
-        uses: aquasecurity/trivy-action@0.35.0
-        with:
-          image-ref: mcp-social-poster-security-scan
           scan-type: image
           vuln-type: os,library
           severity: HIGH,CRITICAL

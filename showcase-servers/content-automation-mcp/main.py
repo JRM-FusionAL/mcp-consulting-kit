@@ -37,9 +37,7 @@ mcp.settings.streamable_http_path = "/"
 mcp_app = mcp.streamable_http_app()
 app.mount("/mcp", mcp_app)
 from fastapi.staticfiles import StaticFiles
-_well_known_dir = Path(__file__).resolve().parent / "well-known"
-if _well_known_dir.is_dir():
-    app.mount("/.well-known", StaticFiles(directory=str(_well_known_dir)), name="well-known")
+app.mount("/.well-known", StaticFiles(directory="/app/well-known"), name="well-known")
 
 
 @app.on_event("startup")

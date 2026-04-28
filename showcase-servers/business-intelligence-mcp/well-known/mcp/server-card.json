@@ -1,0 +1,31 @@
+{
+  "serverInfo": {
+    "name": "Business Intelligence MCP",
+    "version": "0.3.0"
+  },
+  "authentication": {
+    "required": true,
+    "schemes": [
+      "apiKey"
+    ]
+  },
+  "tools": [
+    {
+      "name": "nl_query",
+      "description": "Convert a natural language question into SQL and run it against the connected database.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question"
+        ]
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}
