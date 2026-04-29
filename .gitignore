@@ -18,3 +18,4 @@ docker-compose.cloudflare.local.yaml
 showcase-servers/social-poster-mcp/
 showcase-servers/social-distribution-mcp/
 node_modules/
+**/.env.bak*
