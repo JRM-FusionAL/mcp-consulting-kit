@@ -10,7 +10,7 @@ aiosqlite==0.22.1
 python-dotenv==1.2.2
 anthropic==0.88.0
 pydantic==2.12.5
-pytest==9.0.2
+pytest==9.0.3
 redis==7.4.0
 requests==2.33.1
 mcp[cli]==1.26.0

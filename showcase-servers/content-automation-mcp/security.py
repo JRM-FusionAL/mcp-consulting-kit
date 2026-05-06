@@ -148,7 +148,8 @@ def _build_log_payload(
 ) -> dict:
     client_ip = request.client.host if request.client else "unknown"
     user_agent = request.headers.get("user-agent", "")
-    redacted_headers = redact_sensitive_data(dict(request.headers))
+    content_type = request.headers.get("content-type", "")
+    content_length = request.headers.get("content-length", "")
     return {
         "event": "http_request",
         "service": service_name,
@@ -159,7 +160,11 @@ def _build_log_payload(
         "duration_ms": round(duration_ms, 2),
         "client_ip": client_ip,
         "user_agent": user_agent,
-        "headers": redacted_headers,
+        "header_summary": {
+            "user_agent_present": bool(user_agent),
+            "content_type": content_type,
+            "content_length": content_length,
+        },
     }
 
 
