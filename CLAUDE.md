@@ -98,3 +98,19 @@ Read full registry for details: `C:\Users\puddi\Projects\fusional-knowledge-base
 ## WORKING RULE
 
 If repo/runtime facts conflict with docs, trust verified code/runtime facts. Call out the mismatch and update the knowledge base during the same task — that's a SI-XXX entry.
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues on `JRM-FusionAL/mcp-consulting-kit` (uses the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical strings: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: one `CONTEXT.md` + `docs/adr/` at the repo root (neither exists yet — skills proceed silently until created). See `docs/agents/domain.md`.
