@@ -8,9 +8,9 @@ The repo of MCP showcase servers and consulting deliverables. Future home of `re
 
 Before responding to anything, in this order:
 
-1. Read `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\STATUS.md`
-2. Read `C:\Users\puddi\Projects\fusional-knowledge-base\00-CURRENT-STATUS\PRIORITIES.md`
-3. Read `C:\Users\puddi\Projects\fusional-knowledge-base\05-RECALL\SOLVED-ISSUES.md`
+1. Read `~/Projects/fusional-knowledge-base/00-CURRENT-STATUS/STATUS.md`
+2. Read `~/Projects/fusional-knowledge-base/00-CURRENT-STATUS/PRIORITIES.md`
+3. Read `~/Projects/fusional-knowledge-base/05-RECALL/SOLVED-ISSUES.md`
 4. State runtime: "Running as: <model> on <platform>, tools available: <summary>"
 
 ---
@@ -40,7 +40,7 @@ While working on any task, monitor for these AUTO-LOG TRIGGERS:
 
 When a trigger fires:
 1. State: "Auto-log trigger: <which trigger> — drafting SI-XXX"
-2. Read `C:\Users\puddi\Projects\fusional-knowledge-base\05-RECALL\SOLVED-ISSUES.md` to find highest existing SI number
+2. Read `~/Projects/fusional-knowledge-base/05-RECALL/SOLVED-ISSUES.md` to find highest existing SI number
 3. Append the new entry IMMEDIATELY (do not defer to end of session)
 4. Insert before "## TEMPLATE — copy this for new entries" using filesystem tools
 5. Confirm: "Logged SI-XXX: <title>"
@@ -91,7 +91,7 @@ This is the showcase + consulting deliverable repo. Contains:
 - **SI-009**: Don't conflate distinct products in handoff prompts (origin of this rule)
 - **SI-011**: Don't `git --amend` after pushing — causes T3610 divergence
 
-Read full registry for details: `C:\Users\puddi\Projects\fusional-knowledge-base\05-RECALL\SOLVED-ISSUES.md`
+Read full registry for details: `~/Projects/fusional-knowledge-base/05-RECALL/SOLVED-ISSUES.md`
 
 ---
 
