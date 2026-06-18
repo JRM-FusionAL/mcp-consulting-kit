@@ -1,6 +1,7 @@
 import os
 from abc import ABC, abstractmethod
 import anthropic
+import openai
 import requests
 
 class LLMProvider(ABC):
@@ -62,6 +63,36 @@ class LocalProvider(LLMProvider):
         return response.json()["choices"][0]["message"]["content"].strip()
 
 
+class OpenAICompatProvider(LLMProvider):
+    """OpenAI-compatible provider — works with OpenRouter, local llama-server, or any OAI-compat endpoint.
+
+    Env vars (same names as fusional-orch brain):
+        LLM_BASE_URL  — e.g. https://openrouter.ai/api/v1
+        LLM_API_KEY   — provider API key
+        LLM_MODEL     — e.g. meta-llama/llama-3.3-70b-instruct
+    """
+
+    def __init__(self) -> None:
+        api_key = os.environ.get("LLM_API_KEY")
+        if not api_key:
+            raise RuntimeError("LLM_API_KEY not set")
+        self.client = openai.OpenAI(
+            api_key=api_key,
+            base_url=os.environ.get("LLM_BASE_URL", "https://openrouter.ai/api/v1"),
+        )
+        self.model = os.environ.get("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct")
+
+    def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
+        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or "N/A")
+        response = self.client.chat.completions.create(
+            model=self.model,
+            max_tokens=512,
+            temperature=0.1,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return response.choices[0].message.content.strip()
+
+
 class RuleBasedProvider(LLMProvider):
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
         q = nl_query.lower()
@@ -74,6 +105,8 @@ def get_llm_provider() -> LLMProvider:
     provider = os.getenv("LLM_PROVIDER", "claude").lower()
     if provider == "claude":
         return ClaudeProvider()
+    if provider in ("openai", "openrouter", "openai_compat"):
+        return OpenAICompatProvider()
     if provider == "local":
         return LocalProvider()
     if provider == "rule":
