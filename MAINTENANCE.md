@@ -41,3 +41,32 @@
 ### PRs Opened in This Run
 - None — manual review needed for breaking dependency bumps
 
+
+---
+
+## Maintenance Summary - 2026-06-26
+
+### Actions Taken
+- Checked for outdated dependencies in all 8 subprojects
+- Opened PRs for Node.js dependency updates in app and frontend
+- Labeled new issues without labels as triage (none found)
+- Python dependencies: 6 subprojects checked via system pip (no venv) — no actionable update data
+
+### Dependency Audit Results
+
+**Node.js updates applied:**
+- app: react 19.2.4->19.2.7, react-dom 19.2.4->19.2.7, vite 8.0.16->8.1.0
+- frontend: @vitejs/plugin-react 6.0.2->6.0.3, vite 8.0.16->8.1.0
+
+**Python:** pip checks ran in system context (no venv activated) — skipping auto-upgrade to avoid breaking subproject environments. Manual review recommended for next interactive session.
+
+### Issues Labeled
+- No unlabeled open issues found
+
+### PRs Opened in This Run
+- PR #68: chore: update Node.js dependencies in app
+- PR #69: chore: update Node.js dependencies in frontend
+
+### CI Status
+- PR #68: pending (Analyze, CodeRabbit, security-scan, security-smoke)
+- PR #69: pending (Analyze, CodeRabbit, security-scan, security-smoke)
