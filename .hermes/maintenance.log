@@ -245,3 +245,33 @@
  (. ame)== (.latest_versio )
  (. ame)== (.latest_versio )
  (. ame)== (.latest_versio )
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/api-integration-hub
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/content-automation-mcp
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/github-mcp-safe
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/social-distribution-mcp
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/social-distribution-mcp - skipping update check
+[2026-06-25 02:26:07] Processing subproject: showcase-servers/social-poster-mcp
+[2026-06-25 02:26:07] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-06-25 02:26:07] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-06-25 02:26:07] Processing subproject: app
+[2026-06-25 02:26:07] Checking for Node.js updates in app
+[2026-06-25 02:26:07] Using npm for app
+[2026-06-25 02:26:07] No outdated Node.js packages in app (npm)
+[2026-06-25 02:26:07] Processing subproject: frontend
+[2026-06-25 02:26:07] Checking for Node.js updates in frontend
+[2026-06-25 02:26:07] Using npm for frontend
+[2026-06-25 02:26:07] No outdated Node.js packages in frontend (npm)
+[2026-06-25 02:26:07] Labeling new issues without labels as 'triage'
+[2026-06-25 02:26:07] Creating weekly summary
+[2026-06-25 02:26:07] Dry run mode: skipping summary PR creation
+[2026-06-25 02:26:07] Maintenance script completed.
