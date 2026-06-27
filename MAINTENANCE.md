@@ -69,4 +69,47 @@
 
 ### CI Status
 - PR #68: pending (Analyze, CodeRabbit, security-scan, security-smoke)
-- PR #69: pending (Analyze, CodeRabbit, security-scan, security-smoke)
+
+---
+
+## Maintenance Summary - 2026-06-27
+
+### Actions Taken
+- Merged 3 prior PRs (#68, #69, #70) — all CI green, CLEAN merge state
+- Bumped Python dependencies across 5 tracked showcase servers (PR #71)
+- Checked Node.js deps — only major version bumps remain (@vitejs/plugin-react 5→6, react 18→19), deferred
+- No open issues to triage
+- social-distribution-mcp/ is gitignored and untracked — requirements.txt changes not comittable
+
+### PRs Merged This Run
+- PR #68: chore: update Node.js dependencies in app ✅
+- PR #69: chore: update Node.js dependencies in frontend ✅
+- PR #70: docs: update maintenance summary for 2026-06-26 ✅
+
+### PRs Opened This Run
+- PR #71: chore: bump Python dependencies (safe minor/patch)
+
+### Dependency Audit Results
+
+**Python safe bumps applied (PR #71):**
+- fastapi: 0.135.x → 0.138.1
+- uvicorn: 0.41/0.42 → 0.49.0
+- pydantic: 2.12.5 → 2.13.4
+- mcp[cli]: 1.26.0 → 1.28.1
+- requests: 2.33.x → 2.34.2
+- anthropic: 0.88.0 → 0.112.0
+- sqlalchemy: 2.0.48 → 2.0.51
+- beautifulsoup4: 4.14.3 → 4.15.0
+- lxml: 6.1.0 → 6.1.1
+- tweepy: 4.15.0 → 4.16.0
+- redis: 7.2/7.3 → 7.4.0 (normalized)
+
+**Python intentionally skipped (major breaking):**
+- redis 7→8, praw 7→8 — require code migration
+
+**Node.js deferred (major breaking):**
+- @vitejs/plugin-react: 5.2.0 → 6.0.3
+- react/react-dom: 18.3.1 → 19.2.7
+
+### Issues Labeled
+- No unlabeled open issues found
