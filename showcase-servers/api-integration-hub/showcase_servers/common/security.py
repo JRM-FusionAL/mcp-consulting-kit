@@ -155,9 +155,22 @@ def _build_log_payload(
     duration_ms: float,
     service_name: str,
 ) -> dict:
+    """
+    Builds the structured payload for an HTTP request log entry.
+    
+    Parameters:
+    	request (Request): The incoming request.
+    	request_id (str): The request identifier to include in the payload.
+    	status_code (int): The response status code.
+    	duration_ms (float): The request duration in milliseconds.
+    	service_name (str): The service name to include in the payload.
+    
+    Returns:
+    	dict: A log payload containing request details, header names, and trace context.
+    """
     client_ip = request.client.host if request.client else "unknown"
     user_agent = request.headers.get("user-agent", "")
-    redacted_headers = redact_sensitive_data(dict(request.headers))
+    header_names = sorted(dict(request.headers).keys())
     payload = {
         "event": "http_request",
         "service": service_name,
@@ -168,7 +181,7 @@ def _build_log_payload(
         "duration_ms": round(duration_ms, 2),
         "client_ip": client_ip,
         "user_agent": user_agent,
-        "headers": redacted_headers,
+        "header_names": header_names,
     }
     payload.update(_get_trace_context())
     return payload
