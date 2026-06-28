@@ -370,3 +370,149 @@ def test_observability_logs_health_when_enabled(monkeypatch, caplog):
     assert response.status_code == 200
     payload = json.loads(caplog.records[-1].message)
     assert payload["path"] == "/health"
+
+
+def test_build_log_payload_header_names_is_sorted(monkeypatch, caplog):
+    """header_names must be sorted alphabetically (new behavior)."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="Sort Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get(
+            "/ping",
+            headers={
+                "Z-Custom": "z-value",
+                "A-Custom": "a-value",
+                "M-Custom": "m-value",
+            },
+        )
+
+    assert response.status_code == 200
+    payload = json.loads(caplog.records[-1].message)
+    header_names = payload["header_names"]
+    assert header_names == sorted(header_names)
+
+
+def test_build_log_payload_header_names_is_list(monkeypatch, caplog):
+    """header_names must be a list, not a dict."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="Type Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get("/ping", headers={"Authorization": "Bearer token123"})
+
+    assert response.status_code == 200
+    payload = json.loads(caplog.records[-1].message)
+    assert isinstance(payload["header_names"], list)
+
+
+def test_build_log_payload_does_not_log_header_values(monkeypatch, caplog):
+    """Sensitive header values must not appear anywhere in the log payload."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="No Value Leak Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+    secret_token = "super-secret-bearer-xyz"
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get(
+            "/ping",
+            headers={"Authorization": f"Bearer {secret_token}"},
+        )
+
+    assert response.status_code == 200
+    log_message = caplog.records[-1].message
+    assert secret_token not in log_message
+
+
+def test_build_log_payload_no_headers_key_in_payload(monkeypatch, caplog):
+    """Regression: old 'headers' key must be absent from the log payload."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="Regression Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get("/ping", headers={"X-API-Key": "my-secret-key"})
+
+    assert response.status_code == 200
+    payload = json.loads(caplog.records[-1].message)
+    assert "headers" not in payload
+    assert "header_names" in payload
+
+
+def test_build_log_payload_header_names_present_with_no_custom_headers(monkeypatch, caplog):
+    """header_names is a non-empty list even when no custom headers are sent."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="Minimal Headers Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get("/ping")
+
+    assert response.status_code == 200
+    payload = json.loads(caplog.records[-1].message)
+    assert "header_names" in payload
+    # TestClient always sends at least host header
+    assert isinstance(payload["header_names"], list)
+    assert len(payload["header_names"]) >= 1
+
+
+def test_build_log_payload_api_key_value_not_logged(monkeypatch, caplog):
+    """Regression: X-API-Key value must not appear in header_names entries."""
+    monkeypatch.setenv("LOG_LEVEL", "INFO")
+
+    app = FastAPI(title="API Key Value Test")
+    security.configure_observability(app)
+
+    @app.get("/ping")
+    def ping():
+        return {"ok": True}
+
+    client = TestClient(app)
+    api_key_value = "my-api-key-value"
+
+    with caplog.at_level("INFO", logger=security.LOGGER_NAME):
+        response = client.get("/ping", headers={"X-API-Key": api_key_value})
+
+    assert response.status_code == 200
+    payload = json.loads(caplog.records[-1].message)
+    # The value must not appear anywhere in the logged header names
+    assert api_key_value not in payload["header_names"]
+    # The header name itself (lowercased) should be present
+    assert "x-api-key" in payload["header_names"]
