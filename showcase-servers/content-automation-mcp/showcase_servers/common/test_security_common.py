@@ -434,6 +434,7 @@ def test_log_payload_no_header_values_in_payload(monkeypatch, caplog):
     client = TestClient(app)
     secret_value = "Bearer super-secret-token-12345"
     api_key_value = "my-very-secret-api-key"
+    user_agent_value = "Mozilla/5.0 SuperSecret/1.0"
 
     with caplog.at_level("INFO", logger=security.LOGGER_NAME):
         response = client.get(
@@ -441,6 +442,7 @@ def test_log_payload_no_header_values_in_payload(monkeypatch, caplog):
             headers={
                 "Authorization": secret_value,
                 "X-API-Key": api_key_value,
+                "User-Agent": user_agent_value,
             },
         )
 
@@ -448,6 +450,7 @@ def test_log_payload_no_header_values_in_payload(monkeypatch, caplog):
     raw_log = caplog.records[-1].message
     assert secret_value not in raw_log
     assert api_key_value not in raw_log
+    assert user_agent_value not in raw_log
 
 
 def test_log_payload_no_headers_key(monkeypatch, caplog):
