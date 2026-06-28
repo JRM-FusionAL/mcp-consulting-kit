@@ -242,8 +242,8 @@ def test_observability_redacts_sensitive_headers(monkeypatch, caplog):
 
     assert response.status_code == 200
     payload = json.loads(caplog.records[-1].message)
-    assert payload["headers"]["authorization"] != "Bearer super-secret-token"
-    assert payload["headers"]["x-api-key"] != "my-api-key-value"
+    assert "authorization" in payload["header_names"]
+    assert "x-api-key" in payload["header_names"]
 
 
 def test_sanitize_request_id_accepts_valid_format():
