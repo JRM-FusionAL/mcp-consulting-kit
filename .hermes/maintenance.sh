@@ -172,7 +172,7 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            pr_url=$(gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name" --repo $(git remote get-url origin | sed 's/git@github.com:/https:\\/\\/github.com\\//' | sed 's/\\.git$//') --json url -q .url)
+            gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
             log "Opened PR: $pr_url"
             # Save the PR number for later merging (if we want to wait and merge)
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
@@ -206,7 +206,7 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            pr_url=$(gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name" --repo $(git remote get-url origin | sed 's/git@github.com:/https:\\/\\/github.com\\//' | sed 's/\\.git$//') --json url -q .url)
+            gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
             log "Opened PR: $pr_url"
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
             if [[ -n "$pr_number" ]]; then
@@ -228,7 +228,7 @@ log "Labeling new issues without labels as 'triage'"
 gh issue list --state open --limit 10 --json number,labels | jq -r '.[] | select(.labels | length == 0) | .number' | while read issue_num; do
     if [[ -n "$issue_num" ]]; then
         log "Labeling issue #$issue_num with triage"
-        gh issue edit "$issue_num" --add-label "triage" --repo $(git remote get-url origin | sed 's/git@github.com:/https:\\/\\/github.com\\//' | sed 's/\\.git$//')
+        gh issue edit "$issue_num" --add-label "triage"
     fi
 done
 
@@ -273,7 +273,7 @@ else
     git add "$SUMMARY_FILE"
     git commit -m "docs: update maintenance summary for $(date '+%Y-%m-%d')"
     git push -u origin "$branch_name"
-    pr_url=$(gh pr create --title "docs: update maintenance summary for $(date '+%Y-%m-%d')" --body "This PR updates the maintenance summary file with the actions taken on $(date '+%Y-%m-%d')." --base "$DEFAULT_BRANCH" --head "$branch_name" --repo $(git remote get-url origin | sed 's/git@github.com:/https:\\/\\/github.com\\//' | sed 's/\\.git$//') --json url -q .url)
+    pr_url=$(gh pr create --title "docs: update maintenance summary for $(date '+%Y-%m-%d')" --body "This PR updates the maintenance summary file with the actions taken on $(date '+%Y-%m-%d')." --base "$DEFAULT_BRANCH" --head "$branch_name")
     log "Opened summary PR: $pr_url"
 fi
 
