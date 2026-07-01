@@ -22,6 +22,8 @@ services:
     environment:
       ALLOWED_HOSTS: "localhost,127.0.0.1,bi.fusional.dev"
       ALLOWED_ORIGINS: "http://localhost,http://127.0.0.1,http://localhost:5173,http://localhost:8102,http://localhost:8101,http://localhost:8103"
+    volumes:
+    - ./data/bi-db:/app/data
     ports:
     - 127.0.0.1:8101:8101
     restart: unless-stopped

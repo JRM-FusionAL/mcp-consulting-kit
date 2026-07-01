@@ -9,15 +9,27 @@ class LLMProvider(ABC):
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
         ...
 
-SQL_PROMPT = """You are a SQL generator. Convert the user's request into a single SQL query.
+DEFAULT_SCHEMA = """
+Tables available (SQLite):
+
+services(id INTEGER, name TEXT, port INTEGER, language TEXT, framework TEXT, status TEXT, description TEXT)
+integrations(id INTEGER, source_service TEXT, target_service TEXT, protocol TEXT, description TEXT)
+
+Use only these tables. Do not use information_schema or pg_ system tables.
+""".strip()
+
+SQL_PROMPT = """You are a SQL generator for a SQLite database. Convert the user's request into a single valid SQLite SELECT query.
 
 Natural language request:
 {query}
 
-Schema hint (may be empty):
+Schema:
 {schema}
 
-Return ONLY the SQL query, no explanation, no markdown, no backticks."""
+Rules:
+- SQLite syntax only (no ILIKE, no information_schema, no pg_ tables)
+- Return ONLY the SQL query, no explanation, no markdown, no backticks
+- Use only the tables listed in the schema above"""
 
 
 class ClaudeProvider(LLMProvider):
@@ -29,7 +41,7 @@ class ClaudeProvider(LLMProvider):
         self.model = os.getenv("CLAUDE_MODEL", "claude-3-5-sonnet-20240620")
 
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
-        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or "N/A")
+        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or DEFAULT_SCHEMA)
         msg = self.client.messages.create(
             model=self.model,
             max_tokens=512,
@@ -47,7 +59,7 @@ class LocalProvider(LLMProvider):
         self.model = os.getenv("LOCAL_LLM_MODEL", "local")
 
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
-        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or "N/A")
+        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or DEFAULT_SCHEMA)
         response = requests.post(
             self.url,
             json={
@@ -83,11 +95,11 @@ class OpenAICompatProvider(LLMProvider):
         self.model = os.environ.get("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct")
 
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
-        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or "N/A")
+        prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or DEFAULT_SCHEMA)
         response = self.client.chat.completions.create(
             model=self.model,
             max_tokens=512,
-            temperature=0.1,
+            temperature=0,
             messages=[{"role": "user", "content": prompt}],
         )
         return response.choices[0].message.content.strip()
