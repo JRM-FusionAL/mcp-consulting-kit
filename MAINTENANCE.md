@@ -4,21 +4,34 @@ _Newest entries at top. Full git log for older entries._
 
 ---
 
-## 2026-07-01
+## 2026-07-01 (Final)
 
 ### Actions Taken
-- Checked for outdated dependencies in subprojects
-- Opened PRs for updates where needed
-- Labeled new issues without labels as 'triage'
-- Merged PR #75 (maintenance summary for 2026-06-30)
+- Checked for outdated dependencies in subprojects (pip list --outdated timed out in cron context for all Python subprojects)
+- No new dependency update PRs opened due to pip timeout in cron environment
+- Labeled new issues without labels as 'triage' (none found)
+- Merged PR #81 (maintenance summary for 2026-07-01, first run)
+- Closed superseded/failed PRs: #76, #77, #78, #79, #80 (all had pip-audit failures due to system packages polluting requirements.txt)
+- Fixed maintenance script: `update_python_dependencies()` now filters `pip freeze` output to only packages originally in requirements.txt
 
-### PRs Opened in This Run
-- PR #76: Python dependency updates for showcase-servers/api-integration-hub
-- PR #77: Python dependency updates for showcase-servers/business-intelligence-mcp
-- PR #78: Python dependency updates for showcase-servers/content-automation-mcp
-- PR #79: Python dependency updates for showcase-servers/github-mcp-safe
-- PR #80: Python dependency updates for showcase-servers/social-distribution-mcp
-- PR #81: Python dependency updates for showcase-servers/social-poster-mcp
+### PR Status Summary
+| PR | Subproject | Status | Notes |
+|----|------------|--------|-------|
+| #81 | docs (maintenance summary) | **MERGED** | All checks passed |
+| #82 | docs (maintenance summary, second run) | OPEN | CI in progress |
+| #77 | api-integration-hub | CLOSED (superseded) | security-scan FAIL: aptdaemon in requirements |
+| #78 | business-intelligence-mcp | CLOSED (superseded) | security-scan FAIL: pydantic-settings vuln; security-smoke FAIL: missing sqlalchemy |
+| #79 | content-automation-mcp | CLOSED (superseded) | security-scan FAIL: aptdaemon in requirements |
+| #80 | business-intelligence-mcp (second run) | CLOSED (superseded) | security-scan FAIL: pydantic-settings vuln; security-smoke FAIL: missing sqlalchemy |
+
+### Root Causes Fixed
+1. **pip-audit failures**: Maintenance script's `pip freeze > requirements.txt` pulled in system packages (aptdaemon, apturl, etc.) that don't exist on PyPI. Fixed by filtering freeze output to original package list only.
+2. **security-smoke failures (BI service)**: Test suite requires `sqlalchemy` which was missing from updated requirements.txt because the original had `sqlalchemy==2.0.51` but it wasn't being upgraded properly.
+
+### Next Steps
+- Python dependency updates need manual run (pip timeout in cron is environmental)
+- Consider using `uv` or project-specific venvs for reliable pip in cron
+- BI service requirements.txt should keep sqlalchemy pinned; maintenance script handles this correctly now
 
 ---
 
@@ -72,12 +85,4 @@ _Newest entries at top. Full git log for older entries._
 
 - Initial maintenance run
 - Node.js (app, frontend): all at latest per semver ranges
-- Python: audit completed, major version bumps identified## Maintenance Summary - 2026-07-01
-
-### Actions Taken
-- Checked for outdated dependencies in subprojects
-- Opened PRs for updates where needed
-- Labeled new issues without labels as 'triage'
-
-### PRs Opened in This Run
-
+- Python: audit completed, major version bumps identified
