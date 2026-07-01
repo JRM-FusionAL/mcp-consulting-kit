@@ -8,17 +8,26 @@ _Newest entries at top. Full git log for older entries._
 
 ### Actions Taken
 - Checked for outdated dependencies in subprojects
-- Opened PRs for updates where needed
+- Opened PRs for Python dependency updates where needed
 - Labeled new issues without labels as 'triage'
 - Merged PR #75 (maintenance summary for 2026-06-30)
+- Fixed maintenance script to filter pip freeze output (avoid pulling in system packages like aptdaemon)
+- Closed duplicate PR #76 (superseded by #77)
 
-### PRs Opened in This Run
-- PR #76: Python dependency updates for showcase-servers/api-integration-hub
-- PR #77: Python dependency updates for showcase-servers/business-intelligence-mcp
-- PR #78: Python dependency updates for showcase-servers/content-automation-mcp
-- PR #79: Python dependency updates for showcase-servers/github-mcp-safe
-- PR #80: Python dependency updates for showcase-servers/social-distribution-mcp
-- PR #81: Python dependency updates for showcase-servers/social-poster-mcp
+### PR Status (opened this run)
+| PR | Subproject | Status | Notes |
+|----|------------|--------|-------|
+| #77 | api-integration-hub | MERGEABLE | CodeQL ✅, Security smoke ✅, **Security scan FAIL** (pip-audit: aptdaemon not on PyPI) |
+| #78 | business-intelligence-mcp | MERGEABLE | CodeQL ✅, **Security smoke FAIL**, **Security scan FAIL** (pip-audit: aptdaemon) |
+| #79 | content-automation-mcp | MERGEABLE | CodeQL ✅, Security smoke ✅, **Security scan FAIL** (pip-audit: aptdaemon) |
+
+### Key Issues
+- **pip-audit failure**: The security scan runs `pip-audit` against all Python subprojects. It fails because `pip freeze` in the maintenance script picked up system packages (`aptdaemon==2.0.2`, `apturl==0.5.2`, etc.) that don't exist on PyPI. Fixed by filtering `pip freeze` output to only packages listed in the original `requirements.txt`.
+
+### Next Steps
+- Re-run maintenance with fixed script (non-dry-run) to regenerate clean requirements.txt files
+- Re-push fixed branches to trigger passing CI
+- Merge PRs once security-scan passes
 
 ---
 
@@ -72,4 +81,13 @@ _Newest entries at top. Full git log for older entries._
 
 - Initial maintenance run
 - Node.js (app, frontend): all at latest per semver ranges
-- Python: audit completed, major version bumps identified
+- Python: audit completed, major version bumps identified## Maintenance Summary - 2026-07-01
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+- PR #80
+
