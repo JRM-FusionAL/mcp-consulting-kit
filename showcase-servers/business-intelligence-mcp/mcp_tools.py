@@ -22,7 +22,6 @@ FORBIDDEN_SQL_PATTERNS = [
     r"\bexecute\b",
     r"\bcall\b",
     r"\bunion\b",
-    r"\binformation_schema\b",
     r"\bpg_\w+",
     r"\bsqlite_master\b",
 ]
