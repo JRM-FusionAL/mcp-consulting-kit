@@ -20,3 +20,7 @@ showcase-servers/social-poster-mcp/
 showcase-servers/social-distribution-mcp/
 node_modules/
 **/.env.bak*
+
+# DB data
+data/
+venv/
