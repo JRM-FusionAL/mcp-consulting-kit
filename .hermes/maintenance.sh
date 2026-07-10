@@ -42,10 +42,10 @@ check_python_updates() {
     if [[ -f "$req_file" ]]; then
         log "Checking for Python updates in $dir"
         # We'll use pip list --outdated --format=json to get a list of outdated packages
-        # Add timeout to prevent hanging
-        pushd "$dir" > /dev/null
-        if timeout 30 pip list --outdated --format=json &>/dev/null; then
-            outdated=$(timeout 30 pip list --outdated --format=json | jq -r '.[] | "\\(.name)==\\(.latest_version)"' | tr '\\n' ' ')
+                # Add timeout to prevent hanging
+                pushd "$dir" > /dev/null
+                if timeout 120 pip list --outdated --format=json &>/dev/null; then
+                    outdated=$(timeout 120 pip list --outdated --format=json | jq -r '.[] | "\(.name)==\(.latest_version)"' | tr '\n' ' ')
             if [[ -n "$outdated" ]]; then
                 log "Found outdated Python packages in $dir: $outdated"
                 popd > /dev/null
@@ -167,12 +167,12 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Update dependencies
             update_python_dependencies "$subproject"
             # Commit
-            git add "$subproject/requirements.txt"
+            git add -f "$subproject/requirements.txt"
             git commit -m "chore: update Python dependencies in $subproject"
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            pr_url=$(gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             # Save the PR number for later merging (if we want to wait and merge)
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
@@ -196,17 +196,17 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Update dependencies
             update_node_dependencies "$subproject"
             # Commit
-            git add "$subproject/package.json"
+            git add -f "$subproject/package.json"
             if [[ -f "$subproject/pnpm-lock.yaml" ]]; then
-                git add "$subproject/pnpm-lock.yaml"
+                git add -f "$subproject/pnpm-lock.yaml"
             elif [[ -f "$subproject/package-lock.json" ]]; then
-                git add "$subproject/package-lock.json"
+                git add -f "$subproject/package-lock.json"
             fi
             git commit -m "chore: update Node.js dependencies in $subproject"
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            pr_url=$(gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
             if [[ -n "$pr_number" ]]; then
