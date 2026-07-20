@@ -886,3 +886,289 @@
 [2026-07-05 02:35:18] Creating weekly summary
 [2026-07-05 02:35:18] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/84
 [2026-07-05 02:35:18] Maintenance script completed.
+[2026-07-11 02:52:38] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-11 02:52:38] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-11 02:52:38] Found outdated Python packages in showcase-servers/api-integration-hub:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:52:38] Creating branch: update/deps/showcase-servers-api-integration-hub-20260711025322
+[2026-07-11 02:52:38] Updating Python dependencies in showcase-servers/api-integration-hub
+[2026-07-11 02:52:38] Upgraded packages in showcase-servers/api-integration-hub (see requirements.txt)
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-11 02:54:00] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-11 02:54:00] Found outdated Python packages in showcase-servers/api-integration-hub:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:54:00] Creating branch: update/deps/showcase-servers-api-integration-hub-20260711025445
+[2026-07-11 02:54:00] Updating Python dependencies in showcase-servers/api-integration-hub
+[2026-07-11 02:54:00] Upgraded packages in showcase-servers/api-integration-hub (see requirements.txt)
+[2026-07-11 02:54:00] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/127
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-11 02:54:00] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-11 02:54:00] Found outdated Python packages in showcase-servers/business-intelligence-mcp:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:54:00] Creating branch: update/deps/showcase-servers-business-intelligence-mcp-20260711025534
+[2026-07-11 02:54:00] Updating Python dependencies in showcase-servers/business-intelligence-mcp
+[2026-07-11 02:54:00] Upgraded packages in showcase-servers/business-intelligence-mcp (see requirements.txt)
+[2026-07-11 02:54:00] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/128
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-11 02:54:00] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-11 02:54:00] Found outdated Python packages in showcase-servers/content-automation-mcp:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:54:00] Creating branch: update/deps/showcase-servers-content-automation-mcp-20260711025627
+[2026-07-11 02:54:00] Updating Python dependencies in showcase-servers/content-automation-mcp
+[2026-07-11 02:54:00] Upgraded packages in showcase-servers/content-automation-mcp (see requirements.txt)
+[2026-07-11 02:54:00] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/129
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-11 02:54:00] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-11 02:54:00] Found outdated Python packages in showcase-servers/github-mcp-safe:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:54:00] Creating branch: update/deps/showcase-servers-github-mcp-safe-20260711025718
+[2026-07-11 02:54:00] Updating Python dependencies in showcase-servers/github-mcp-safe
+[2026-07-11 02:54:00] Upgraded packages in showcase-servers/github-mcp-safe (see requirements.txt)
+[2026-07-11 02:54:00] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/130
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-11 02:54:00] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-11 02:54:00] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-11 02:54:00] Found outdated Python packages in showcase-servers/social-poster-mcp:  (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+ (. ame)== (.latest_versio )
+[2026-07-11 02:54:00] Creating branch: update/deps/showcase-servers-social-poster-mcp-20260711025807
+[2026-07-11 02:54:00] Updating Python dependencies in showcase-servers/social-poster-mcp
+[2026-07-11 02:54:00] Upgraded packages in showcase-servers/social-poster-mcp (see requirements.txt)
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-11 02:59:11] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-11 02:59:11] Found outdated Python packages in showcase-servers/api-integration-hub: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 pydantic_core==2.47.0 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-11 02:59:11] Creating branch: update/deps/showcase-servers-api-integration-hub-20260711025956
+[2026-07-11 02:59:11] Updating Python dependencies in showcase-servers/api-integration-hub
+[2026-07-11 02:59:11] Upgraded packages in showcase-servers/api-integration-hub (see requirements.txt)
+[2026-07-11 02:59:11] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/131
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-11 02:59:11] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-11 02:59:11] Found outdated Python packages in showcase-servers/business-intelligence-mcp: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 pydantic_core==2.47.0 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-11 02:59:11] Creating branch: update/deps/showcase-servers-business-intelligence-mcp-20260711030047
+[2026-07-11 02:59:11] Updating Python dependencies in showcase-servers/business-intelligence-mcp
+[2026-07-11 02:59:11] Upgraded packages in showcase-servers/business-intelligence-mcp (see requirements.txt)
+[2026-07-11 02:59:11] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/132
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-11 02:59:11] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-11 02:59:11] Found outdated Python packages in showcase-servers/content-automation-mcp: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 pydantic_core==2.47.0 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-11 02:59:11] Creating branch: update/deps/showcase-servers-content-automation-mcp-20260711030138
+[2026-07-11 02:59:11] Updating Python dependencies in showcase-servers/content-automation-mcp
+[2026-07-11 02:59:11] Upgraded packages in showcase-servers/content-automation-mcp (see requirements.txt)
+[2026-07-11 02:59:11] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/133
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-11 02:59:11] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-11 02:59:11] Found outdated Python packages in showcase-servers/github-mcp-safe: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 pydantic_core==2.47.0 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-11 02:59:11] Creating branch: update/deps/showcase-servers-github-mcp-safe-20260711030230
+[2026-07-11 02:59:11] Updating Python dependencies in showcase-servers/github-mcp-safe
+[2026-07-11 02:59:11] Upgraded packages in showcase-servers/github-mcp-safe (see requirements.txt)
+[2026-07-11 02:59:11] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/134
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-11 02:59:11] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-11 02:59:11] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-11 02:59:11] Found outdated Python packages in showcase-servers/social-poster-mcp: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 pydantic_core==2.47.0 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-11 02:59:11] Creating branch: update/deps/showcase-servers-social-poster-mcp-20260711030321
+[2026-07-11 02:59:11] Updating Python dependencies in showcase-servers/social-poster-mcp
+[2026-07-11 02:59:11] Upgraded packages in showcase-servers/social-poster-mcp (see requirements.txt)
+[2026-07-11 02:59:11] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/135
+[2026-07-11 02:59:11] Processing subproject: app
+[2026-07-11 02:59:11] Checking for Node.js updates in app
+[2026-07-11 02:59:11] Using npm for app
+[2026-07-11 02:59:11] No outdated Node.js packages in app (npm)
+[2026-07-11 02:59:11] Processing subproject: frontend
+[2026-07-11 02:59:11] Checking for Node.js updates in frontend
+[2026-07-11 02:59:11] Using npm for frontend
+[2026-07-11 02:59:11] No outdated Node.js packages in frontend (npm)
+[2026-07-11 02:59:11] Labeling new issues without labels as 'triage'
+[2026-07-11 02:59:11] Processing PRs opened in this run for CI and merge...
+[2026-07-11 02:59:11] Waiting for CI to pass on PR #131 (timeout: 120s)...
+[2026-07-11 02:59:11] Timeout waiting for CI to pass on PR #131. Leaving PR open.
+[2026-07-12 02:20:45] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-12 02:20:45] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-12 02:20:45] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-12 02:20:45] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-12 02:20:45] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-13 02:09:18] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-13 02:09:18] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-13 02:09:18] Found outdated Python packages in showcase-servers/api-integration-hub: anthropic==0.116.0 fastapi==0.139.0 importlib_metadata==9.0.0 opentelemetry-api==1.43.0 opentelemetry-exporter-otlp-proto-common==1.43.0 opentelemetry-exporter-otlp-proto-http==1.43.0 opentelemetry-proto==1.43.0 opentelemetry-sdk==1.43.0 pip==26.1.2 protobuf==7.35.1 psycopg2-binary==2.9.12 PyMySQL==1.2.0 pytest==9.1.1 redis==8.0.1 uvicorn==0.51.0 wrapt==2.2.2 
+[2026-07-13 02:09:18] Creating branch: update/deps/showcase-servers-api-integration-hub-20260713021005
+[2026-07-13 02:09:18] Updating Python dependencies in showcase-servers/api-integration-hub
+[2026-07-13 02:09:18] Upgraded packages in showcase-servers/api-integration-hub (see requirements.txt)
+[2026-07-13 02:09:18] Opened PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/136
+[2026-07-13 02:09:18] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-13 02:09:18] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-18 02:08:23] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-18 02:08:23] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-18 02:08:23] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-18 02:08:23] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-18 02:08:23] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-18 02:08:23] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-18 02:08:23] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-18 02:08:23] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-18 02:08:23] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-18 02:08:23] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-18 02:08:23] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-07-18 02:08:23] Processing subproject: app
+[2026-07-18 02:08:23] Checking for Node.js updates in app
+[2026-07-18 02:08:23] Using npm for app
+[2026-07-18 02:08:23] No outdated Node.js packages in app (npm)
+[2026-07-18 02:08:23] Processing subproject: frontend
+[2026-07-18 02:08:23] Checking for Node.js updates in frontend
+[2026-07-18 02:08:23] Using npm for frontend
+[2026-07-18 02:08:23] No outdated Node.js packages in frontend (npm)
+[2026-07-18 02:08:23] Labeling new issues without labels as 'triage'
+[2026-07-18 02:08:23] Processing PRs opened in this run for CI and merge...
+[2026-07-18 02:08:23] Creating weekly summary
+[2026-07-18 02:08:23] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/137
+[2026-07-18 02:08:23] Maintenance script completed.
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-19 02:05:53] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-19 02:05:53] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-19 02:05:53] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-19 02:05:53] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-19 02:05:53] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-19 02:05:53] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-19 02:05:53] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-19 02:05:53] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-19 02:05:53] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-19 02:05:53] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-19 02:05:53] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-07-19 02:05:53] Processing subproject: app
+[2026-07-19 02:05:53] Checking for Node.js updates in app
+[2026-07-19 02:05:53] Using npm for app
+[2026-07-19 02:05:53] No outdated Node.js packages in app (npm)
+[2026-07-19 02:05:53] Processing subproject: frontend
+[2026-07-19 02:05:53] Checking for Node.js updates in frontend
+[2026-07-19 02:05:53] Using npm for frontend
+[2026-07-19 02:05:53] No outdated Node.js packages in frontend (npm)
+[2026-07-19 02:05:53] Labeling new issues without labels as 'triage'
+[2026-07-19 02:05:53] Processing PRs opened in this run for CI and merge...
+[2026-07-19 02:05:53] Creating weekly summary
+[2026-07-19 02:05:53] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/138
+[2026-07-19 02:05:53] Maintenance script completed.
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-20 02:16:06] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-20 02:16:06] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-20 02:16:06] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-20 02:16:06] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-20 02:16:06] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-20 02:16:06] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-20 02:16:06] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-20 02:16:06] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-20 02:16:06] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-20 02:16:06] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-20 02:16:06] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-07-20 02:16:06] Processing subproject: app
+[2026-07-20 02:16:06] Checking for Node.js updates in app
+[2026-07-20 02:16:06] Using npm for app
+[2026-07-20 02:16:06] npm outdated timed out in app - skipping update check
+[2026-07-20 02:16:06] Processing subproject: frontend
+[2026-07-20 02:16:06] Checking for Node.js updates in frontend
+[2026-07-20 02:16:06] Using npm for frontend
+[2026-07-20 02:16:06] No outdated Node.js packages in frontend (npm)
+[2026-07-20 02:16:06] Labeling new issues without labels as 'triage'
+[2026-07-20 02:16:06] Processing PRs opened in this run for CI and merge...
+[2026-07-20 02:16:06] Creating weekly summary
+[2026-07-20 02:16:06] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/139
+[2026-07-20 02:16:06] Maintenance script completed.
