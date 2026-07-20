@@ -45,7 +45,7 @@ check_python_updates() {
         # Add timeout to prevent hanging
         pushd "$dir" > /dev/null
         if timeout 30 pip list --outdated --format=json &>/dev/null; then
-            outdated=$(timeout 30 pip list --outdated --format=json | jq -r '.[] | "\\(.name)==\\(.latest_version)"' | tr '\\n' ' ')
+            outdated=$(timeout 30 pip list --outdated --format=json | jq -r '.[] | "\(.name)==\(.latest_version)"' | tr '\n' ' ')
             if [[ -n "$outdated" ]]; then
                 log "Found outdated Python packages in $dir: $outdated"
                 popd > /dev/null
@@ -75,7 +75,7 @@ check_node_updates() {
         if [[ -f "$dir/pnpm-lock.yaml" ]]; then
             log "Using pnpm for $dir"
             if timeout 30 pnpm outdated --json &>/dev/null; then
-                outdated=$(timeout 30 pnpm outdated --json | jq -r '.[] | "\\(.package):\\(.current)→\\(.latest)"' | tr '\\n' ' ')
+                outdated=$(timeout 30 pnpm outdated --json | jq -r '.[] | "\(.package):\(.current)→\(.latest)"' | tr '\n' ' ')
                 if [[ -n "$outdated" ]]; then
                     log "Found outdated Node.js packages in $dir (pnpm): $outdated"
                     return 0
@@ -91,7 +91,7 @@ check_node_updates() {
             # Assume npm
             log "Using npm for $dir"
             if timeout 30 npm outdated --json &>/dev/null; then
-                outdated=$(timeout 30 npm outdated --json | jq -r '.[] | "\\(.name):\\(.current)→\\(.latest)"' | tr '\\n' ' ')
+                outdated=$(timeout 30 npm outdated --json | jq -r '.[] | "\(.name):\(.current)→\(.latest)"' | tr '\n' ' ')
                 if [[ -n "$outdated" ]]; then
                     log "Found outdated Node.js packages in $dir (npm): $outdated"
                     return 0
@@ -149,6 +149,58 @@ update_node_dependencies() {
     popd > /dev/null
 }
 
+# Function to wait for CI to pass on a PR and then merge it
+wait_for_ci_and_merge() {
+    local pr_num="$1"
+    local timeout_seconds=120
+    local interval=15
+    local elapsed=0
+
+    log "Waiting for CI to pass on PR #$pr_num (timeout: ${timeout_seconds}s)..."
+
+    while [[ $elapsed -lt $timeout_seconds ]]; do
+        # Get the PR status
+        local status_json
+        status_json=$(gh pr view "$pr_num" --json statusCheckRollup 2>/dev/null) || {
+            log "Failed to fetch PR #$pr_num status"
+            sleep $interval
+            elapsed=$((elapsed + interval))
+            continue
+        }
+
+        # Check if all checks are completed and none are failed
+        local all_passed
+        all_passed=$(echo "$status_json" | jq -r '
+            .statusCheckRollup[] 
+            | select(.state != "SUCCESS" and .state != "SKIPPED") 
+            | .state
+        ' | head -n1)
+
+        if [[ -z "$all_passed" ]]; then
+            # All checks are either SUCCESS or SKIPPED
+            log "All checks passed for PR #$pr_num. Merging..."
+            gh pr merge "$pr_num" --merge --delete-branch --admin
+            log "Merged PR #$pr_num"
+            return 0
+        fi
+
+        # If there are any failures or errors, we break and do not merge
+        if [[ "$all_passed" == "FAILURE" || "$all_passed" == "ERROR" || "$all_passed" == "PENDING" ]]; then
+            log "PR #$pr_num has checks in state: $all_passed. Waiting..."
+            sleep $interval
+            elapsed=$((elapsed + interval))
+            continue
+        fi
+
+        # If we get here, there are checks that are not in a known state? Wait a bit more.
+        sleep $interval
+        elapsed=$((elapsed + interval))
+    done
+
+    log "Timeout waiting for CI to pass on PR #$pr_num. Leaving PR open."
+    return 1
+}
+
 # Main loop over subprojects
 for subproject in "${SUBPROJECTS[@]}"; do
     log "Processing subproject: $subproject"
@@ -167,12 +219,12 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Update dependencies
             update_python_dependencies "$subproject"
             # Commit
-            git add "$subproject/requirements.txt"
+            git add -f "$subproject/requirements.txt"
             git commit -m "chore: update Python dependencies in $subproject"
             # Push
             git push -u origin "$branch_name"
-            # Open PR
-            gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            # Open PR and capture URL
+            pr_url=$(gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             # Save the PR number for later merging (if we want to wait and merge)
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
@@ -205,8 +257,8 @@ for subproject in "${SUBPROJECTS[@]}"; do
             git commit -m "chore: update Node.js dependencies in $subproject"
             # Push
             git push -u origin "$branch_name"
-            # Open PR
-            gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            # Open PR and capture URL
+            pr_url=$(gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
             if [[ -n "$pr_number" ]]; then
@@ -232,6 +284,16 @@ gh issue list --state open --limit 10 --json number,labels | jq -r '.[] | select
     fi
 done
 
+# Wait for CI to pass and merge the PRs we opened in this run
+if [[ -f "$PR_NUMBERS_FILE" ]]; then
+    log "Processing PRs opened in this run for CI and merge..."
+    while read pr_num; do
+        if [[ -n "$pr_num" ]]; then
+            wait_for_ci_and_merge "$pr_num"
+        fi
+    done < "$PR_NUMBERS_FILE"
+fi
+
 # Post a weekly summary
 # We'll create a comment on a specific issue (let's say we use issue #1 for maintenance summaries) or create a new issue if it doesn't exist.
 # For simplicity, we'll append to a file in the repository and then commit and push that file.
@@ -249,6 +311,7 @@ SUMMARY_FILE="$REPO_DIR/MAINTENANCE.md"
     echo "- Checked for outdated dependencies in subprojects"
     echo "- Opened PRs for updates where needed"
     echo "- Labeled new issues without labels as 'triage'"
+    echo "- Merged PRs that passed CI (if any)"
     echo ""
     echo "### PRs Opened in This Run"
     if [[ -f "$PR_NUMBERS_FILE" ]]; then
