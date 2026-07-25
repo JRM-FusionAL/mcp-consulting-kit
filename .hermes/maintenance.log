@@ -886,3 +886,91 @@
 [2026-07-05 02:35:18] Creating weekly summary
 [2026-07-05 02:35:18] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/84
 [2026-07-05 02:35:18] Maintenance script completed.
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-21 02:22:48] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-21 02:22:48] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-21 02:22:48] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-21 02:22:48] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-21 02:22:48] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-21 02:22:48] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-21 02:22:48] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-21 02:22:48] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-21 02:22:48] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-21 02:22:48] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-22 02:27:58] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-22 02:27:58] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-22 02:27:58] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-22 02:27:58] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-22 02:27:58] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-22 02:27:58] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-22 02:27:58] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-22 02:27:58] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-22 02:27:58] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-22 02:27:58] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-22 02:27:58] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-07-22 02:27:58] Processing subproject: app
+[2026-07-22 02:27:58] Checking for Node.js updates in app
+[2026-07-22 02:27:58] Using npm for app
+[2026-07-22 02:27:58] No outdated Node.js packages in app (npm)
+[2026-07-22 02:27:58] Processing subproject: frontend
+[2026-07-22 02:27:58] Checking for Node.js updates in frontend
+[2026-07-22 02:27:58] Using npm for frontend
+[2026-07-22 02:27:58] No outdated Node.js packages in frontend (npm)
+[2026-07-22 02:27:58] Labeling new issues without labels as 'triage'
+[2026-07-22 02:27:58] Creating weekly summary
+[2026-07-22 02:27:58] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/142
+[2026-07-22 02:27:58] Maintenance script completed.
+[2026-07-23 02:20:29] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-23 02:20:29] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-23 02:20:29] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-23 02:20:29] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-23 02:20:29] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-23 02:20:29] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-23 02:20:29] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-23 02:20:29] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-23 02:20:29] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-23 02:20:29] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-23 02:20:29] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-24 02:08:16] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-24 02:08:16] pip list --outdated timed out or failed in showcase-servers/api-integration-hub - skipping update check
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/business-intelligence-mcp
+[2026-07-24 02:08:16] Checking for Python updates in showcase-servers/business-intelligence-mcp
+[2026-07-24 02:08:16] pip list --outdated timed out or failed in showcase-servers/business-intelligence-mcp - skipping update check
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/content-automation-mcp
+[2026-07-24 02:08:16] Checking for Python updates in showcase-servers/content-automation-mcp
+[2026-07-24 02:08:16] pip list --outdated timed out or failed in showcase-servers/content-automation-mcp - skipping update check
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/github-mcp-safe
+[2026-07-24 02:08:16] Checking for Python updates in showcase-servers/github-mcp-safe
+[2026-07-24 02:08:16] pip list --outdated timed out or failed in showcase-servers/github-mcp-safe - skipping update check
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/social-distribution-mcp
+[2026-07-24 02:08:16] Processing subproject: showcase-servers/social-poster-mcp
+[2026-07-24 02:08:16] Checking for Python updates in showcase-servers/social-poster-mcp
+[2026-07-24 02:08:16] pip list --outdated timed out or failed in showcase-servers/social-poster-mcp - skipping update check
+[2026-07-24 02:08:16] Processing subproject: app
+[2026-07-24 02:08:16] Checking for Node.js updates in app
+[2026-07-24 02:08:16] Using npm for app
+[2026-07-24 02:08:16] No outdated Node.js packages in app (npm)
+[2026-07-24 02:08:16] Processing subproject: frontend
+[2026-07-24 02:08:16] Checking for Node.js updates in frontend
+[2026-07-24 02:08:16] Using npm for frontend
+[2026-07-24 02:08:16] No outdated Node.js packages in frontend (npm)
+[2026-07-24 02:08:16] Labeling new issues without labels as 'triage'
+[2026-07-24 02:08:16] Creating weekly summary
+[2026-07-24 02:08:16] Opened summary PR: https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/144
+[2026-07-24 02:08:16] Maintenance script completed.
+[2026-07-25 02:16:05] Processing subproject: showcase-servers/api-integration-hub
+[2026-07-25 02:16:05] Checking for Python updates in showcase-servers/api-integration-hub
+[2026-07-25 02:16:05] Found outdated Python packages in showcase-servers/api-integration-hub:  (. ame)== (.latest_versio )
+[2026-07-25 02:16:05] Creating branch: update/deps/showcase-servers-api-integration-hub-20260725021654
+[2026-07-25 02:16:05] Updating Python dependencies in showcase-servers/api-integration-hub
+[2026-07-25 02:16:05] Upgraded packages in showcase-servers/api-integration-hub (see requirements.txt)
