@@ -11,4 +11,7 @@ COPY content-automation-mcp/ .
 
 ENV PORT=8103
 
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8103", "--forwarded-allow-ips", "*"]
