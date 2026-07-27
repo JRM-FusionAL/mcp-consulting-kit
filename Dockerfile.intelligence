@@ -8,6 +8,9 @@ RUN pip install --no-cache-dir "mcp[cli]" httpx beautifulsoup4 pandas==2.2.1
 
 COPY intelligence_mcp.py .
 
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
 EXPOSE 8104
 
 CMD ["python", "intelligence_mcp.py"]

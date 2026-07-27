@@ -12,6 +12,15 @@ services:
     ports:
     - 127.0.0.1:8102:8102
     restart: unless-stopped
+    mem_limit: 128m
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    read_only: true
+    tmpfs:
+    - /tmp
   business-intelligence-mcp:
     build:
       context: ./showcase-servers
@@ -27,6 +36,15 @@ services:
     ports:
     - 127.0.0.1:8101:8101
     restart: unless-stopped
+    mem_limit: 128m
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    read_only: true
+    tmpfs:
+    - /tmp
   content-automation-mcp:
     build:
       context: ./showcase-servers
@@ -40,6 +58,15 @@ services:
     ports:
     - 127.0.0.1:8103:8103
     restart: unless-stopped
+    mem_limit: 128m
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    read_only: true
+    tmpfs:
+    - /tmp
   github-mcp-safe:
     build:
       context: ./showcase-servers
@@ -54,6 +81,15 @@ services:
     ports:
       - 127.0.0.1:8105:8105
     restart: unless-stopped
+    mem_limit: 128m
+    pids_limit: 64
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
   intelligence-mcp:
     build:
       context: .
@@ -64,3 +100,12 @@ services:
     ports:
     - 127.0.0.1:8104:8104
     restart: unless-stopped
+    mem_limit: 128m
+    pids_limit: 64
+    security_opt:
+    - no-new-privileges:true
+    cap_drop:
+    - ALL
+    read_only: true
+    tmpfs:
+    - /tmp

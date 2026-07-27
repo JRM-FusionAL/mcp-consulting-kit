@@ -15,4 +15,9 @@ COPY business-intelligence-mcp/ .
 
 ENV PORT=8101
 
+RUN adduser -u 5678 --disabled-password --gecos "" appuser \
+    && mkdir -p /app/data \
+    && chown -R appuser /app
+USER appuser
+
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8101", "--forwarded-allow-ips", "*"]
