@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx:1.30-alpine
     container_name: fusional-nginx
     ports:
       - "8088:80"
