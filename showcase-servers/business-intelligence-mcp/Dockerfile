@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" wheel
+RUN pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" wheel && \
+    rm -rf /usr/local/lib/python3.11/ensurepip
 
 WORKDIR /app
 
