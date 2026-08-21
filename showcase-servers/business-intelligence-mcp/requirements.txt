@@ -16,3 +16,4 @@ redis==7.4.0
 requests==2.34.2
 mcp[cli]==1.28.1
 httpx==0.28.1
+msgpack>=1.2.1
