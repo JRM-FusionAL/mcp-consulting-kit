@@ -114,23 +114,40 @@ update_python_dependencies() {
     local dir="$1"
     local req_file="$dir/requirements.txt"
     log "Updating Python dependencies in $dir"
-    # We'll upgrade each package individually and then freeze
-    # But note: we want to update to the latest versions, so we can do:
-    #   pip install --upgrade --break-system-packages -r requirements.txt
-    #   then pip freeze > requirements.txt
-    # However, this might upgrade to versions that are not compatible with other constraints.
-    # For simplicity, we'll do that and hope the CI will catch any issues.
-    pushd "$dir" > /dev/null
     # Backup original requirements.txt
     cp requirements.txt requirements.txt.bak
-    # Upgrade all packages with --break-system-packages to avoid externally-managed-environment error
-    pip install --upgrade --break-system-packages -r requirements.txt
-    # Freeze the installed packages to requirements.txt
-    pip freeze > requirements.txt
-    # Note: pip freeze includes transitive dependencies and might change versions of packages not in the original file.
-    # We'll filter to only keep the packages that were in the original requirements.txt? 
-    # For now, we'll use the full freeze and hope for the best.
-    log "Upgraded packages in $dir (see requirements.txt)"
+    pushd "$dir" > /dev/null
+    # SI-111 guard: protected packages are never auto-upgraded.
+    # mcp 2.x removed mcp.server.fastmcp (broke the gateway); pydantic-core must match pydantic.
+    # Upgrade only non-protected packages, in-place via pip (no --break-system-packages into user site).
+    local PKGS
+    PKGS=$(grep -vE '^\s*(#|$)' requirements.txt | sed -E 's/[><=!~].*//' | grep -viE '^(mcp|mcp-types|pydantic|pydantic-settings|pydantic-core)$' | tr '\n' ' ')
+    if [[ -n "$PKGS" ]]; then
+        pip install --upgrade $PKGS || { log "pip upgrade failed in $dir — restoring backup"; cp requirements.txt.bak requirements.txt; popd > /dev/null; return 1; }
+    fi
+    # Freeze only the packages originally listed (no transitive drift), preserving protected pins verbatim.
+    python3 - <<'PYEOF'
+import re
+protected = {'mcp', 'mcp-types', 'pydantic', 'pydantic-settings', 'pydantic-core'}
+orig = []
+for line in open('requirements.txt.bak'):
+    line = line.rstrip('\n')
+    s = line.strip()
+    if not s or s.startswith('#'):
+        orig.append(line)
+        continue
+    name = re.match(r'^[A-Za-z0-9_.\-\[\]]+', s).group(0).lower().replace('_', '-')
+    if name in protected:
+        orig.append(line)  # keep pin exactly as committed
+    else:
+        import importlib.metadata as im
+        try:
+            orig.append(f"{re.match(r'^[A-Za-z0-9_.\-]+', s).group(0)}=={im.version(re.match(r'^[A-Za-z0-9_.\-]+', s).group(0))}")
+        except Exception:
+            orig.append(line)
+open('requirements.txt', 'w').write('\n'.join(orig) + '\n')
+PYEOF
+    log "Upgraded packages in $dir (protected pins preserved)"
     popd > /dev/null
 }
 
@@ -166,6 +183,34 @@ for subproject in "${SUBPROJECTS[@]}"; do
             git checkout -b "$branch_name"
             # Update dependencies
             update_python_dependencies "$subproject"
+            # SI-111 validation gate: import-check the updated packages before committing.
+            if ! (cd "$subproject" && python3 -c "
+import re, subprocess, sys
+names = []
+for line in open('requirements.txt'):
+    s = line.strip()
+    if not s or s.startswith('#'):
+        continue
+    name = re.match(r'^[A-Za-z0-9_.\-\[\]]+', s).group(0)
+    mod = name.replace('-', '_').split('[')[0]
+    names.append(mod)
+fails = []
+for mod in names:
+    r = subprocess.run([sys.executable, '-c', f'import {mod}'], capture_output=True)
+    if r.returncode != 0:
+        fails.append(mod)
+if fails:
+    print(f'IMPORT FAILURES: {fails}', file=sys.stderr)
+    sys.exit(1)
+print('all requirement imports pass')
+"); then
+                log "VALIDATION FAILED for $subproject — reverting requirements.txt, NOT committing."
+                cp "$subproject/requirements.txt.bak" "$subproject/requirements.txt"
+                rm -f "$subproject/requirements.txt.bak"
+                git checkout "$DEFAULT_BRANCH"
+                continue
+            fi
+            rm -f "$subproject/requirements.txt.bak"
             # Commit
             git add "$subproject/requirements.txt"
             git commit -m "chore: update Python dependencies in $subproject"
