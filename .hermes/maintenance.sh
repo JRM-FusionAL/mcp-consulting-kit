@@ -114,22 +114,24 @@ update_python_dependencies() {
     local dir="$1"
     local req_file="$dir/requirements.txt"
     log "Updating Python dependencies in $dir"
-    # We'll upgrade each package individually and then freeze
-    # But note: we want to update to the latest versions, so we can do:
-    #   pip install --upgrade --break-system-packages -r requirements.txt
-    #   then pip freeze > requirements.txt
-    # However, this might upgrade to versions that are not compatible with other constraints.
-    # For simplicity, we'll do that and hope the CI will catch any issues.
     pushd "$dir" > /dev/null
     # Backup original requirements.txt
     cp requirements.txt requirements.txt.bak
     # Upgrade all packages with --break-system-packages to avoid externally-managed-environment error
     pip install --upgrade --break-system-packages -r requirements.txt
     # Freeze the installed packages to requirements.txt
-    pip freeze > requirements.txt
-    # Note: pip freeze includes transitive dependencies and might change versions of packages not in the original file.
-    # We'll filter to only keep the packages that were in the original requirements.txt? 
-    # For now, we'll use the full freeze and hope for the best.
+    # SI-116: NEVER blind-freeze ("hope CI catches it" is how FusionAL-Recall's
+    # requirements.txt got poisoned with phantom pins). Gate the new pin set
+    # through the resolver BEFORE accepting it — restore the backup on failure.
+    # NOTE: the --break-system-packages upgrade above is still the SI-111
+    # anti-pattern — this script needs the full hardened-template redeploy.
+    pip freeze | grep -v '^-e ' > requirements.txt
+    if ! uv pip install --dry-run -r requirements.txt >/dev/null 2>&1; then
+        log "RESOLVER GATE FAILED in $dir — restoring previous requirements.txt"
+        mv requirements.txt.bak requirements.txt
+    else
+        rm -f requirements.txt.bak
+    fi
     log "Upgraded packages in $dir (see requirements.txt)"
     popd > /dev/null
 }
