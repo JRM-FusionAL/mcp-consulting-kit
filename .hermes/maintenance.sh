@@ -174,7 +174,7 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            pr_url=$(gh pr create --title "chore: update Python dependencies in $subproject" --body "This PR updates the Python dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             # Save the PR number for later merging (if we want to wait and merge)
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
@@ -208,7 +208,7 @@ for subproject in "${SUBPROJECTS[@]}"; do
             # Push
             git push -u origin "$branch_name"
             # Open PR
-            gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name"
+            pr_url=$(gh pr create --title "chore: update Node.js dependencies in $subproject" --body "This PR updates the Node.js dependencies in $subproject to the latest versions." --base "$DEFAULT_BRANCH" --head "$branch_name")
             log "Opened PR: $pr_url"
             pr_number=$(echo "$pr_url" | grep -oE '[0-9]+$' || echo "")
             if [[ -n "$pr_number" ]]; then
