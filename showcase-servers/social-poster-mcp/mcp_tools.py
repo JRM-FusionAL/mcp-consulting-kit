@@ -1,5 +1,7 @@
 """Social Poster MCP — Business logic and Pydantic models."""
 
+import logging
+
 from pydantic import BaseModel
 from typing import Optional
 
@@ -10,6 +12,8 @@ from clients.linkedin_client import LinkedInClient
 from clients.mastodon_client import MastodonClient
 from clients.bluesky_client import BlueskyClient
 from clients.hashnode_client import HashnodeClient
+
+logger = logging.getLogger(__name__)
 
 
 # ── Request Models ──
@@ -136,8 +140,9 @@ def cross_post(payload: CrossPostRequest) -> dict:
     if "twitter" in platforms or "x" in platforms:
         try:
             results["twitter"] = post_tweet(TweetRequest(text=payload.text))
-        except Exception as e:
-            results["twitter"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for twitter")
+            results["twitter"] = {"error": "Failed to post to twitter."}
 
     if "reddit" in platforms and payload.subreddit:
         try:
@@ -148,32 +153,36 @@ def cross_post(payload: CrossPostRequest) -> dict:
                     text=payload.text,
                 )
             )
-        except Exception as e:
-            results["reddit"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for reddit")
+            results["reddit"] = {"error": "Failed to post to reddit."}
 
     if "linkedin" in platforms:
         try:
             results["linkedin"] = post_to_linkedin(
                 LinkedInTextPostRequest(text=payload.text)
             )
-        except Exception as e:
-            results["linkedin"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for linkedin")
+            results["linkedin"] = {"error": "Failed to post to linkedin."}
 
     if "mastodon" in platforms:
         try:
             results["mastodon"] = post_to_mastodon(
                 MastodonPostRequest(text=payload.text)
             )
-        except Exception as e:
-            results["mastodon"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for mastodon")
+            results["mastodon"] = {"error": "Failed to post to mastodon."}
 
     if "bluesky" in platforms:
         try:
             results["bluesky"] = post_to_bluesky(
                 BlueskyPostRequest(text=payload.text)
             )
-        except Exception as e:
-            results["bluesky"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for bluesky")
+            results["bluesky"] = {"error": "Failed to post to bluesky."}
 
     if "devto" in platforms:
         try:
@@ -186,8 +195,9 @@ def cross_post(payload: CrossPostRequest) -> dict:
                     published=True,
                 )
             )
-        except Exception as e:
-            results["devto"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for devto")
+            results["devto"] = {"error": "Failed to post to devto."}
 
     if "hashnode" in platforms:
         try:
@@ -198,7 +208,8 @@ def cross_post(payload: CrossPostRequest) -> dict:
                     content_markdown=body,
                 )
             )
-        except Exception as e:
-            results["hashnode"] = {"error": str(e)}
+        except Exception:
+            logger.exception("Cross-post failed for hashnode")
+            results["hashnode"] = {"error": "Failed to post to hashnode."}
 
     return results
