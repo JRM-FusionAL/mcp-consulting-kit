@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REMOTE_ALIAS="t3610"
-REMOTE_BASE="/home/jrm_fusional/Projects"
+REMOTE_BASE="/home/jrm-fusional/Projects"
 RESTART_DOCKER="false"
 DRY_RUN="false"
 
