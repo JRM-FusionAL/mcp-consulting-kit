@@ -4,9 +4,10 @@ WORKDIR /app
 
 # Install dependencies
 # Trivy pin: pandas 2.2.1
-RUN pip install --no-cache-dir "mcp[cli]==1.26.0" httpx beautifulsoup4 pandas==2.2.1
+RUN pip install --no-cache-dir "mcp[cli]==1.26.0" "fastapi==0.138.1" httpx beautifulsoup4 pandas==2.2.1
 
 COPY intelligence_mcp.py .
+COPY showcase-servers/common/ ./common/
 
 EXPOSE 8104
 

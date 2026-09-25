@@ -8,6 +8,9 @@ import asyncio
 import json
 import re
 import os
+import sys
+from pathlib import Path
+from contextlib import asynccontextmanager
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
 
@@ -17,8 +20,15 @@ from pydantic import BaseModel, Field, ConfigDict
 from mcp.server.fastmcp import FastMCP
 from mcp.server.transport_security import TransportSecuritySettings
 import uvicorn
+from fastapi import FastAPI, HTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+
+_common_path = Path(__file__).resolve().parent / "common"
+if not _common_path.exists():
+    _common_path = Path(__file__).resolve().parent / "showcase-servers" / "common"
+sys.path.insert(0, str(_common_path))
+from security import verify_api_key
 
 # ─────────────────────────────────────────────
 # Server Init
@@ -611,6 +621,41 @@ async def _health(request: Request) -> JSONResponse:
     return JSONResponse({"status": "ok", "service": "intelligence-mcp"})
 
 
+_mcp_app = mcp.streamable_http_app()
+
+
+@asynccontextmanager
+async def _lifespan(app):
+    async with _mcp_app.router.lifespan_context(app):
+        yield
+
+
+app = FastAPI(lifespan=_lifespan)
+
+
+@app.middleware("http")
+async def authenticate_mcp(request: Request, call_next):
+    if request.url.path == "/mcp" or request.url.path.startswith("/mcp/"):
+        key = request.headers.get("X-API-Key")
+        if not key:
+            scheme, _, bearer = request.headers.get("Authorization", "").partition(" ")
+            if scheme.lower() == "bearer":
+                key = bearer.strip()
+        try:
+            verify_api_key(request, key)
+        except HTTPException as exc:
+            return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+    return await call_next(request)
+
+
+@app.get("/health")
+async def health() -> dict:
+    return {"status": "ok", "service": "intelligence-mcp"}
+
+
+app.mount("/mcp", _mcp_app)
+
+
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "8104"))
-    uvicorn.run(mcp.streamable_http_app(), host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port)

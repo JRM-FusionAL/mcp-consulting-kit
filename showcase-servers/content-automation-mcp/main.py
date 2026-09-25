@@ -16,7 +16,9 @@ PORT = int(os.getenv("PORT", "8103"))
 
 app = FastAPI(title="Content Automation MCP")
 
-COMMON_PATH = Path(__file__).resolve().parents[1] / "common"
+COMMON_PATH = Path(__file__).resolve().parent / "showcase_servers" / "common"
+if not COMMON_PATH.exists():
+    COMMON_PATH = Path(__file__).resolve().parents[1] / "common"
 if str(COMMON_PATH) not in sys.path:
     sys.path.insert(0, str(COMMON_PATH))
 
@@ -27,6 +29,7 @@ from security import (
     initialize_rate_limit_store,
     verify_api_key,
 )
+from mcp_auth import protect_mcp
 
 configure_cors(app)
 configure_observability(app)
@@ -35,6 +38,7 @@ initialize_rate_limit_store(app)
 from mcp_transport import mcp
 mcp.settings.streamable_http_path = "/"
 mcp_app = mcp.streamable_http_app()
+protect_mcp(app, verify_api_key)
 app.mount("/mcp", mcp_app)
 from fastapi.staticfiles import StaticFiles
 _well_known_dir = Path(__file__).resolve().parent / "well-known"
