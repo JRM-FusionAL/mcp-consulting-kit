@@ -17,6 +17,7 @@ from fastapi.staticfiles import StaticFiles
 
 # --- Security module path resolution (shared with other showcase servers) ---
 _SECURITY_CANDIDATES = [
+    Path(__file__).parent / "common",
     Path(__file__).parent.parent / "common",
     Path.home() / "Projects" / "mcp-consulting-kit" / "showcase-servers" / "common",
 ]
@@ -25,11 +26,8 @@ for _candidate in _SECURITY_CANDIDATES:
         sys.path.insert(0, str(_candidate))
         break
 
-try:
-    from security import configure_cors, configure_observability, initialize_rate_limit_store
-    _SECURITY_ENABLED = True
-except ImportError:
-    _SECURITY_ENABLED = False
+from security import configure_cors, configure_observability, initialize_rate_limit_store, verify_api_key
+from mcp_auth import protect_mcp
 
 from mcp_transport import mcp
 
@@ -53,13 +51,13 @@ app = FastAPI(
     lifespan=_lifespan,
 )
 
-if _SECURITY_ENABLED:
-    configure_cors(app)
-    configure_observability(app)
-    initialize_rate_limit_store(app)
+configure_cors(app)
+configure_observability(app)
+initialize_rate_limit_store(app)
 
 mcp.settings.streamable_http_path = "/"
 mcp_app = mcp.streamable_http_app()
+protect_mcp(app, verify_api_key)
 app.mount("/mcp", mcp_app)
 
 @app.get("/health")
