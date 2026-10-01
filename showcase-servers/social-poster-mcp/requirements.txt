@@ -45,7 +45,7 @@ mcp==1.28.1
 mdurl==0.1.2
 mypy==2.2.0
 mypy_extensions==1.1.0
-oauthlib==3.3.1
+oauthlib==4.0.0
 openai==2.45.0
 opentelemetry-api==1.40.0
 opentelemetry-exporter-otlp-proto-common==1.40.0
@@ -69,7 +69,7 @@ pydantic==2.13.4
 pydantic-settings==2.14.2
 pydantic_core==2.46.4
 Pygments==2.20.0
-PyJWT==2.13.0
+PyJWT==2.15.0
 PyMySQL==1.1.2
 pytest==9.0.3
 pytest-asyncio==1.4.0
