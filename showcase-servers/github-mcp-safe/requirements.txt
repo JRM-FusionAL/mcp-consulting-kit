@@ -1,10 +1,10 @@
-fastapi==0.138.1
+fastapi==0.138.2
 starlette>=1.6.0
 uvicorn[standard]==0.49.0
-pydantic==2.13.4
+pydantic==2.14.1
 httpx==0.28.1
-mcp[cli]==1.28.1
-python-dotenv==1.2.2
-opentelemetry-sdk==1.40.0
-opentelemetry-instrumentation-fastapi==0.61b0
-opentelemetry-exporter-otlp-proto-http==1.40.0
+mcp[cli]==1.30.0
+python-dotenv==1.2.4
+opentelemetry-sdk==1.45.1
+opentelemetry-instrumentation-fastapi==0.66b1
+opentelemetry-exporter-otlp-proto-http==1.45.1
