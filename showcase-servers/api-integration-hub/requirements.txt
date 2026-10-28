@@ -9,4 +9,4 @@ python-dotenv==1.2.2
 pydantic==2.13.4
 redis==7.4.0
 requests==2.34.2
-mcp[cli]==1.28.1
+mcp[cli]==1.30.0
