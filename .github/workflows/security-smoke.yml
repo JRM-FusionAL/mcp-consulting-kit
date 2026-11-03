@@ -35,6 +35,19 @@ jobs:
         shell: cmd
         run: scripts\run-security-smoke.cmd
 
+  social-oauth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Install social poster dependencies
+        run: python -m pip install -r showcase-servers/social-poster-mcp/requirements.txt
+      - name: Test OAuth signing and Twitter requests without network
+        working-directory: showcase-servers/social-poster-mcp
+        run: python -m pytest test_twitter_client.py -q
+
   security-scan:
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +69,8 @@ jobs:
           pip-audit -r "showcase-servers/business-intelligence-mcp/requirements.txt"
           pip-audit -r "showcase-servers/api-integration-hub/requirements.txt"
           pip-audit -r "showcase-servers/content-automation-mcp/requirements.txt"
+          pip-audit -r "showcase-servers/github-mcp-safe/requirements.txt"
+          pip-audit -r "showcase-servers/social-poster-mcp/requirements.txt"
           # FusionAL execution engine
           if [ -f "../FusionAL/core/requirements.txt" ]; then
             pip-audit -r "../FusionAL/core/requirements.txt"
