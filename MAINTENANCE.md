@@ -170,3 +170,86 @@ _Newest entries at top. Full git log for older entries._
 
 ### PRs Opened in This Run
 
+
+
+## Archived automated maintenance reports
+
+The following original reports are retained from backlog PRs #181–#187. They are historical automation output, not verification of current dependencies, delivery, or service state. Unsafe maintenance-script changes from those branches are not restored.
+
+Original report: [PR #181](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/181).
+
+## Maintenance Summary - 2026-08-27
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #182](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/182).
+
+## Maintenance Summary - 2026-08-28
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #183](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/183).
+
+## Maintenance Summary - 2026-08-29
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #184](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/184).
+
+## Maintenance Summary - 2026-09-05
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #185](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/185).
+
+## Maintenance Summary - 2026-09-06
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #186](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/186).
+
+## Maintenance Summary - 2026-09-07
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
+Original report: [PR #187](https://github.com/JRM-FusionAL/mcp-consulting-kit/pull/187).
+
+## Maintenance Summary - 2026-09-08
+
+### Actions Taken
+- Checked for outdated dependencies in subprojects
+- Opened PRs for updates where needed
+- Labeled new issues without labels as 'triage'
+
+### PRs Opened in This Run
+
