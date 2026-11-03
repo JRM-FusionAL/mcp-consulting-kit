@@ -59,6 +59,8 @@ services:
       context: .
       dockerfile: Dockerfile.intelligence
     container_name: intelligence-mcp
+    env_file:
+    - ./showcase-servers/intelligence-mcp/.env
     environment:
       PYTHONUNBUFFERED: '1'
     ports:
