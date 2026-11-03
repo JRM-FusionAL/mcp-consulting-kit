@@ -1,6 +1,6 @@
 services:
   mcp-proxy:
-    image: nginx:1.27-alpine
+    image: nginx:1.30-alpine
     container_name: mcp-proxy
     ports:
       - "127.0.0.1:8088:8080"
