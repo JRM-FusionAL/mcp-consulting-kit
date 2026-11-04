@@ -45,7 +45,7 @@ mcp==1.30.0
 mdurl==0.1.2
 mypy==2.4.1
 mypy_extensions==1.1.0
-oauthlib==3.3.1
+oauthlib==4.0.1
 openai==2.54.0
 opentelemetry-api==1.45.2
 opentelemetry-exporter-otlp-proto-common==1.45.2
@@ -95,7 +95,6 @@ sse-starlette==3.6.0
 starlette==1.10.0
 stevedore==5.9.1
 tqdm==4.70.1
-tweepy==4.17.0
 typer==0.27.3
 typing_extensions==4.16.0
 typing-inspection==0.4.4
