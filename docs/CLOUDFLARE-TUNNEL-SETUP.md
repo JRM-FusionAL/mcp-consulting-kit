@@ -45,6 +45,22 @@ docker compose \
   up -d
 ```
 
+## 3a) Create the Proxy Credentials File (Required)
+
+The proxy (`deploy/nginx/mcp.conf` and `nginx.conf`) requires HTTP basic auth on every route except `/healthz`. Compose refuses to start if `deploy/nginx/.htpasswd` is missing, and nginx returns 500 rather than serving unauthenticated.
+
+Generate the file (it is git-ignored; do not commit it):
+
+```bash
+sudo apt-get install -y apache2-utils          # provides htpasswd
+htpasswd -cB deploy/nginx/.htpasswd mcpadmin   # prompts for a strong password
+chmod 600 deploy/nginx/.htpasswd
+```
+
+Without apache2-utils, `openssl passwd -apr1` produces a compatible hash. Add the line as `mcpadmin:<hash>` to the file. Do not use `htpasswd -c` on an existing file: `-c` overwrites it.
+
+Local-only examples (`docker-compose.fusional.yaml`, `docker-compose.next-server.example.yaml`, `nginx-compose.yaml`) publish on `127.0.0.1` only.
+
 ## 4) Verify
 
 ```bash
@@ -64,7 +80,7 @@ Use your Cloudflare hostname in MCP clients:
 
 ## Security Recommendations (Important)
 
-- Keep basic auth in `deploy/nginx/.htpasswd` enabled.
+- Keep basic auth in `deploy/nginx/.htpasswd` enabled. The proxy fails closed without it.
 - Add Cloudflare Access policy (email allowlist or IdP groups) for `mcp.yourdomain.com`.
 - Keep services private; only `cloudflared` should be internet-facing.
 - Rotate tunnel token if leaked.
@@ -81,7 +97,7 @@ Use your Cloudflare hostname in MCP clients:
 
 ### Auth prompts loop
 
-- Verify `.htpasswd` file exists and mounted correctly in proxy container.
+- Verify `deploy/nginx/.htpasswd` is a regular file (not a directory) and mounted in the proxy container. Compose refuses to start if it is missing.
 
 ## Optional: Quick Temporary URL (No Domain)
 
