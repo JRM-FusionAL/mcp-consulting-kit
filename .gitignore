@@ -24,3 +24,8 @@ node_modules/
 # DB data
 data/
 venv/
+
+# Local secrets: never commit env files or htpasswd hashes (keep templates).
+.env.*
+*.env.bak*
+!.env.example
