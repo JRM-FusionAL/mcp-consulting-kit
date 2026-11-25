@@ -3,7 +3,7 @@ httpx==0.28.1
 mcp[cli]==1.30.0
 pydantic==2.14.4
 python-dotenv==1.2.4
-redis==7.4.1
+redis==8.2.0
 requests==2.34.2
 starlette>=1.6.0
 uvicorn[standard]==0.54.0
