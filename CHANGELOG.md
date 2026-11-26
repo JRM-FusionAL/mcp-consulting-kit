@@ -5,6 +5,32 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-11-25 - Dependency Updates
+
+### Security
+- `soupsieve` 2.10 -> 4.1.3 (social-poster-mcp; CVE-2026-126190, CVE-2026-126191, CVE-2026-126193). beautifulsoup4 4.15.0 requires only `soupsieve>=1.6.1`; CSS selectors verified.
+- `dnspython` 2.9.1 -> 2.9.2 (social-poster-mcp; CVE-2026-128089)
+- `msgpack` floor >=1.2.1 -> >=1.2.3 (business-intelligence-mcp; CVE-2026-114613)
+
+### Changed
+- `fastapi` 0.162.0 -> 0.165.0 (all showcase servers)
+- `pydantic` 2.14.2 -> 2.14.4 and `pydantic_core` 2.50.2 -> 2.50.5 (pydantic 2.14.4 requires pydantic-core==2.50.5)
+- `sqlalchemy` 2.1.6 -> 2.1.9, `pymysql` 1.2.3 -> 1.2.4 (business-intelligence-mcp, social-poster-mcp)
+- social-poster-mcp patch/minor bumps: annotated-doc, atproto, certifi, charset-normalizer, click, decorator, filelock, importlib_metadata, markdown-it-py, Mastodon.py, mypy_extensions, packaging, pydantic-settings, pytest-asyncio, python-multipart, PyYAML, ruff, sse-starlette, stevedore, typing-inspection
+- `Dockerfile.intelligence`: mcp 1.26.0 -> 1.30.0, fastapi 0.138.1 -> 0.165.0, pandas 2.2.1 -> 2.3.3
+
+### Changed (major versions)
+- `redis` 7.4.1 -> 8.2.0 (api-integration-hub, business-intelligence-mcp, content-automation-mcp, social-poster-mcp). The rate limiter only uses `from_url`, `ping`, `incr` and `expire`, verified against a live Redis.
+- `anthropic` 0.125.0 -> 2.14.0 and `openai` 2.54.0 -> 3.59.0 (business-intelligence-mcp, social-poster-mcp). Both now use `httpx2`. anthropic 2.x sends API version `2026-10-21`; `ClaudeProvider` sends no `temperature`/`top_p`/`top_k`, so nothing changes for it.
+- social-poster-mcp: `wrapt` 1.17.3 -> 2.5.2, `python-dateutil` 2.9.0.post0 -> 4.0.0, `typer` 0.27.3 -> 0.29.2, `jiter` 0.18.0 -> 0.19.0, `librt` 0.16.0 -> 0.17.0. New pinned transitive deps: `httpx2`, `httpcore2`, `truststore`, `tzdata`.
+- frontend: `react` / `react-dom` ^18.3.1 -> ^19.3.1 (already uses `createRoot`; matches `app/`)
+
+### Held back
+- `mcp` stays on 1.30.0. mcp 2.x removes `mcp.server.fastmcp` (renamed to `mcp.server.mcpserver.MCPServer`), and every server imports it.
+- `libipld` stays on 3.5.0 because `atproto` 0.0.75 requires `libipld<4`.
+
+---
+
 ## [0.4.1] - 2026-03-12 - Dependency Updates
 
 ### Changed

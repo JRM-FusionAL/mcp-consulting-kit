@@ -38,7 +38,7 @@ class ClaudeProvider(LLMProvider):
         if not api_key:
             raise RuntimeError("ANTHROPIC_API_KEY not set")
         self.client = anthropic.Anthropic(api_key=api_key)
-        self.model = os.getenv("CLAUDE_MODEL", "claude-3-5-sonnet-20240620")
+        self.model = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 
     def generate_sql(self, nl_query: str, schema_hint: str | None = None) -> str:
         prompt = SQL_PROMPT.format(query=nl_query, schema=schema_hint or DEFAULT_SCHEMA)
